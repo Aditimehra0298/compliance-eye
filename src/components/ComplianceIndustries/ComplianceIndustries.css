@@ -1,21 +1,10 @@
 /* Compliance Industries Section */
 .compliance-industries {
     padding: 40px 0 100px 0;
-    background: linear-gradient(180deg, #000814 0%, #001d3d 60%, #003566 100%);
+    background: #000000;
     position: relative;
     z-index: 1;
     margin-top: -10px;
-}
-
-.compliance-industries::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(56, 123, 255, 0.08) 50%, rgba(0, 53, 102, 0.18) 100%);
-    z-index: 0;
 }
 
 .container {
