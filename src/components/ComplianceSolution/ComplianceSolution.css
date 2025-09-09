@@ -432,18 +432,13 @@
 }
 
 .content-description:last-child {
-    margin-bottom: 0;
+    margin-bottom: 2rem;
 }
 
-.insight-section {
-    text-align: center;
-    padding: 60px 0;
-}
-
-.insight-content {
+.insight-button-container {
+    margin-top: 2rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
 }
 
 .insight-btn {
@@ -525,6 +520,10 @@
     
     .content-description {
         font-size: 0.9rem;
+    }
+    
+    .insight-button-container {
+        justify-content: center;
     }
     
     .insight-btn {

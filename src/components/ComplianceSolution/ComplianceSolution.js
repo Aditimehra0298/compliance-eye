@@ -127,18 +127,17 @@ const ComplianceSolution = () => {
                   <p className="content-description">
                     Our software not only uncovers critical insights but also helps you bridge compliance gaps with targeted recommendations—enabling confident, data-driven decisions for your organization's success.
                   </p>
+                  
+                  {/* Our Insight Button inside the content */}
+                  <div className="insight-button-container">
+                    <button className="btn btn-primary insight-btn">
+                      Our Insight
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Our Insight Button Section */}
-            <div className="insight-section">
-              <div className="insight-content">
-                <button className="btn btn-primary insight-btn">
-                  Our Insight
-                </button>
-              </div>
-            </div>
 
             {/* Our Clients Section */}
             <div className="clients-section">
