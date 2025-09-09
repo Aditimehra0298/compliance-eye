@@ -57,34 +57,21 @@
 .clients-logo-container {
     width: 100%;
     max-width: 1200px;
-    overflow: hidden;
-    position: relative;
-    mask: linear-gradient(
-        to right,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-    );
-    -webkit-mask: linear-gradient(
-        to right,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .clients-logo-track {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 4rem;
-    animation: scroll-right 30s linear infinite;
-    width: max-content;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
 }
 
 .logo-item {
-    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,20 +100,6 @@
     transform: scale(1.05);
 }
 
-/* Animation */
-@keyframes scroll-right {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-/* Pause animation on hover */
-.clients-logo-container:hover .clients-logo-track {
-    animation-play-state: paused;
-}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -139,7 +112,7 @@
     }
     
     .clients-logo-track {
-        gap: 3rem;
+        gap: 2.5rem;
     }
     
     .logo-item {
@@ -176,7 +149,7 @@
     }
     
     .clients-logo-track {
-        gap: 2.5rem;
+        gap: 2rem;
     }
     
     .logo-item {
@@ -201,7 +174,7 @@
     }
     
     .clients-logo-track {
-        gap: 2rem;
+        gap: 1.5rem;
     }
     
     .logo-item {
