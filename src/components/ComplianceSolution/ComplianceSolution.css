@@ -1,7 +1,7 @@
 /* Compliance Solution Section */
 .compliance-solution {
     padding: 100px 0;
-    background: linear-gradient(180deg, #000000 0%, #2a1a4a 50%, #3d2a6b 100%);
+    background: linear-gradient(180deg, #000814 0%, #001d3d 60%, #003566 100%);
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -14,7 +14,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(147, 51, 234, 0.1) 50%, rgba(45, 27, 105, 0.2) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(56, 123, 255, 0.08) 50%, rgba(0, 53, 102, 0.18) 100%);
     z-index: 0;
 }
 
