@@ -1,7 +1,7 @@
 /* Auth Page Styles */
 .auth-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #000814 0%, #001d3d 50%, #003566 100%);
+  background: linear-gradient(180deg, #000814 0%, #001d3d 60%, #003566 100%);
   font-family: 'Inter', sans-serif;
   color: white;
   display: flex;
@@ -20,7 +20,7 @@
 
 /* Left Panel - Authentication */
 .auth-panel {
-  background: linear-gradient(135deg, #000814 0%, #001d3d 100%);
+  background: linear-gradient(180deg, #000814 0%, #001d3d 100%);
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
@@ -335,7 +335,7 @@
 
 /* Right Panel - Promotional */
 .promo-panel {
-  background: linear-gradient(135deg, #001d3d 0%, #003566 100%);
+  background: linear-gradient(180deg, #001d3d 0%, #003566 100%);
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
