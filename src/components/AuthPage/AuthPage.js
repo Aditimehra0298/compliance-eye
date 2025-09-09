@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
 import './AuthPage.css';
 
 const AuthPage = () => {
@@ -40,6 +42,7 @@ const AuthPage = () => {
 
   return (
     <div className="auth-page">
+      <Navbar />
       <div className="auth-container">
         {/* Left Panel - Authentication Form */}
         <div className="auth-panel">
@@ -201,6 +204,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

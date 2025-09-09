@@ -2,19 +2,20 @@
 .auth-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #000814 0%, #001d3d 50%, #003566 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Inter', sans-serif;
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .auth-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
+  flex: 1;
   width: 100%;
   max-width: 1400px;
+  margin: 0 auto;
+  align-items: center;
 }
 
 /* Left Panel - Authentication */
@@ -548,6 +549,7 @@
 @media (max-width: 1024px) {
   .auth-container {
     grid-template-columns: 1fr;
+    min-height: calc(100vh - 160px); /* Account for navbar and footer */
   }
   
   .auth-panel,
@@ -565,6 +567,10 @@
 }
 
 @media (max-width: 768px) {
+  .auth-container {
+    min-height: calc(100vh - 140px);
+  }
+  
   .auth-panel,
   .promo-panel {
     padding: 30px 40px;
@@ -585,6 +591,10 @@
 }
 
 @media (max-width: 480px) {
+  .auth-container {
+    min-height: calc(100vh - 120px);
+  }
+  
   .auth-panel,
   .promo-panel {
     padding: 20px 30px;
