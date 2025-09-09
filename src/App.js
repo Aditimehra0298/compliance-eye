@@ -3,8 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Hero from './components/Hero/Hero';
 import WhoWeAre from './components/WhoWeAre/WhoWeAre';
 import ComplianceIndustries from './components/ComplianceIndustries/ComplianceIndustries';
-import TrustedCompliance from './components/TrustedCompliance/TrustedCompliance';
 import ComplianceSolution from './components/ComplianceSolution/ComplianceSolution';
+import ComplianceExpertise from './components/ComplianceExpertise/ComplianceExpertise';
 import ITC from './components/ITC/ITC';
 import About from './components/About/About';
 import Services from './components/Services/Services';
@@ -20,8 +20,8 @@ function App() {
         <Hero />
         <WhoWeAre />
         <ComplianceIndustries />
-        <TrustedCompliance />
         <ComplianceSolution />
+        <ComplianceExpertise />
         <ITC />
         <About />
         <Services />
