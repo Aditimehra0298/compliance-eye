@@ -1,0 +1,288 @@
+/* Compliance Expertise Section */
+.compliance-expertise {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.expertise-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+/* Image Section */
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.expertise-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover .expertise-image {
+    transform: scale(1.05);
+}
+
+/* Content Section */
+.content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+    line-height: 1.2;
+    font-family: 'Inter', sans-serif;
+}
+
+.section-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #4a5568;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.analytics-section {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    border-left: 4px solid #3182ce;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.analytics-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2d3748;
+    margin: 0;
+    font-style: italic;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Subscribe Section */
+.subscribe-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.subscribe-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.subscribe-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 1rem 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.subscribe-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 2rem 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.subscribe-form {
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.email-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: #2d3748;
+    transition: all 0.3s ease;
+}
+
+.email-input::placeholder {
+    color: #a0aec0;
+}
+
+.email-input:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.subscribe-btn {
+    padding: 1rem 2rem;
+    background: #000000;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.subscribe-btn:hover {
+    background: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Success Message */
+.success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.success-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #48bb78;
+}
+
+.success-message p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .expertise-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .image-container {
+        max-width: 400px;
+        height: 300px;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .compliance-expertise {
+        padding: 80px 0;
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    .expertise-content {
+        gap: 2rem;
+    }
+    
+    .image-container {
+        height: 250px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+    
+    .analytics-section {
+        padding: 1.5rem;
+    }
+    
+    .analytics-text {
+        font-size: 0.95rem;
+    }
+    
+    .subscribe-section {
+        padding: 2rem 1.5rem;
+    }
+    
+    .subscribe-title {
+        font-size: 1.8rem;
+    }
+    
+    .form-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .email-input {
+        padding: 0.9rem 1.2rem;
+    }
+    
+    .subscribe-btn {
+        padding: 0.9rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .subscribe-title {
+        font-size: 1.6rem;
+    }
+    
+    .image-container {
+        height: 200px;
+    }
+}

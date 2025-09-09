@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Hero from './components/Hero/Hero';
 import WhoWeAre from './components/WhoWeAre/WhoWeAre';
 import ComplianceIndustries from './components/ComplianceIndustries/ComplianceIndustries';
+import ComplianceExpertise from './components/ComplianceExpertise/ComplianceExpertise';
 import ComplianceSolution from './components/ComplianceSolution/ComplianceSolution';
 import ITC from './components/ITC/ITC';
 import About from './components/About/About';
@@ -19,6 +20,7 @@ function App() {
         <Hero />
         <WhoWeAre />
         <ComplianceIndustries />
+        <ComplianceExpertise />
         <ComplianceSolution />
         <ITC />
         <About />
