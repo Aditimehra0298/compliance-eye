@@ -5,6 +5,10 @@ const ITC = () => {
   const [visibleCards, setVisibleCards] = useState([]);
 
   useEffect(() => {
+    // Set all cards as visible by default
+    const allCards = [0, 1, 2, 3, 4, 5];
+    setVisibleCards(allCards);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

@@ -84,8 +84,8 @@
     align-items: center;
     text-align: center;
     gap: 1.5rem;
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -112,6 +112,7 @@
 .itc-card.visible {
     opacity: 1;
     transform: translateY(0);
+    animation: fadeInUp 0.8s ease-out;
 }
 
 .itc-card:hover {
