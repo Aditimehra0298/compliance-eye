@@ -4,47 +4,49 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-section">
-            <h3>DamnArt</h3>
-            <p>Creating amazing digital experiences that help businesses grow and succeed in the modern world.</p>
-            <div className="social-links">
-              <a href="#"><i className="fab fa-facebook"></i></a>
-              <a href="#"><i className="fab fa-twitter"></i></a>
-              <a href="#"><i className="fab fa-linkedin"></i></a>
-              <a href="#"><i className="fab fa-instagram"></i></a>
+      <div className="footer-content">
+        <div className="footer-left">
+          <ul className="footer-links">
+            <li><a href="#">GET SUPPORT</a></li>
+            <li><a href="#">FIND A DESIGNER</a></li>
+            <li><a href="#">YOUR ACCOUNT</a></li>
+            <li><a href="#">BECOME AN AFFILIATE</a></li>
+            <li><a href="#">PRIVACY & COOKIE POLICY</a></li>
+          </ul>
+        </div>
+        
+        <div className="footer-center">
+          <div className="footer-logo">
+            <div className="logo-square">
+              <div className="logo-text">
+                <span className="ds">DS</span>
+                <span className="co">Co</span>
+              </div>
             </div>
           </div>
-          <div className="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="#about">About</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-          <div className="footer-section">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Mobile Apps</a></li>
-              <li><a href="#">SEO</a></li>
-              <li><a href="#">Analytics</a></li>
-            </ul>
-          </div>
-          <div className="footer-section">
-            <h4>Contact Info</h4>
-            <p>123 Business Street<br />City, State 12345</p>
-            <p>+1 (555) 123-4567</p>
-            <p>hello@damnart.com</p>
-          </div>
+          <p className="footer-description">
+            Divi Child Themes, ProPhoto 7 Designs, Showit Designs and online courses for photographers and small, creative businesses.
+          </p>
         </div>
-        <div className="footer-bottom">
-          <p>&copy; 2024 DamnArt. All rights reserved.</p>
+        
+        <div className="footer-right">
+          <ul className="footer-links">
+            <li><a href="#">ALL PRODUCTS</a></li>
+            <li><a href="#">DIVI CHILD THEMES</a></li>
+            <li><a href="#">PROPHOTO 7 DESIGNS</a></li>
+            <li><a href="#">SHOWIT DESIGNS</a></li>
+            <li><a href="#">STATIONERY</a></li>
+          </ul>
         </div>
+      </div>
+      
+      <div className="footer-social">
+        <a href="#" className="social-icon">f</a>
+        <a href="#" className="social-icon">t</a>
+        <a href="#" className="social-icon">p</a>
+        <a href="#" className="social-icon">y</a>
+        <a href="#" className="social-icon">i</a>
+        <a href="#" className="social-icon">r</a>
       </div>
     </footer>
   );
