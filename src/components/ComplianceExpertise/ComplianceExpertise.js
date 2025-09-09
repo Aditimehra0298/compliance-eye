@@ -5,9 +5,6 @@ const ComplianceExpertise = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  // Debug logging
-  console.log('ComplianceExpertise component is rendering');
-
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
@@ -66,13 +63,13 @@ const ComplianceExpertise = () => {
               <p className="subscribe-description">Get more information and analytical insights</p>
               
               {!isSubscribed ? (
-                <form onSubmit={handleSubscribe} className="subscribe-form">
+                <form className="subscribe-form" onSubmit={handleSubscribe}>
                   <div className="form-group">
                     <input
                       type="email"
+                      placeholder="Enter your email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
                       className="email-input"
                       required
                     />
