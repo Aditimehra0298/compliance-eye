@@ -20,6 +20,9 @@
     align-items: center;
     text-align: center;
     gap: 4rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .clients-header {
@@ -56,40 +59,53 @@
 /* Logo Container */
 .clients-logo-container {
     width: 100%;
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    position: relative;
+    mask: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
+    -webkit-mask: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
 }
 
 .clients-logo-track {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    gap: 3rem;
-    width: 100%;
+    gap: 8rem;
+    animation: scroll-right 50s linear infinite;
+    width: max-content;
+    padding: 3rem 0;
 }
 
 .logo-item {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
-    height: 80px;
+    width: 200px;
+    height: 120px;
 }
 
 .logo-placeholder {
-    width: 120px;
-    height: 60px;
+    width: 170px;
+    height: 100px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: 500;
     transition: all 0.3s ease;
 }
@@ -100,9 +116,27 @@
     transform: scale(1.05);
 }
 
+/* Animation */
+@keyframes scroll-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause animation on hover */
+.clients-logo-container:hover .clients-logo-track {
+    animation-play-state: paused;
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+    .clients-content {
+        gap: 5rem;
+    }
+    
     .section-title {
         font-size: 3rem;
     }
@@ -112,18 +146,18 @@
     }
     
     .clients-logo-track {
-        gap: 2.5rem;
+        gap: 5rem;
     }
     
     .logo-item {
-        width: 130px;
-        height: 70px;
+        width: 160px;
+        height: 90px;
     }
     
     .logo-placeholder {
-        width: 110px;
-        height: 50px;
-        font-size: 0.8rem;
+        width: 130px;
+        height: 70px;
+        font-size: 0.9rem;
     }
 }
 
@@ -137,7 +171,7 @@
     }
     
     .clients-content {
-        gap: 3rem;
+        gap: 4rem;
     }
     
     .section-title {
@@ -149,18 +183,18 @@
     }
     
     .clients-logo-track {
-        gap: 2rem;
+        gap: 4rem;
     }
     
     .logo-item {
-        width: 120px;
-        height: 60px;
+        width: 140px;
+        height: 80px;
     }
     
     .logo-placeholder {
-        width: 100px;
-        height: 45px;
-        font-size: 0.75rem;
+        width: 120px;
+        height: 60px;
+        font-size: 0.85rem;
     }
 }
 
@@ -174,7 +208,7 @@
     }
     
     .clients-logo-track {
-        gap: 1.5rem;
+        gap: 2rem;
     }
     
     .logo-item {
