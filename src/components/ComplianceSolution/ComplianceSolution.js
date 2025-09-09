@@ -4,6 +4,7 @@ import OurClients from '../OurClients/OurClients';
 
 const ComplianceSolution = () => {
   const [visibleItems, setVisibleItems] = useState([]);
+  const [visibleFeedbackCards, setVisibleFeedbackCards] = useState([]);
 
   const solutionFeatures = [
     {
@@ -58,6 +59,37 @@ const ComplianceSolution = () => {
     return () => {
       if (section) {
         observer.unobserve(section);
+      }
+    };
+  }, []);
+
+  // Separate observer for feedback cards
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate feedback cards one by one
+            const feedbackCards = [0, 1, 2]; // 3 feedback cards
+            feedbackCards.forEach((index) => {
+              setTimeout(() => {
+                setVisibleFeedbackCards(prev => [...prev, `feedback-${index}`]);
+              }, index * 500); // 500ms delay between each card
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const feedbackSection = document.getElementById('customer-experience-section');
+    if (feedbackSection) {
+      observer.observe(feedbackSection);
+    }
+
+    return () => {
+      if (feedbackSection) {
+        observer.unobserve(feedbackSection);
       }
     };
   }, []);
@@ -145,13 +177,13 @@ const ComplianceSolution = () => {
             </div>
 
             {/* Perfect Customer Experience Section */}
-            <div className="customer-experience-section">
+            <div className="customer-experience-section" id="customer-experience-section">
               <div className="experience-header">
                 <h2 className="experience-title">The Perfect Customer Experience</h2>
               </div>
               
               <div className="feedback-cards">
-                <div className="feedback-card">
+                <div className={`feedback-card ${visibleFeedbackCards.includes('feedback-0') ? 'visible' : ''}`}>
                   <div className="feedback-content">
                     <div className="quote-icon">"</div>
                     <p className="feedback-text">
@@ -166,7 +198,7 @@ const ComplianceSolution = () => {
                   </div>
                 </div>
 
-                <div className="feedback-card">
+                <div className={`feedback-card ${visibleFeedbackCards.includes('feedback-1') ? 'visible' : ''}`}>
                   <div className="feedback-content">
                     <div className="quote-icon">"</div>
                     <p className="feedback-text">
@@ -181,7 +213,7 @@ const ComplianceSolution = () => {
                   </div>
                 </div>
 
-                <div className="feedback-card">
+                <div className={`feedback-card ${visibleFeedbackCards.includes('feedback-2') ? 'visible' : ''}`}>
                   <div className="feedback-content">
                     <div className="quote-icon">"</div>
                     <p className="feedback-text">
