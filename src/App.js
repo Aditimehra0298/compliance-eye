@@ -4,11 +4,6 @@ import Hero from './components/Hero/Hero';
 import WhoWeAre from './components/WhoWeAre/WhoWeAre';
 import ComplianceIndustries from './components/ComplianceIndustries/ComplianceIndustries';
 import ComplianceSolution from './components/ComplianceSolution/ComplianceSolution';
-import ITC from './components/ITC/ITC';
-import About from './components/About/About';
-import Services from './components/Services/Services';
-import Portfolio from './components/Portfolio/Portfolio';
-import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import './App.css';
 
@@ -20,11 +15,6 @@ function App() {
         <WhoWeAre />
         <ComplianceIndustries />
         <ComplianceSolution />
-        <ITC />
-        <About />
-        <Services />
-        <Portfolio />
-        <Contact />
         <Footer />
       </div>
     </Router>
