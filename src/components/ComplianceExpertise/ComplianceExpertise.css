@@ -5,6 +5,8 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
+    min-height: 100vh;
+    display: block;
 }
 
 .compliance-expertise::before {
@@ -24,6 +26,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    border: 2px solid red; /* Temporary debug border */
 }
 
 /* Header Section */
