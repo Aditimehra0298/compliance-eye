@@ -5,6 +5,9 @@ const ComplianceExpertise = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
+  // Debug logging
+  console.log('ComplianceExpertise component is rendering');
+
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
