@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ComplianceSolution.css';
+import OurClients from '../OurClients/OurClients';
 
 const ComplianceSolution = () => {
   const [visibleItems, setVisibleItems] = useState([]);
@@ -137,6 +138,11 @@ const ComplianceSolution = () => {
                   Our Insight
                 </button>
               </div>
+            </div>
+
+            {/* Our Clients Section */}
+            <div className="clients-section">
+              <OurClients />
             </div>
           </div>
         </div>

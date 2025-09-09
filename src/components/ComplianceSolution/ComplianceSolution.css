@@ -470,6 +470,13 @@
     background-image: none !important;
 }
 
+/* Clients Section within Compliance Solution */
+.clients-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Responsive Design for Expertise Section */
 @media (max-width: 1024px) {
     .expertise-main {
