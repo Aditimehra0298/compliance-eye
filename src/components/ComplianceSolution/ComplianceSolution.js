@@ -142,7 +142,7 @@ const ComplianceSolution = () => {
               <div className="expertise-image-section">
                 <div className="image-container">
                   <img 
-                    src="/Untitled%20design%20(21).png" 
+                    src="/Untitled design (21).png" 
                     alt="Compliance Analytics" 
                     className="expertise-image"
                   />
