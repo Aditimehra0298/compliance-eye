@@ -5,6 +5,7 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
+    margin-bottom: -1px; /* Remove any gap between sections */
 }
 
 .compliance-solution::before {

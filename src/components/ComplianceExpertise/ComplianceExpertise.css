@@ -4,6 +4,7 @@
     position: relative;
     z-index: 1;
     overflow: hidden;
+    margin-top: -1px; /* Remove any gap between sections */
 }
 
 .compliance-expertise::before {
