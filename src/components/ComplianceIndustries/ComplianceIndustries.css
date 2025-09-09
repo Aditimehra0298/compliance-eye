@@ -7,6 +7,19 @@
     margin-top: -10px;
 }
 
+/* Smooth transition from black (standards) to blue (solution) */
+.compliance-industries::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, #001d3d 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
