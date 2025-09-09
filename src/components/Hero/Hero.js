@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
 const Hero = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,6 +20,10 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     closeMenu();
+  };
+
+  const handleRunAudit = () => {
+    navigate('/auth');
   };
 
   useEffect(() => {
@@ -114,7 +120,7 @@ const Hero = () => {
             Future-Proof Your Business with Real-Time Compliance.
             </p>
             <div className="hero-buttons">
-              <button className="btn btn-primary" onClick={scrollToContact}>
+              <button className="btn btn-primary" onClick={handleRunAudit}>
                 Run Audit
                 <i className="fas fa-arrow-right"></i>
               </button>

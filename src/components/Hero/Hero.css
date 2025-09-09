@@ -477,10 +477,82 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .nav-container {
+        padding: 0 60px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 2.2rem;
+    }
+}
+
+/* Medium-large screens (992px to 1199px) */
+@media (max-width: 1199px) {
+    .nav-container {
+        padding: 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 3.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.8rem;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) {
     .nav-container {
         grid-template-columns: 1fr auto 1fr;
         gap: 1rem;
+        padding: 0 20px;
+    }
+
+    .nav-menu {
+        gap: 2rem;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-who-we-are .who-we-are-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .hero-who-we-are .video-container {
+        height: 250px;
+    }
+
+    .hero-who-we-are .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* Mobile landscape and small tablets (576px to 767px) */
+@media (max-width: 767px) {
+    .nav-container {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 1rem;
+        padding: 0 15px;
     }
 
     .hamburger {
@@ -517,24 +589,122 @@
         font-size: 1.5rem;
     }
 
+    .hero-description {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
 
     .btn {
         width: 100%;
-        max-width: 250px;
+        max-width: 280px;
         justify-content: center;
+        padding: 14px 28px;
+    }
+
+    .hero-who-we-are .who-we-are-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+
+    .hero-who-we-are .video-container {
+        height: 200px;
+    }
+
+    .hero-who-we-are .section-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-who-we-are .section-description {
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile portrait (480px to 575px) */
+@media (max-width: 575px) {
+    .nav-container {
+        padding: 0 10px;
+    }
+
+    .nav-logo h2 {
+        font-size: 1.5rem;
+    }
+
+    .logo-image {
+        height: 35px;
+    }
+
     .hero-title {
         font-size: 2rem;
+        line-height: 1.1;
     }
 
     .hero-subtitle {
         font-size: 1.2rem;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+
+    .hero-who-we-are .video-container {
+        height: 180px;
+    }
+
+    .hero-who-we-are .section-title {
+        font-size: 2rem;
+    }
+
+    .hero-who-we-are .section-description {
+        font-size: 0.95rem;
+    }
+
+    .hero-who-we-are .btn-outline {
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra small mobile (320px to 479px) */
+@media (max-width: 479px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-description {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+    }
+
+    .hero-who-we-are .video-container {
+        height: 160px;
+    }
+
+    .hero-who-we-are .section-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-who-we-are .section-description {
+        font-size: 0.9rem;
     }
 }

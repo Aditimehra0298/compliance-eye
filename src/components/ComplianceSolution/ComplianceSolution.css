@@ -256,8 +256,54 @@
     }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Responsive Design for Main Section */
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 60px;
+    }
+    
+    .section-title {
+        font-size: 4rem;
+    }
+    
+    .section-description {
+        font-size: 1.2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Medium-large screens (992px to 1199px) */
+@media (max-width: 1199px) {
+    .container {
+        padding: 0 40px;
+    }
+    
+    .section-title {
+        font-size: 3.5rem;
+    }
+    
+    .section-description {
+        font-size: 1.1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) {
+    .container {
+        padding: 0 30px;
+    }
+    
     .features-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -270,29 +316,36 @@
     }
     
     .section-description {
-        font-size: 1.1rem;
+        font-size: 1rem;
         text-align: center;
+    }
+    
+    .feature-card {
+        padding: 1.8rem;
     }
 }
 
-@media (max-width: 768px) {
+/* Mobile landscape and small tablets (576px to 767px) */
+@media (max-width: 767px) {
     .container {
         padding: 0 20px;
     }
     
     .compliance-solution {
-        padding: 80px 0;
+        padding: 60px 0;
     }
     
     .section-title {
         font-size: 2.5rem;
         text-align: center;
         white-space: nowrap;
+        line-height: 1.2;
     }
     
     .section-description {
-        font-size: 1rem;
+        font-size: 0.95rem;
         text-align: center;
+        line-height: 1.6;
     }
     
     .feature-card {
@@ -300,7 +353,7 @@
     }
     
     .feature-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .feature-description {
@@ -308,11 +361,27 @@
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile portrait (480px to 575px) */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .compliance-solution {
+        padding: 50px 0;
+    }
+    
     .section-title {
         font-size: 2rem;
         text-align: center;
         white-space: nowrap;
+        line-height: 1.1;
+    }
+    
+    .section-description {
+        font-size: 0.9rem;
+        text-align: center;
+        line-height: 1.5;
     }
     
     .feature-card {
@@ -327,6 +396,60 @@
     .feature-symbol {
         width: 20px;
         height: 20px;
+    }
+    
+    .feature-title {
+        font-size: 1rem;
+    }
+    
+    .feature-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra small mobile (320px to 479px) */
+@media (max-width: 479px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .compliance-solution {
+        padding: 40px 0;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        text-align: center;
+        white-space: nowrap;
+        line-height: 1.1;
+    }
+    
+    .section-description {
+        font-size: 0.85rem;
+        text-align: center;
+        line-height: 1.4;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+    }
+    
+    .feature-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .feature-symbol {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .feature-title {
+        font-size: 0.95rem;
+    }
+    
+    .feature-description {
+        font-size: 0.8rem;
     }
 }
 
@@ -593,22 +716,74 @@
     line-height: 1.4;
 }
 
-/* Responsive Design for Expertise Section */
-@media (max-width: 1024px) {
+/* Responsive Design for Expertise and Feedback Sections */
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .expertise-title {
+        font-size: 4rem;
+    }
+    
+    .content-title {
+        font-size: 2.5rem;
+    }
+    
+    .feedback-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .experience-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* Medium-large screens (992px to 1199px) */
+@media (max-width: 1199px) {
+    .expertise-title {
+        font-size: 3.5rem;
+    }
+    
+    .content-title {
+        font-size: 2.2rem;
+    }
+    
+    .feedback-cards {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .experience-title {
+        font-size: 3rem;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media (max-width: 991px) {
     .expertise-main {
         gap: 3rem;
     }
     
     .expertise-title {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     
     .content-title {
         font-size: 2rem;
     }
+    
+    .feedback-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+    }
+    
+    .experience-title {
+        font-size: 2.8rem;
+    }
 }
 
-@media (max-width: 768px) {
+/* Mobile landscape and small tablets (576px to 767px) */
+@media (max-width: 767px) {
     .expertise-main {
         grid-template-columns: 1fr;
         gap: 0;
@@ -629,11 +804,13 @@
     }
     
     .expertise-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+        line-height: 1.2;
     }
     
     .expertise-description {
         font-size: 1.1rem;
+        line-height: 1.6;
     }
     
     .content-title {
@@ -641,7 +818,8 @@
     }
     
     .content-description {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
     
     .insight-button-container {
@@ -660,20 +838,33 @@
     
     .experience-title {
         font-size: 2.5rem;
+        line-height: 1.2;
+    }
+    
+    .feedback-card {
+        padding: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile portrait (480px to 575px) */
+@media (max-width: 575px) {
     .expertise-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        line-height: 1.1;
     }
     
     .expertise-description {
         font-size: 1rem;
+        line-height: 1.5;
     }
     
     .content-title {
         font-size: 1.5rem;
+    }
+    
+    .content-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
     
     .image-container {
@@ -681,12 +872,13 @@
         height: 250px;
     }
     
-    .subscribe-content {
-        padding: 0 1rem;
+    .expertise-text-section {
+        padding: 1.5rem;
     }
     
     .experience-title {
         font-size: 2rem;
+        line-height: 1.1;
     }
     
     .feedback-card {
@@ -699,5 +891,63 @@
     
     .feedback-text {
         font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
+/* Extra small mobile (320px to 479px) */
+@media (max-width: 479px) {
+    .expertise-title {
+        font-size: 1.8rem;
+        line-height: 1.1;
+    }
+    
+    .expertise-description {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+    
+    .content-title {
+        font-size: 1.3rem;
+    }
+    
+    .content-description {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    
+    .image-container {
+        max-width: 280px;
+        height: 220px;
+    }
+    
+    .expertise-text-section {
+        padding: 1.2rem;
+    }
+    
+    .experience-title {
+        font-size: 1.8rem;
+        line-height: 1.1;
+    }
+    
+    .feedback-card {
+        padding: 1.2rem;
+    }
+    
+    .quote-icon {
+        font-size: 2.5rem;
+    }
+    
+    .feedback-text {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .author-name {
+        font-size: 1rem;
+    }
+    
+    .author-title {
+        font-size: 0.8rem;
     }
 }
