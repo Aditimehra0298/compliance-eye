@@ -3,8 +3,6 @@ import './ComplianceSolution.css';
 
 const ComplianceSolution = () => {
   const [visibleItems, setVisibleItems] = useState([]);
-  const [email, setEmail] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const solutionFeatures = [
     {
@@ -63,14 +61,6 @@ const ComplianceSolution = () => {
     };
   }, []);
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail('');
-      console.log('Subscribed with email:', email);
-    }
-  };
 
   return (
     <section className="compliance-solution" id="compliance-solution">
@@ -140,33 +130,12 @@ const ComplianceSolution = () => {
               </div>
             </div>
 
-            {/* Subscribe Section */}
-            <div className="subscribe-section">
-              <div className="subscribe-content">
-                <h3 className="subscribe-title">Subscribe to Our Channel</h3>
-                <p className="subscribe-description">Get more information and analytical insights</p>
-                
-                {!isSubscribed ? (
-                  <form className="subscribe-form" onSubmit={handleSubscribe}>
-                    <div className="form-group">
-                      <input
-                        type="email"
-                        placeholder="Enter your email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="email-input"
-                        required
-                      />
-                      <button type="submit" className="subscribe-btn">
-                        Subscribe
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <div className="success-message">
-                    <p>Thank you for subscribing! You'll receive our latest insights soon.</p>
-                  </div>
-                )}
+            {/* Our Insight Button Section */}
+            <div className="insight-section">
+              <div className="insight-content">
+                <button className="btn btn-primary insight-btn">
+                  Our Insight
+                </button>
               </div>
             </div>
           </div>
