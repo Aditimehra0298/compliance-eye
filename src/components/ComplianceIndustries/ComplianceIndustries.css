@@ -1,0 +1,266 @@
+/* Compliance Industries Section */
+.compliance-industries {
+    padding: 40px 0 100px 0;
+    background: #000000;
+    position: relative;
+    z-index: 1;
+    margin-top: -10px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+}
+
+.compliance-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    min-height: 600px;
+}
+
+/* Left Side - Video Section */
+.video-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.rhombus-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+}
+
+.rhombus-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7),
+                0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.rhombus-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Right Side - Standards Section */
+.standards-section {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    text-align: left;
+}
+
+
+.standards-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.standard-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.standard-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.standard-point {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 12px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.standard-item.visible .standard-point {
+    opacity: 1;
+    transform: scale(1);
+    animation: drawLShape 0.8s ease-out forwards;
+}
+
+.standard-point::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 0;
+    transition: width 0.4s ease-out 0.2s;
+}
+
+.standard-item.visible .standard-point::before {
+    width: 16px;
+}
+
+.standard-point::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 0;
+    background: #ffffff;
+    border-radius: 0;
+    transition: height 0.4s ease-out 0.6s;
+}
+
+.standard-item.visible .standard-point::after {
+    height: 16px;
+}
+
+.standard-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #cccccc;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.standard-item:hover .standard-text {
+    color: #ffffff;
+}
+
+.standard-item:hover .standard-point::before {
+    background: #3b82f6;
+}
+
+.standard-item:hover .standard-point::after {
+    background: #3b82f6;
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes drawLShape {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(0.8) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .compliance-content {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+    
+    .rhombus-container {
+        width: 450px;
+        height: 450px;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+        text-align: center;
+    }
+    
+    .standards-section {
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .compliance-industries {
+        padding: 80px 0;
+    }
+    
+    .rhombus-container {
+        width: 380px;
+        height: 380px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .standard-text {
+        font-size: 1rem;
+    }
+    
+    .standards-list {
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rhombus-container {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .standard-text {
+        font-size: 0.9rem;
+    }
+}
