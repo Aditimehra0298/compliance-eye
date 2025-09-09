@@ -477,11 +477,8 @@
 /* Customer Experience Section */
 .customer-experience-section {
     margin-top: 80px;
-    padding: 80px 0;
-    background: #e8f2ff;
-    border-radius: 0;
-    position: relative;
-    overflow: hidden;
+    padding-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .experience-header {
@@ -491,114 +488,115 @@
 
 .experience-title {
     font-family: 'Inter', sans-serif;
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
-    color: #2d3748;
+    color: #ffffff;
     margin: 0;
-    line-height: 1.1;
-    letter-spacing: -2px;
+    line-height: 1.2;
+    letter-spacing: -1px;
 }
 
 .feedback-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    max-width: 1200px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 2rem;
+}
+
+.feedback-card:nth-child(1),
+.feedback-card:nth-child(2) {
+    grid-row: 1;
+}
+
+.feedback-card:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    max-width: 500px;
 }
 
 .feedback-card {
-    background: #ffffff;
-    border: 1px solid #4a5568;
-    border-radius: 8px;
-    padding: 2.5rem 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
     transition: all 0.3s ease;
     position: relative;
-    text-align: center;
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
+}
+
+.feedback-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .feedback-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-card:hover::before {
+    opacity: 1;
 }
 
 .feedback-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between;
 }
 
 .quote-icon {
-    width: 16px;
-    height: 16px;
-    background: #2d3748;
-    position: relative;
-    margin: 0 auto 1.5rem auto;
-    transform: rotate(45deg);
-    flex-shrink: 0;
-}
-
-.quote-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    width: 8px;
-    height: 8px;
-    background: #2d3748;
-    border-radius: 1px;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: serif;
+    line-height: 1;
+    margin-bottom: 1rem;
 }
 
 .feedback-text {
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    color: #2d3748;
-    line-height: 1.5;
+    font-size: 1rem;
+    color: #e0e6ed;
+    line-height: 1.6;
     margin: 0 0 2rem 0;
     flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .feedback-author {
     margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
 }
 
 .author-info {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
-    text-align: left;
+    gap: 0.25rem;
 }
 
 .author-name {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #2d3748;
+    color: #ffffff;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.3;
 }
 
 .author-title {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    color: #2d3748;
+    font-size: 0.9rem;
+    color: #a0a9c0;
     margin: 0;
-    line-height: 1.2;
-    font-weight: 400;
+    line-height: 1.4;
 }
 
 /* Responsive Design for Expertise Section */
@@ -663,7 +661,17 @@
     
     .feedback-cards {
         grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
         gap: 1.5rem;
+    }
+    
+    .feedback-card:nth-child(1),
+    .feedback-card:nth-child(2),
+    .feedback-card:nth-child(3) {
+        grid-column: 1;
+        grid-row: auto;
+        max-width: none;
+        justify-self: stretch;
     }
     
     .experience-title {
