@@ -4,7 +4,7 @@ import Hero from './components/Hero/Hero';
 import WhoWeAre from './components/WhoWeAre/WhoWeAre';
 import ComplianceIndustries from './components/ComplianceIndustries/ComplianceIndustries';
 import ComplianceSolution from './components/ComplianceSolution/ComplianceSolution';
-import ComplianceExpertise from './components/ComplianceExpertise/ComplianceExpertise';
+import OurClients from './components/OurClients/OurClients';
 import ITC from './components/ITC/ITC';
 import About from './components/About/About';
 import Services from './components/Services/Services';
@@ -21,7 +21,7 @@ function App() {
         <WhoWeAre />
         <ComplianceIndustries />
         <ComplianceSolution />
-        <ComplianceExpertise />
+        <OurClients />
         <ITC />
         <About />
         <Services />
