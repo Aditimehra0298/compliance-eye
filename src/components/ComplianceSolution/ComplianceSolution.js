@@ -143,6 +143,60 @@ const ComplianceSolution = () => {
             <div className="clients-section">
               <OurClients />
             </div>
+
+            {/* Perfect Customer Experience Section */}
+            <div className="customer-experience-section">
+              <div className="experience-header">
+                <h2 className="experience-title">The Perfect Customer Experience</h2>
+              </div>
+              
+              <div className="feedback-cards">
+                <div className="feedback-card">
+                  <div className="feedback-content">
+                    <div className="quote-icon">"</div>
+                    <p className="feedback-text">
+                      "Compliance Eye transformed our regulatory processes completely. Their real-time monitoring and AI-powered insights helped us achieve 100% compliance while reducing manual work by 80%."
+                    </p>
+                    <div className="feedback-author">
+                      <div className="author-info">
+                        <h4 className="author-name">Sarah Johnson</h4>
+                        <p className="author-title">Compliance Director, TechCorp</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="feedback-card">
+                  <div className="feedback-content">
+                    <div className="quote-icon">"</div>
+                    <p className="feedback-text">
+                      "The detailed analytics and expert recommendations provided by Compliance Eye gave us the confidence to navigate complex regulatory requirements effortlessly. Highly recommended!"
+                    </p>
+                    <div className="feedback-author">
+                      <div className="author-info">
+                        <h4 className="author-name">Michael Chen</h4>
+                        <p className="author-title">CEO, InnovateLabs</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="feedback-card">
+                  <div className="feedback-content">
+                    <div className="quote-icon">"</div>
+                    <p className="feedback-text">
+                      "Outstanding support and cutting-edge technology. Compliance Eye's platform made our audit preparation seamless and helped us maintain continuous compliance across all departments."
+                    </p>
+                    <div className="feedback-author">
+                      <div className="author-info">
+                        <h4 className="author-name">Emily Rodriguez</h4>
+                        <p className="author-title">Risk Manager, GlobalFinance</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
