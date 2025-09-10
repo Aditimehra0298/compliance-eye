@@ -98,21 +98,6 @@ const AuthPage = () => {
               }
             </p>
 
-            {/* Social Login Buttons */}
-            <div className="social-login">
-              <button className="social-btn google-btn">
-                <div className="google-icon">G</div>
-                Sign in with Google
-              </button>
-              <button className="social-btn apple-btn">
-                <div className="apple-icon">🍎</div>
-                Sign in with Apple
-              </button>
-            </div>
-
-            <div className="divider">
-              <span>OR</span>
-            </div>
 
             {/* Authentication Form */}
             <form className="auth-form" onSubmit={handleSubmit}>
