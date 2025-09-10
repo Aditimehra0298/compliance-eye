@@ -42,27 +42,27 @@ const AuthPage = () => {
 
   return (
     <div className="auth-page">
-      {/* Navigation content at top */}
+      {/* Navigation content at top of hero */}
       <div className="hero-nav-content">
         <div className="nav-container">
           <ul className="nav-menu nav-left">
-            <li><button className="nav-link" onClick={() => navigate('/')}>← Back to Home</button></li>
+            <li><a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); navigate('/'); }}>← Back to Home</a></li>
           </ul>
           
           <div className="nav-logo">
-            <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
-            <h2>Compliance Eye</h2>
+            <img src="/l7.png" alt="DamnArt" className="logo-image" />
+            <h2>DamnArt</h2>
           </div>
           
-          <ul className="nav-menu nav-right">
-            <li>
-              <select className="language-selector">
-                <option>English</option>
-                <option>Spanish</option>
-                <option>French</option>
-              </select>
-            </li>
-          </ul>
+          <div className="nav-right">
+            <div className="social-nav">
+              <a href="#" className="social-link"><i className="fab fa-instagram"></i></a>
+              <a href="#" className="social-link"><i className="fab fa-facebook"></i></a>
+              <a href="#" className="social-link"><i className="fab fa-twitter"></i></a>
+              <a href="#" className="social-link"><i className="fab fa-linkedin"></i></a>
+              <a href="#" className="social-link"><i className="fab fa-youtube"></i></a>
+            </div>
+          </div>
         </div>
       </div>
       
