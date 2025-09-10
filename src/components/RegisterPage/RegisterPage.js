@@ -130,12 +130,10 @@ const RegisterPage = () => {
         {/* Left Panel - Registration Form */}
         <div className="register-panel">
           <div className="register-content">
-            <div className="register-header">
-              <h1 className="register-title">Create Your Account</h1>
-              <p className="register-subtitle">
-                Join Compliance Eye and start your compliance journey today
-              </p>
-            </div>
+            <h1 className="register-title">Create Your Account</h1>
+            <p className="register-subtitle">
+              Join Compliance Eye and start your compliance journey today
+            </p>
 
             <form className="register-form" onSubmit={handleSubmit}>
               <div className="form-group">
@@ -280,6 +278,42 @@ const RegisterPage = () => {
               <button onClick={() => navigate('/auth')} className="switch-btn">
                 Sign in here
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel - Promotional Content */}
+        <div className="promo-panel">
+          <div className="promo-content">
+            <h2 className="promo-title">400K+ users. 50M+ AI generated reports.</h2>
+            <p className="promo-description">
+              Join thousands of companies already using our platform for compliance management
+            </p>
+            
+            <div className="promo-features">
+              <div className="promo-feature">
+                <div className="promo-icon">📊</div>
+                <div className="promo-text">
+                  <h3>Real-time Analytics</h3>
+                  <p>Get instant insights into your compliance status</p>
+                </div>
+              </div>
+              
+              <div className="promo-feature">
+                <div className="promo-icon">🔒</div>
+                <div className="promo-text">
+                  <h3>Enterprise Security</h3>
+                  <p>Bank-level security for your sensitive data</p>
+                </div>
+              </div>
+              
+              <div className="promo-feature">
+                <div className="promo-icon">⚡</div>
+                <div className="promo-text">
+                  <h3>Automated Reports</h3>
+                  <p>Generate compliance reports in minutes, not hours</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
