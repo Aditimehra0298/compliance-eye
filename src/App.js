@@ -6,6 +6,7 @@ import ComplianceIndustries from './components/ComplianceIndustries/ComplianceIn
 import ComplianceSolution from './components/ComplianceSolution/ComplianceSolution';
 import Footer from './components/Footer/Footer';
 import AuthPage from './components/AuthPage/AuthPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
 import './App.css';
 
 function HomePage() {
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>
     </Router>
