@@ -72,11 +72,29 @@ const AuthPage = () => {
         {/* Left Panel - Authentication Form */}
         <div className="auth-panel">
           <div className="auth-content">
-            <h1 className="auth-title">Welcome!</h1>
+            {/* Login/Register Tabs */}
+            <div className="auth-tabs">
+              <button 
+                className={`tab-btn ${isLogin ? 'active' : ''}`}
+                onClick={() => setIsLogin(true)}
+              >
+                Login
+              </button>
+              <button 
+                className={`tab-btn ${!isLogin ? 'active' : ''}`}
+                onClick={() => setIsLogin(false)}
+              >
+                Register
+              </button>
+            </div>
+
+            <h1 className="auth-title">
+              {isLogin ? 'Welcome Back!' : 'Create Account'}
+            </h1>
             <p className="auth-subtitle">
               {isLogin 
-                ? 'Log in to Compliance Eye to continue to Compliance Eye.' 
-                : 'Create your account to get started with Compliance Eye.'
+                ? 'Log in to your Compliance Eye account to continue.' 
+                : 'Sign up for Compliance Eye to get started with compliance management.'
               }
             </p>
 
@@ -165,16 +183,16 @@ const AuthPage = () => {
               )}
 
               <button type="submit" className="auth-submit-btn">
-                {isLogin ? 'Log In' : 'Create Account'}
+                {isLogin ? 'Sign In' : 'Create Account'}
               </button>
             </form>
 
             <div className="auth-switch">
               <span>
-                {isLogin ? "Don't have an account?" : "Already have an account?"}
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
               </span>
               <button onClick={toggleMode} className="switch-btn">
-                {isLogin ? 'Sign up' : 'Sign in'}
+                {isLogin ? 'Register here' : 'Login here'}
               </button>
             </div>
           </div>
