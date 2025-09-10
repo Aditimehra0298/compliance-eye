@@ -28,21 +28,39 @@ const Hero = () => {
 
   useEffect(() => {
     // Typing effect for hero title
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-      const originalText = heroTitle.textContent;
-      heroTitle.textContent = '';
+    const heroTitleLine1 = document.querySelector('.hero-title-line1');
+    const heroTitleLine2 = document.querySelector('.hero-title-line2');
+    
+    if (heroTitleLine1 && heroTitleLine2) {
+      const originalText1 = heroTitleLine1.textContent;
+      const originalText2 = heroTitleLine2.textContent;
+      
+      heroTitleLine1.textContent = '';
+      heroTitleLine2.textContent = '';
       
       let i = 0;
-      const typeWriter = () => {
-        if (i < originalText.length) {
-          heroTitle.textContent += originalText.charAt(i);
+      const typeWriterLine1 = () => {
+        if (i < originalText1.length) {
+          heroTitleLine1.textContent += originalText1.charAt(i);
           i++;
-          setTimeout(typeWriter, 50);
+          setTimeout(typeWriterLine1, 50);
+        } else {
+          // Start typing line 2 after line 1 is complete
+          setTimeout(() => {
+            let j = 0;
+            const typeWriterLine2 = () => {
+              if (j < originalText2.length) {
+                heroTitleLine2.textContent += originalText2.charAt(j);
+                j++;
+                setTimeout(typeWriterLine2, 50);
+              }
+            };
+            typeWriterLine2();
+          }, 500);
         }
       };
       
-      setTimeout(typeWriter, 1000);
+      setTimeout(typeWriterLine1, 1000);
     }
 
     // Parallax effect
@@ -113,14 +131,13 @@ const Hero = () => {
         <div className="container">
           <div className="hero-text">
             <h1 className="hero-title">
-              Compliance Eye
+              <span className="hero-title-line1">Compliance Eye</span>
+              <br />
+              <span className="hero-title-line2">Capture Real-Time Evidence to Stay Always Audit-Ready</span>
             </h1>
-            <h2 className="hero-subtitle">
-              Compliance Eye offers focused audit report support for many types of demanding compliance requirements coming from EU/USA and other ISO /IEC standard via a innovating internal audit tool that can be linked to evidence capturing tools and software that you may have.
-            </h2>
            
             <p className="hero-description">
-            We offers focused audit report support for many types of demanding compliance requirements coming from EU/USA and other ISO /IEC standard.
+            Future-Proof Your Business with Real-Time Compliance.
             </p>
             <div className="hero-buttons">
               <button className="btn btn-primary" onClick={handleRunAudit}>
