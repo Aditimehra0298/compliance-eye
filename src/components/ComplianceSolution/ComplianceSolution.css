@@ -1,7 +1,7 @@
 /* Compliance Solution Section */
 .compliance-solution {
     padding: 100px 0;
-    background: linear-gradient(180deg, #000814 0%, #001d3d 60%, #003566 100%);
+    background: #001122;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -492,7 +492,7 @@
     gap: 0;
     align-items: stretch;
     margin-bottom: 60px;
-    background: #000000;
+    background: #001122;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
@@ -530,7 +530,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000000;
+    background: #001122;
     padding: 2rem;
 }
 

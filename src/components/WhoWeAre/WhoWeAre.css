@@ -2,7 +2,7 @@
 /* Who We Are Section */
 .who-we-are {
     padding: 80px 0 30px 0;
-    background: #000000;
+    background: #001122;
     min-height: auto;
     display: flex;
     align-items: flex-start;
@@ -141,7 +141,7 @@
 }
 
 .btn-outline {
-    background: #000000 !important;
+    background: #001122 !important;
     color: white !important;
     border: 1px solid white !important;
     font-family: 'Inter', sans-serif;
@@ -178,7 +178,7 @@
 }
 
 .btn-outline:hover {
-    background: #000000 !important;
+    background: #001122 !important;
     color: white !important;
     transform: none;
     box-shadow: none !important;
