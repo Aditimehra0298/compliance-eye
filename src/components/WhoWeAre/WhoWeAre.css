@@ -2,7 +2,7 @@
 /* Who We Are Section */
 .who-we-are {
     padding: 80px 0 30px 0;
-    background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 25%, #1d4ed8 50%, #2563eb 75%, #3b82f6 100%);
+    background: #001122;
     min-height: auto;
     display: flex;
     align-items: flex-start;
@@ -45,9 +45,9 @@
     min-height: auto;
     background: linear-gradient(180deg, 
         transparent 0%, 
-        rgba(30, 58, 138, 0.3) 20%, 
-        rgba(30, 64, 175, 0.7) 50%, 
-        #1e3a8a 100%);
+        rgba(0, 17, 34, 0.3) 20%, 
+        rgba(0, 17, 34, 0.7) 50%, 
+        #001122 100%);
     padding: 60px 0;
     border-radius: 0;
 }
