@@ -5,13 +5,10 @@ import Footer from '../Footer/Footer';
 import './AuthPage.css';
 
 const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: '',
-    fullName: ''
+    password: ''
   });
 
   const handleInputChange = (e) => {
@@ -23,21 +20,8 @@ const AuthPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isLogin) {
-      console.log('Login:', formData);
-    } else {
-      console.log('Register:', formData);
-    }
-  };
-
-  const toggleMode = () => {
-    setIsLogin(!isLogin);
-    setFormData({
-      email: '',
-      password: '',
-      confirmPassword: '',
-      fullName: ''
-    });
+    console.log('Login:', formData);
+    // Add login logic here
   };
 
   return (
@@ -70,50 +54,14 @@ const AuthPage = () => {
         {/* Left Panel - Authentication Form */}
         <div className="auth-panel">
           <div className="auth-content">
-            {/* Login/Register Tabs */}
-            <div className="auth-tabs">
-              <button 
-                className={`tab-btn ${isLogin ? 'active' : ''}`}
-                onClick={() => setIsLogin(true)}
-              >
-                Login
-              </button>
-              <button 
-                className={`tab-btn ${!isLogin ? 'active' : ''}`}
-                onClick={() => setIsLogin(false)}
-              >
-                Register
-              </button>
-            </div>
-
-            <h1 className="auth-title">
-              {isLogin ? 'Welcome Back!' : 'Create Account'}
-            </h1>
+            <h1 className="auth-title">Welcome Back!</h1>
             <p className="auth-subtitle">
-              {isLogin 
-                ? 'Log in to your Compliance Eye account to continue.' 
-                : 'Sign up for Compliance Eye to get started with compliance management.'
-              }
+              Log in to your Compliance Eye account to continue.
             </p>
 
 
             {/* Authentication Form */}
             <form className="auth-form" onSubmit={handleSubmit}>
-              {!isLogin && (
-                <div className="form-group">
-                  <label htmlFor="fullName">Full Name</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleInputChange}
-                    placeholder="Your full name"
-                    required={!isLogin}
-                  />
-                </div>
-              )}
-
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -130,9 +78,7 @@ const AuthPage = () => {
               <div className="form-group">
                 <div className="password-header">
                   <label htmlFor="password">Password</label>
-                  {isLogin && (
-                    <a href="#" className="forgot-password">Forgot password?</a>
-                  )}
+                  <a href="#" className="forgot-password">Forgot password?</a>
                 </div>
                 <div className="password-input">
                   <input
@@ -150,38 +96,18 @@ const AuthPage = () => {
                 </div>
               </div>
 
-              {!isLogin && (
-                <div className="form-group">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    placeholder="Confirm your password"
-                    required={!isLogin}
-                  />
-                </div>
-              )}
-
               <button type="submit" className="auth-submit-btn">
-                {isLogin ? 'Sign In' : 'Create Account'}
+                Sign In
               </button>
             </form>
 
             <div className="auth-switch">
-              <span>
-                {isLogin ? "Don't have an account? " : "Already have an account? "}
-              </span>
+              <span>Don't have an account? </span>
               <button 
-                onClick={isLogin ? () => {
-                  console.log('Navigating to register page');
-                  navigate('/register');
-                } : toggleMode} 
+                onClick={() => navigate('/register')} 
                 className="switch-btn"
               >
-                {isLogin ? 'Register here' : 'Login here'}
+                Register here
               </button>
             </div>
           </div>
