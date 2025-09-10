@@ -175,7 +175,10 @@ const AuthPage = () => {
                 {isLogin ? "Don't have an account? " : "Already have an account? "}
               </span>
               <button 
-                onClick={isLogin ? () => navigate('/register') : toggleMode} 
+                onClick={isLogin ? () => {
+                  console.log('Navigating to register page');
+                  navigate('/register');
+                } : toggleMode} 
                 className="switch-btn"
               >
                 {isLogin ? 'Register here' : 'Login here'}

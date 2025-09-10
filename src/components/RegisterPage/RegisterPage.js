@@ -4,6 +4,7 @@ import './RegisterPage.css';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  console.log('RegisterPage component is rendering');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -30,6 +31,11 @@ const RegisterPage = () => {
 
   return (
     <div className="register-page">
+      {/* Test element to verify component is rendering */}
+      <div style={{position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'red', color: 'white', padding: '20px', zIndex: 9999}}>
+        Register Page is Loading...
+      </div>
+      
       {/* Navigation content at top */}
       <div className="hero-nav-content">
         <div className="nav-container">
