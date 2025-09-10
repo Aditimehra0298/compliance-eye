@@ -9,8 +9,8 @@
   position: relative;
 }
 
-/* Blur Gradient Header */
-.auth-nav-content {
+/* Navigation content at top */
+.hero-nav-content {
   position: absolute;
   top: 0;
   left: 0;
@@ -51,19 +51,8 @@
 .logo-image {
   width: 40px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-hexagon {
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .nav-logo h2 {
@@ -71,29 +60,42 @@
   font-weight: 700;
   color: white;
   margin: 0;
+  letter-spacing: 1px;
 }
 
 .nav-right {
   justify-self: end;
 }
 
-.back-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  background: none;
+  border: none;
   color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
   transition: all 0.3s ease;
+  position: relative;
 }
 
-.back-btn:hover {
+.nav-link:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
-.language-selector select {
+.language-selector {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
@@ -103,7 +105,7 @@
   font-size: 0.9rem;
 }
 
-.language-selector select option {
+.language-selector option {
   background: #001122;
   color: white;
 }
@@ -694,7 +696,7 @@
     justify-self: center;
   }
   
-  .back-btn {
+  .nav-link {
     padding: 6px 12px;
     font-size: 0.8rem;
   }
@@ -708,12 +710,7 @@
     height: 35px;
   }
   
-  .logo-hexagon {
-    width: 25px;
-    height: 25px;
-  }
-  
-  .language-selector select {
+  .language-selector {
     padding: 6px 10px;
     font-size: 0.8rem;
   }

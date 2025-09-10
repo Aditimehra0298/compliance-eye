@@ -42,29 +42,27 @@ const AuthPage = () => {
 
   return (
     <div className="auth-page">
-      {/* Blur Gradient Header */}
-      <div className="auth-nav-content">
+      {/* Navigation content at top */}
+      <div className="hero-nav-content">
         <div className="nav-container">
-          <div className="nav-left">
-            <button className="back-btn" onClick={() => navigate('/')}>
-              ← Back to Home
-            </button>
-          </div>
+          <ul className="nav-menu nav-left">
+            <li><button className="nav-link" onClick={() => navigate('/')}>← Back to Home</button></li>
+          </ul>
+          
           <div className="nav-logo">
-            <div className="logo-image">
-              <div className="logo-hexagon"></div>
-            </div>
+            <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
             <h2>Compliance Eye</h2>
           </div>
-          <div className="nav-right">
-            <div className="language-selector">
-              <select>
+          
+          <ul className="nav-menu nav-right">
+            <li>
+              <select className="language-selector">
                 <option>English</option>
                 <option>Spanish</option>
                 <option>French</option>
               </select>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
       
