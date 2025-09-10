@@ -135,9 +135,13 @@ const Hero = () => {
               <br />
               <span className="hero-title-line2">Capture Real-Time Evidence to Stay Always Audit-Ready</span>
             </h1>
+            
+            <p className="hero-tagline">
+            We offers focused audit report support for many types of demanding compliance requirements coming from EU/USA and other ISO /IEC standard.
+            </p>
            
             <p className="hero-description">
-           
+            Future-Proof Your Business with Real-Time Compliance.
             </p>
             <div className="hero-buttons">
               <button className="btn btn-primary" onClick={handleRunAudit}>
