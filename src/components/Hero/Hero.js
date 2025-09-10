@@ -116,7 +116,7 @@ const Hero = () => {
               Compliance Eye
             </h1>
             <h2 className="hero-subtitle">
-              Capture Real-Time Evidence to Stay Always Audit-Ready
+              Compliance Eye offers focused audit report support for many types of demanding compliance requirements coming from EU/USA and other ISO /IEC standard via a innovating internal audit tool that can be linked to evidence capturing tools and software that you may have.
             </h2>
            
             <p className="hero-description">
