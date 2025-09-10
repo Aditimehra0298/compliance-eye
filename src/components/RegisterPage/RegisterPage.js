@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
@@ -319,6 +320,8 @@ const RegisterPage = () => {
         </div>
 
       </div>
+      
+      <Footer />
     </div>
   );
 };
