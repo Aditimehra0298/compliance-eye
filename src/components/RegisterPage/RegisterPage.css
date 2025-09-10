@@ -164,14 +164,13 @@
 
 /* Left Panel - Registration Form */
 .register-panel {
-  background: rgba(0, 17, 34, 0.8);
+  background: #001122;
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .register-panel::before {
@@ -481,14 +480,13 @@
 
 /* Right Panel - Promotional Content */
 .promo-panel {
-  background: rgba(0, 17, 34, 0.6);
+  background: #001122;
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .promo-panel::before {
@@ -498,8 +496,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
   z-index: 1;
 }
 
