@@ -30,16 +30,13 @@ const Hero = () => {
     // Typing effect for hero title
     const heroTitleLine1 = document.querySelector('.hero-title-line1');
     const heroTitleLine2 = document.querySelector('.hero-title-line2');
-    const heroTitleLine3 = document.querySelector('.hero-title-line3');
     
-    if (heroTitleLine1 && heroTitleLine2 && heroTitleLine3) {
+    if (heroTitleLine1 && heroTitleLine2) {
       const originalText1 = heroTitleLine1.textContent;
       const originalText2 = heroTitleLine2.textContent;
-      const originalText3 = heroTitleLine3.textContent;
       
       heroTitleLine1.textContent = '';
       heroTitleLine2.textContent = '';
-      heroTitleLine3.textContent = '';
       
       let i = 0;
       const typeWriterLine1 = () => {
@@ -56,19 +53,6 @@ const Hero = () => {
                 heroTitleLine2.textContent += originalText2.charAt(j);
                 j++;
                 setTimeout(typeWriterLine2, 50);
-              } else {
-                // Start typing line 3 after line 2 is complete
-                setTimeout(() => {
-                  let k = 0;
-                  const typeWriterLine3 = () => {
-                    if (k < originalText3.length) {
-                      heroTitleLine3.textContent += originalText3.charAt(k);
-                      k++;
-                      setTimeout(typeWriterLine3, 50);
-                    }
-                  };
-                  typeWriterLine3();
-                }, 500);
               }
             };
             typeWriterLine2();
