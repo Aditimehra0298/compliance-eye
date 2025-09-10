@@ -113,7 +113,12 @@ const Hero = () => {
         <div className="container">
           <div className="hero-text">
             <h1 className="hero-title">
-              Compliance Made Simple: Capture Real-Time Evidence, Stay Always Audit-Ready
+              Compliance Eye  
+
+            </h1>
+            <h1 className="hero-title">
+               
+        Capture Real-Time Evidence to Stay Always Audit-Ready
             </h1>
            
             <p className="hero-description">
