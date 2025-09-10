@@ -42,20 +42,21 @@ const AuthPage = () => {
 
   return (
     <div className="auth-page">
-      <Navbar />
-      <div className="auth-container">
-        {/* Left Panel - Authentication Form */}
-        <div className="auth-panel">
-          <div className="auth-header">
+      {/* Blur Gradient Header */}
+      <div className="auth-nav-content">
+        <div className="nav-container">
+          <div className="nav-left">
             <button className="back-btn" onClick={() => navigate('/')}>
-              ← Back
+              ← Back to Home
             </button>
-            <div className="auth-logo">
-              <div className="logo-icon">
-                <div className="logo-hexagon"></div>
-              </div>
-              <h2>Compliance Eye</h2>
+          </div>
+          <div className="nav-logo">
+            <div className="logo-image">
+              <div className="logo-hexagon"></div>
             </div>
+            <h2>Compliance Eye</h2>
+          </div>
+          <div className="nav-right">
             <div className="language-selector">
               <select>
                 <option>English</option>
@@ -64,7 +65,12 @@ const AuthPage = () => {
               </select>
             </div>
           </div>
-
+        </div>
+      </div>
+      
+      <div className="auth-container">
+        {/* Left Panel - Authentication Form */}
+        <div className="auth-panel">
           <div className="auth-content">
             <h1 className="auth-title">Welcome!</h1>
             <p className="auth-subtitle">

@@ -6,6 +6,106 @@
   color: white;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+/* Blur Gradient Header */
+.auth-nav-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 0;
+  background: linear-gradient(180deg, 
+    rgba(0, 17, 34, 0.9) 0%, 
+    rgba(0, 17, 34, 0.8) 30%, 
+    rgba(0, 17, 34, 0.6) 60%, 
+    rgba(0, 17, 34, 0.3) 85%, 
+    transparent 100%);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-left {
+  justify-self: start;
+}
+
+.nav-logo {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-hexagon {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-logo h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.nav-right {
+  justify-self: end;
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.language-selector select {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.language-selector select option {
+  background: #001122;
+  color: white;
 }
 
 .auth-container {
@@ -16,6 +116,7 @@
   max-width: 1400px;
   margin: 0 auto;
   align-items: center;
+  padding-top: 100px; /* Account for header space */
 }
 
 /* Left Panel - Authentication */
@@ -615,5 +716,46 @@
   .geometric-shape {
     width: 120px;
     height: 120px;
+  }
+}
+
+/* Responsive Design for Header */
+@media (max-width: 768px) {
+  .nav-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .nav-left, .nav-right {
+    justify-self: center;
+  }
+  
+  .back-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .nav-logo h2 {
+    font-size: 1.2rem;
+  }
+  
+  .logo-image {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .logo-hexagon {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .language-selector select {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .auth-container {
+    padding-top: 120px; /* More space for mobile header */
   }
 }
