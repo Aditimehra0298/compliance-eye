@@ -113,16 +113,14 @@ const Hero = () => {
         <div className="container">
           <div className="hero-text">
             <h1 className="hero-title">
-              Compliance Eye  
-
+              Compliance Eye
             </h1>
-            <h1 className="hero-title">
-               
-        Capture Real-Time Evidence to Stay Always Audit-Ready
-            </h1>
+            <h2 className="hero-subtitle">
+              Capture Real-Time Evidence to Stay Always Audit-Ready
+            </h2>
            
             <p className="hero-description">
-            Future-Proof Your Business with Real-Time Compliance.
+            We offers focused audit report support for many types of demanding compliance requirements coming from EU/USA and other ISO /IEC standard.
             </p>
             <div className="hero-buttons">
               <button className="btn btn-primary" onClick={handleRunAudit}>
