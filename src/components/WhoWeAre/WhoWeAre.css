@@ -12,23 +12,6 @@
 }
 
 
-.who-we-are::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(180deg, 
-        rgba(0, 0, 0, 0.95) 0%, 
-        rgba(0, 0, 0, 0.8) 20%, 
-        rgba(0, 0, 0, 0.6) 50%, 
-        rgba(0, 0, 0, 0.4) 75%, 
-        rgba(0, 0, 0, 0.2) 90%, 
-        transparent 100%);
-    backdrop-filter: blur(12px);
-    z-index: 2;
-}
 
 .container {
     max-width: 1400px;
