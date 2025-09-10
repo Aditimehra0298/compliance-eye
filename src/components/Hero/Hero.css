@@ -287,9 +287,9 @@
 .hero-who-we-are {
     padding: 80px 0;
     background: linear-gradient(180deg, 
-        rgba(0, 0, 0, 0.95) 0%, 
-        rgba(0, 0, 0, 0.98) 30%, 
-        #000000 100%);
+        rgba(0, 17, 34, 0.95) 0%, 
+        rgba(0, 17, 34, 0.98) 30%, 
+        #001122 100%);
     position: relative;
     z-index: 1;
     backdrop-filter: blur(3px);
@@ -416,8 +416,8 @@
         rgba(0, 0, 0, 0.4) 35%, 
         rgba(0, 0, 0, 0.6) 55%, 
         rgba(0, 0, 0, 0.8) 75%, 
-        rgba(0, 0, 0, 0.95) 90%, 
-        #000000 100%);
+        rgba(0, 17, 34, 0.95) 90%, 
+        #001122 100%);
     backdrop-filter: blur(2px);
     z-index: 1;
 }
