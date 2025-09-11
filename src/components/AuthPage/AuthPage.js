@@ -21,7 +21,22 @@ const AuthPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login:', formData);
-    // Add login logic here
+    
+    // Simple login logic for testing
+    if (formData.email === 'test@example.com' && formData.password === 'password123') {
+      // Store user data in localStorage
+      const userData = {
+        email: formData.email,
+        name: 'Test User',
+        username: 'testuser'
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
+      
+      // Redirect to dashboard
+      navigate('/dashboard');
+    } else {
+      alert('Invalid credentials. Use test@example.com / password123');
+    }
   };
 
   return (
