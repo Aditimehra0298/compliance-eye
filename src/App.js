@@ -7,6 +7,9 @@ import ComplianceSolution from './components/ComplianceSolution/ComplianceSoluti
 import Footer from './components/Footer/Footer';
 import AuthPage from './components/AuthPage/AuthPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
+import Dashboard from './components/Dashboard/Dashboard';
+import Profile from './components/Profile/Profile';
+import Quiz from './components/Quiz/Quiz';
 import './App.css';
 
 function HomePage() {
@@ -29,6 +32,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/quiz" element={<Quiz />} />
         </Routes>
       </div>
     </Router>
