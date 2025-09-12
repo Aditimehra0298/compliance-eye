@@ -6,6 +6,43 @@ const ExpertReports = () => {
   const navigate = useNavigate();
   const [selectedReport, setSelectedReport] = useState(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [backendExperts, setBackendExperts] = useState([
+    {
+      id: 1,
+      name: "Dr. Michael Chen",
+      title: "Senior Backend Compliance Expert",
+      avatar: "/l7.png",
+      expertise: "Database Security, API Compliance, Data Protection",
+      rating: 4.9,
+      reviews: 156,
+      isOnline: true,
+      lastActive: "2 minutes ago"
+    },
+    {
+      id: 2,
+      name: "Sarah Rodriguez",
+      title: "Backend Architecture Specialist",
+      avatar: "/l7.png",
+      expertise: "System Architecture, Performance Optimization, Security Audits",
+      rating: 4.8,
+      reviews: 89,
+      isOnline: true,
+      lastActive: "5 minutes ago"
+    },
+    {
+      id: 3,
+      name: "David Thompson",
+      title: "Database Compliance Consultant",
+      avatar: "/l7.png",
+      expertise: "Database Compliance, Data Governance, Privacy Regulations",
+      rating: 4.9,
+      reviews: 203,
+      isOnline: false,
+      lastActive: "1 hour ago"
+    }
+  ]);
 
   const expertReports = [
     {
@@ -171,8 +208,53 @@ const ExpertReports = () => {
     setSelectedReport(null);
   };
 
+  const handleSubmitComment = (e) => {
+    e.preventDefault();
+    if (newComment.trim()) {
+      const comment = {
+        id: Date.now(),
+        text: newComment.trim(),
+        author: 'You',
+        timestamp: new Date().toLocaleString(),
+        isExpert: false
+      };
+      setComments([...comments, comment]);
+      setNewComment('');
+    }
+  };
+
+  const handleReplyFromExpert = (commentId) => {
+    const expertReply = {
+      id: Date.now(),
+      text: "Thank you for your question! I'll review your inquiry and provide a detailed response within 24 hours. This is a great question about compliance best practices.",
+      author: 'Dr. Sarah Mitchell',
+      timestamp: new Date().toLocaleString(),
+      isExpert: true,
+      replyTo: commentId
+    };
+    setComments([...comments, expertReply]);
+  };
+
+  const handleStartDiscussion = (expert) => {
+    console.log('Starting discussion with expert:', expert);
+    const discussionComment = {
+      id: Date.now(),
+      text: `Started discussion with ${expert.name} - ${expert.title}. Please describe your backend compliance questions or concerns.`,
+      author: 'System',
+      timestamp: new Date().toLocaleString(),
+      isExpert: false,
+      expertId: expert.id,
+      expertName: expert.name
+    };
+    setComments([...comments, discussionComment]);
+    alert(`Discussion started with ${expert.name}! Check the comment section below.`);
+  };
+
+  console.log('ExpertReports component rendering...');
+  
   return (
-    <div className="expert-reports">
+    <div className="expert-reports" style={{background: 'red', padding: '50px', color: 'white'}}>
+      <h1 style={{fontSize: '50px', textAlign: 'center'}}>EXPERT REPORTS PAGE IS LOADING</h1>
       <div className="reports-header">
         <h1>Individual Expert Reports</h1>
         <p>Get personalized compliance assessments from industry experts</p>
@@ -322,6 +404,239 @@ const ExpertReports = () => {
           </div>
         </div>
       )}
+
+      {/* Discussion Section */}
+      <div className="discussion-section">
+        <div className="discussion-header">
+          <h2>Expert Discussions</h2>
+          <p>Join the conversation with compliance experts and other users</p>
+        </div>
+
+        <div className="discussion-stats">
+          <div className="stat-item">
+            <span className="stat-number">1,247</span>
+            <span className="stat-label">Active Discussions</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">89</span>
+            <span className="stat-label">Expert Responses Today</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-number">15</span>
+            <span className="stat-label">Online Experts</span>
+          </div>
+        </div>
+
+        <div className="discussion-form">
+          <div className="form-header">
+            <h3>Start a Discussion</h3>
+            <p>Ask questions, share insights, or discuss compliance topics</p>
+          </div>
+          <form onSubmit={handleSubmitComment}>
+            <div className="form-group">
+              <label htmlFor="discussion-topic">Topic</label>
+              <input
+                type="text"
+                id="discussion-topic"
+                placeholder="e.g., GDPR Implementation Challenges"
+                className="topic-input"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="discussion-content">Your Question or Discussion</label>
+              <textarea
+                id="discussion-content"
+                className="discussion-textarea"
+                placeholder="Describe your compliance question or share your insights..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                rows="4"
+              />
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="submit-discussion-btn">
+                Post Discussion
+              </button>
+              <button type="button" className="attach-file-btn">
+                📎 Attach File
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div className="discussions-list">
+          <div className="discussions-header">
+            <h3>Recent Discussions</h3>
+            <div className="filter-options">
+              <button className="filter-btn active">All</button>
+              <button className="filter-btn">GDPR</button>
+              <button className="filter-btn">HIPAA</button>
+              <button className="filter-btn">ISO 27001</button>
+            </div>
+          </div>
+
+          <div className="discussion-items">
+            {comments.length === 0 ? (
+              <div className="no-discussions">
+                <div className="no-discussions-icon">💬</div>
+                <h4>No discussions yet</h4>
+                <p>Be the first to start a discussion about compliance topics!</p>
+              </div>
+            ) : (
+              comments.map((comment) => (
+                <div key={comment.id} className={`discussion-item ${comment.isExpert ? 'expert-response' : 'user-question'}`}>
+                  <div className="discussion-avatar">
+                    <img src="/l7.png" alt={comment.author} />
+                    {comment.isExpert && <div className="expert-badge">Expert</div>}
+                  </div>
+                  <div className="discussion-content">
+                    <div className="discussion-meta">
+                      <h4 className="discussion-author">{comment.author}</h4>
+                      <span className="discussion-time">{comment.timestamp}</span>
+                      {comment.isExpert && <span className="expert-tag">Expert Response</span>}
+                    </div>
+                    <div className="discussion-text">
+                      <p>{comment.text}</p>
+                    </div>
+                    <div className="discussion-actions">
+                      <button className="action-btn like-btn">
+                        👍 {Math.floor(Math.random() * 20)}
+                      </button>
+                      <button className="action-btn reply-btn">Reply</button>
+                      <button className="action-btn share-btn">Share</button>
+                      {!comment.isExpert && (
+                        <button 
+                          className="action-btn expert-request-btn"
+                          onClick={() => handleReplyFromExpert(comment.id)}
+                        >
+                          Request Expert Response
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Backend Experts Section */}
+      <div className="backend-experts-section">
+        <div className="experts-header">
+          <h2>Discuss with Our Backend Experts</h2>
+          <p>Connect directly with our backend compliance specialists for real-time technical discussions</p>
+        </div>
+
+        <div className="experts-grid">
+          {backendExperts.map((expert) => (
+            <div key={expert.id} className="expert-card">
+              <div className="expert-status">
+                <div className={`status-indicator ${expert.isOnline ? 'online' : 'offline'}`}></div>
+                <span className="status-text">
+                  {expert.isOnline ? 'Online' : 'Offline'} - {expert.lastActive}
+                </span>
+              </div>
+              
+              <div className="expert-info">
+                <img src={expert.avatar} alt={expert.name} className="expert-avatar" />
+                <div className="expert-details">
+                  <h3 className="expert-name">{expert.name}</h3>
+                  <p className="expert-title">{expert.title}</p>
+                  <div className="expert-rating">
+                    <span className="stars">★★★★★</span>
+                    <span className="rating">{expert.rating}</span>
+                    <span className="reviews">({expert.reviews} reviews)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="expert-expertise">
+                <h4>Areas of Expertise:</h4>
+                <p>{expert.expertise}</p>
+              </div>
+
+              <div className="expert-actions">
+                <button 
+                  className="start-discussion-btn"
+                  onClick={() => handleStartDiscussion(expert)}
+                >
+                  Start Discussion
+                </button>
+                <button className="view-profile-btn">
+                  View Profile
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Comment Section */}
+      <div className="comment-section">
+        <div className="comment-header">
+          <h2>Discuss with Experts</h2>
+          <p>Ask questions, share insights, and get expert advice on compliance topics</p>
+        </div>
+
+        <form className="comment-form" onSubmit={handleSubmitComment}>
+          <div className="comment-input-group">
+            <textarea
+              className="comment-textarea"
+              placeholder="Ask a question or share your thoughts about compliance..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              rows="4"
+            />
+            <button type="submit" className="submit-comment-btn">
+              Post Comment
+            </button>
+          </div>
+        </form>
+
+        <div className="comments-list">
+          {comments.length === 0 ? (
+            <div className="no-comments">
+              <p>No comments yet. Be the first to start the discussion!</p>
+            </div>
+          ) : (
+            comments.map((comment) => (
+              <div key={comment.id} className={`comment-item ${comment.isExpert ? 'expert-reply' : ''}`}>
+                <div className="comment-avatar">
+                  <img 
+                    src="/l7.png" 
+                    alt={comment.author} 
+                  />
+                  {comment.isExpert && (
+                    <div className="expert-badge">Expert</div>
+                  )}
+                </div>
+                <div className="comment-content">
+                  <div className="comment-header">
+                    <h4>{comment.author}</h4>
+                    <span className="comment-time">{comment.timestamp}</span>
+                  </div>
+                  <p>{comment.text}</p>
+                  <div className="comment-actions">
+                    <button className="reply-btn">Reply</button>
+                    <button className="like-btn">
+                      👍 Like
+                    </button>
+                    {!comment.isExpert && (
+                      <button 
+                        className="expert-reply-btn"
+                        onClick={() => handleReplyFromExpert(comment.id)}
+                      >
+                        Get Expert Reply
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 };

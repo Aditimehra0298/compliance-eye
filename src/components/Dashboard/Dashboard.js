@@ -9,10 +9,483 @@ const Dashboard = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('Home');
   const [assessmentData, setAssessmentData] = useState(null);
+  const [userHistory, setUserHistory] = useState({
+    completedQuizzes: [],
+    receivedReports: [],
+    totalPoints: 0,
+    lastActivity: null
+  });
+  
+  const [gapAnalysis, setGapAnalysis] = useState({
+    complianceGaps: [],
+    riskMetrics: [],
+    performanceTrends: [],
+    criticalAlerts: [],
+    overallScore: 0
+  });
+  
+  const [processSteps, setProcessSteps] = useState({
+    currentStep: 1,
+    steps: []
+  });
+  
+  const [integrations, setIntegrations] = useState({
+    availableIntegrations: [],
+    activeIntegrations: [],
+    apiKeys: [],
+    webhooks: [],
+    partnerTypes: []
+  });
   
   // Get user info from localStorage
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userName = user.name || 'User';
+
+  // Load user history from localStorage
+  useEffect(() => {
+    const savedHistory = JSON.parse(localStorage.getItem('userHistory') || '{}');
+    if (Object.keys(savedHistory).length > 0) {
+      setUserHistory(savedHistory);
+    } else {
+      // Initialize with sample data
+      const sampleHistory = {
+        completedQuizzes: [
+          {
+            id: 1,
+            title: "GDPR Compliance Assessment",
+            completedDate: "2024-01-15",
+            score: 85,
+            totalQuestions: 20,
+            category: "Data Protection",
+            points: 170
+          },
+          {
+            id: 2,
+            title: "HIPAA Security Quiz",
+            completedDate: "2024-01-12",
+            score: 92,
+            totalQuestions: 15,
+            category: "Healthcare",
+            points: 184
+          },
+          {
+            id: 3,
+            title: "ISO 27001 Basics",
+            completedDate: "2024-01-10",
+            score: 78,
+            totalQuestions: 25,
+            category: "Information Security",
+            points: 156
+          }
+        ],
+        receivedReports: [
+          {
+            id: 1,
+            title: "GDPR Compliance Deep Dive",
+            expert: "Dr. Sarah Mitchell",
+            receivedDate: "2024-01-15",
+            type: "Expert Report",
+            status: "Completed",
+            points: 200
+          },
+          {
+            id: 2,
+            title: "Personalized Compliance Roadmap",
+            expert: "System Generated",
+            receivedDate: "2024-01-12",
+            type: "Personalized Report",
+            status: "In Progress",
+            points: 150
+          },
+          {
+            id: 3,
+            title: "HIPAA Security Assessment",
+            expert: "Michael Chen",
+            receivedDate: "2024-01-10",
+            type: "Expert Report",
+            status: "Completed",
+            points: 180
+          }
+        ],
+        totalPoints: 1040,
+        lastActivity: "2024-01-15"
+      };
+      setUserHistory(sampleHistory);
+      localStorage.setItem('userHistory', JSON.stringify(sampleHistory));
+    }
+
+    // Initialize gap analysis data
+    const sampleGapAnalysis = {
+      complianceGaps: [
+        {
+          id: 1,
+          category: "Data Protection",
+          title: "GDPR Article 32 - Security of Processing",
+          currentLevel: 65,
+          targetLevel: 90,
+          gap: 25,
+          priority: "High",
+          status: "In Progress",
+          lastUpdated: "2024-01-15",
+          description: "Missing encryption at rest for personal data storage",
+          miniChart: [60, 62, 63, 64, 65, 65, 65]
+        },
+        {
+          id: 2,
+          category: "Healthcare",
+          title: "HIPAA Administrative Safeguards",
+          currentLevel: 78,
+          targetLevel: 95,
+          gap: 17,
+          priority: "Medium",
+          status: "Planned",
+          lastUpdated: "2024-01-12",
+          description: "Incomplete workforce training program documentation",
+          miniChart: [75, 76, 77, 78, 78, 78, 78]
+        },
+        {
+          id: 3,
+          category: "Information Security",
+          title: "ISO 27001 Control A.12.6 - Technical Vulnerability Management",
+          currentLevel: 45,
+          targetLevel: 85,
+          gap: 40,
+          priority: "Critical",
+          status: "Not Started",
+          lastUpdated: "2024-01-10",
+          description: "No formal vulnerability assessment process in place",
+          miniChart: [45, 45, 45, 45, 45, 45, 45]
+        },
+        {
+          id: 4,
+          category: "Financial",
+          title: "SOX Section 404 - Internal Controls",
+          currentLevel: 82,
+          targetLevel: 95,
+          gap: 13,
+          priority: "Low",
+          status: "In Progress",
+          lastUpdated: "2024-01-14",
+          description: "Minor documentation gaps in control testing procedures",
+          miniChart: [80, 81, 81, 82, 82, 82, 82]
+        }
+      ],
+      riskMetrics: [
+        {
+          id: 1,
+          metric: "Data Breach Risk",
+          currentValue: 15,
+          threshold: 10,
+          unit: "%",
+          trend: "increasing",
+          status: "warning",
+          miniChart: [12, 13, 14, 15, 16, 15, 15]
+        },
+        {
+          id: 2,
+          metric: "Compliance Score",
+          currentValue: 72,
+          threshold: 85,
+          unit: "%",
+          trend: "stable",
+          status: "warning",
+          miniChart: [68, 70, 69, 71, 72, 70, 72]
+        },
+        {
+          id: 3,
+          metric: "Audit Findings",
+          currentValue: 8,
+          threshold: 5,
+          unit: "count",
+          trend: "decreasing",
+          status: "warning",
+          miniChart: [12, 10, 9, 8, 8, 8, 8]
+        },
+        {
+          id: 4,
+          metric: "Training Completion",
+          currentValue: 89,
+          threshold: 95,
+          unit: "%",
+          trend: "increasing",
+          status: "good",
+          miniChart: [75, 78, 80, 82, 85, 87, 89]
+        }
+      ],
+      performanceTrends: [
+        { date: "2024-01-01", compliance: 68, risk: 18, training: 75 },
+        { date: "2024-01-02", compliance: 70, risk: 17, training: 78 },
+        { date: "2024-01-03", compliance: 69, risk: 19, training: 80 },
+        { date: "2024-01-04", compliance: 71, risk: 16, training: 82 },
+        { date: "2024-01-05", compliance: 72, risk: 15, training: 85 },
+        { date: "2024-01-06", compliance: 70, risk: 17, training: 87 },
+        { date: "2024-01-07", compliance: 72, risk: 15, training: 89 }
+      ],
+      criticalAlerts: [
+        {
+          id: 1,
+          type: "Critical",
+          title: "ISO 27001 Vulnerability Management Gap",
+          description: "Critical gap in technical vulnerability management process",
+          timestamp: "2024-01-15 14:30",
+          action: "Immediate action required",
+          miniChart: [45, 45, 45, 45, 45, 45, 45]
+        },
+        {
+          id: 2,
+          type: "High",
+          title: "GDPR Encryption Gap",
+          description: "Personal data not encrypted at rest",
+          timestamp: "2024-01-15 10:15",
+          action: "Address within 48 hours",
+          miniChart: [60, 62, 63, 64, 65, 65, 65]
+        },
+        {
+          id: 3,
+          type: "Medium",
+          title: "HIPAA Training Documentation",
+          description: "Incomplete workforce training records",
+          timestamp: "2024-01-14 16:45",
+          action: "Address within 1 week",
+          miniChart: [75, 76, 77, 78, 78, 78, 78]
+        }
+      ],
+      overallScore: 72
+    };
+    setGapAnalysis(sampleGapAnalysis);
+    localStorage.setItem('gapAnalysis', JSON.stringify(sampleGapAnalysis));
+
+    // Initialize compliance process steps
+    const sampleProcessSteps = {
+      currentStep: 2,
+      steps: [
+        {
+          id: 1,
+          title: "Assessment & Analysis",
+          description: "Conduct comprehensive compliance assessment",
+          icon: "🎯",
+          status: "completed",
+          completedDate: "2024-01-10"
+        },
+        {
+          id: 2,
+          title: "Gap Identification",
+          description: "Identify compliance gaps and risks",
+          icon: "🔍",
+          status: "in-progress",
+          completedDate: null
+        },
+        {
+          id: 3,
+          title: "Remediation Planning",
+          description: "Create detailed remediation plans",
+          icon: "📋",
+          status: "pending",
+          completedDate: null
+        },
+        {
+          id: 4,
+          title: "Implementation",
+          description: "Implement compliance controls and processes",
+          icon: "⚙️",
+          status: "pending",
+          completedDate: null
+        },
+        {
+          id: 5,
+          title: "Testing & Validation",
+          description: "Test and validate compliance measures",
+          icon: "🧪",
+          status: "pending",
+          completedDate: null
+        },
+        {
+          id: 6,
+          title: "Documentation",
+          description: "Document all compliance activities",
+          icon: "📄",
+          status: "pending",
+          completedDate: null
+        },
+        {
+          id: 7,
+          title: "Monitoring & Review",
+          description: "Establish ongoing monitoring and review",
+          icon: "📊",
+          status: "pending",
+          completedDate: null
+        }
+      ]
+    };
+    setProcessSteps(sampleProcessSteps);
+    localStorage.setItem('processSteps', JSON.stringify(sampleProcessSteps));
+
+    // Initialize integrations data
+    const sampleIntegrations = {
+      availableIntegrations: [
+        {
+          id: 1,
+          name: "Salesforce CRM",
+          type: "CRM",
+          category: "Enterprise Reseller",
+          description: "Integrate compliance data with Salesforce CRM",
+          logo: "🔗",
+          status: "available",
+          features: ["Data Sync", "Automated Reports", "Real-time Updates"],
+          pricing: "Free Tier Available"
+        },
+        {
+          id: 2,
+          name: "Microsoft 365",
+          type: "Productivity",
+          category: "Associate Partner",
+          description: "Seamless integration with Microsoft 365 suite",
+          logo: "📊",
+          status: "available",
+          features: ["SharePoint Sync", "Teams Integration", "Excel Reports"],
+          pricing: "Premium"
+        },
+        {
+          id: 3,
+          name: "Slack",
+          type: "Communication",
+          category: "Client Gateway",
+          description: "Send compliance alerts and updates to Slack",
+          logo: "💬",
+          status: "available",
+          features: ["Real-time Alerts", "Custom Channels", "Bot Integration"],
+          pricing: "Free"
+        },
+        {
+          id: 4,
+          name: "Jira",
+          type: "Project Management",
+          category: "Enterprise Reseller",
+          description: "Track compliance tasks in Jira",
+          logo: "🎯",
+          status: "available",
+          features: ["Task Automation", "Workflow Integration", "Custom Fields"],
+          pricing: "Enterprise"
+        },
+        {
+          id: 5,
+          name: "Zapier",
+          type: "Automation",
+          category: "Associate Partner",
+          description: "Connect with 3000+ apps via Zapier",
+          logo: "⚡",
+          status: "available",
+          features: ["Multi-app Integration", "Custom Workflows", "Trigger Actions"],
+          pricing: "Freemium"
+        },
+        {
+          id: 6,
+          name: "Webhook API",
+          type: "API",
+          category: "Client Gateway",
+          description: "Custom webhook integration for any website",
+          logo: "🔌",
+          status: "available",
+          features: ["REST API", "Real-time Events", "Custom Endpoints"],
+          pricing: "Custom"
+        }
+      ],
+      activeIntegrations: [
+        {
+          id: 1,
+          name: "Salesforce CRM",
+          type: "CRM",
+          category: "Enterprise Reseller",
+          status: "active",
+          connectedDate: "2024-01-10",
+          lastSync: "2024-01-15 14:30",
+          dataFlow: "Bidirectional",
+          apiCalls: 1250,
+          status: "healthy"
+        },
+        {
+          id: 3,
+          name: "Slack",
+          type: "Communication",
+          category: "Client Gateway",
+          status: "active",
+          connectedDate: "2024-01-12",
+          lastSync: "2024-01-15 14:25",
+          dataFlow: "Outbound",
+          apiCalls: 890,
+          status: "healthy"
+        }
+      ],
+      apiKeys: [
+        {
+          id: 1,
+          name: "Primary API Key",
+          key: "ck_live_51H...",
+          permissions: ["read", "write", "webhooks"],
+          createdAt: "2024-01-10",
+          lastUsed: "2024-01-15 14:30",
+          status: "active"
+        },
+        {
+          id: 2,
+          name: "Webhook Key",
+          key: "wh_live_72K...",
+          permissions: ["webhooks"],
+          createdAt: "2024-01-12",
+          lastUsed: "2024-01-15 14:25",
+          status: "active"
+        }
+      ],
+      webhooks: [
+        {
+          id: 1,
+          name: "Compliance Alerts",
+          url: "https://api.salesforce.com/webhook/compliance",
+          events: ["compliance.alert", "compliance.breach"],
+          status: "active",
+          lastTriggered: "2024-01-15 14:30",
+          successRate: 98.5
+        },
+        {
+          id: 2,
+          name: "Report Generation",
+          url: "https://hooks.slack.com/services/...",
+          events: ["report.generated", "report.failed"],
+          status: "active",
+          lastTriggered: "2024-01-15 14:25",
+          successRate: 99.2
+        }
+      ],
+      partnerTypes: [
+        {
+          id: 1,
+          type: "Associate Partner",
+          description: "Integrate with partner websites and applications",
+          benefits: ["Revenue Sharing", "Co-marketing", "Technical Support"],
+          requirements: ["API Access", "Brand Guidelines", "Support SLA"],
+          commission: "15-25%"
+        },
+        {
+          id: 2,
+          type: "Enterprise Reseller",
+          description: "Resell compliance solutions to enterprise clients",
+          benefits: ["Higher Commission", "Dedicated Support", "Custom Pricing"],
+          requirements: ["Enterprise License", "Sales Training", "Certification"],
+          commission: "30-40%"
+        },
+        {
+          id: 3,
+          type: "Client Gateway",
+          description: "Direct integration with client systems and websites",
+          benefits: ["Direct Access", "Custom Integration", "Priority Support"],
+          requirements: ["Technical Expertise", "Security Compliance", "SLA Agreement"],
+          commission: "Custom"
+        }
+      ]
+    };
+    setIntegrations(sampleIntegrations);
+    localStorage.setItem('integrations', JSON.stringify(sampleIntegrations));
+  }, []);
 
   // Check for assessment data from quiz
   useEffect(() => {
@@ -58,32 +531,25 @@ const Dashboard = () => {
             </li>
            
             <li className="nav-item">
-              <a href="#" className={`nav-link ${activeTab === 'Products' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('Products'); }}>Products</a>
+              <a href="#" className={`nav-link ${activeTab === 'Products' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('Products'); }}>Expert Reports</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Tasks</a>
+              <a href="#" className={`nav-link ${activeTab === 'Tasks' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('Tasks'); }}>Tasks</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Features</a>
+              <a href="#" className={`nav-link ${activeTab === 'GapAnalysis' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('GapAnalysis'); }}>Gap Analysis</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Users</a>
+              <a href="#" className={`nav-link ${activeTab === 'ProcessSteps' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('ProcessSteps'); }}>Process Steps</a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">Pricing</a>
+              <a href="#" className={`nav-link ${activeTab === 'Integrations' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('Integrations'); }}>Integrations</a>
             </li>
+
             <li className="nav-item">
-              <a href="#" className="nav-link">Integrations</a>
+              <a href="#" className="nav-link">Suscriptions</a>
             </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link">Settings</a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link">Utility pages</a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link">Webflow pages</a>
-            </li>
+        
           </ul>
         </nav>
 
@@ -561,6 +1027,662 @@ const Dashboard = () => {
                 </div>
               </div>
             </>
+          )}
+
+          {activeTab === 'Tasks' && (
+            <div className="tasks-section">
+              <div className="section-header">
+                <h2>User History & Tasks</h2>
+                <p>Track your completed quizzes and received reports</p>
+              </div>
+
+              <div className="history-stats">
+                <div className="stat-card">
+                  <div className="stat-icon">📊</div>
+                  <div className="stat-content">
+                    <h3>{userHistory.completedQuizzes.length}</h3>
+                    <p>Quizzes Completed</p>
+                  </div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon">📋</div>
+                  <div className="stat-content">
+                    <h3>{userHistory.receivedReports.length}</h3>
+                    <p>Reports Received</p>
+                  </div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon">⭐</div>
+                  <div className="stat-content">
+                    <h3>{userHistory.totalPoints}</h3>
+                    <p>Total Points</p>
+                  </div>
+                </div>
+                <div className="stat-card">
+                  <div className="stat-icon">📅</div>
+                  <div className="stat-content">
+                    <h3>{userHistory.lastActivity}</h3>
+                    <p>Last Activity</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="history-content">
+                <div className="history-section">
+                  <div className="section-title">
+                    <h3>Completed Quizzes</h3>
+                    <span className="count-badge">{userHistory.completedQuizzes.length}</span>
+                  </div>
+                  <div className="quiz-list">
+                    {userHistory.completedQuizzes.map((quiz) => (
+                      <div key={quiz.id} className="quiz-item">
+                        <div className="quiz-info">
+                          <h4>{quiz.title}</h4>
+                          <p className="quiz-category">{quiz.category}</p>
+                          <div className="quiz-meta">
+                            <span className="quiz-date">Completed: {quiz.completedDate}</span>
+                            <span className="quiz-questions">{quiz.totalQuestions} questions</span>
+                          </div>
+                        </div>
+                        <div className="quiz-score">
+                          <div className="score-circle">
+                            <span className="score-value">{quiz.score}%</span>
+                          </div>
+                          <div className="score-details">
+                            <span className="points">+{quiz.points} pts</span>
+                            <div className="score-bar">
+                              <div 
+                                className="score-fill" 
+                                style={{width: `${quiz.score}%`}}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="quiz-actions">
+                          <button className="action-btn view-btn">View Details</button>
+                          <button className="action-btn retake-btn">Retake</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="history-section">
+                  <div className="section-title">
+                    <h3>Received Reports</h3>
+                    <span className="count-badge">{userHistory.receivedReports.length}</span>
+                  </div>
+                  <div className="reports-list">
+                    {userHistory.receivedReports.map((report) => (
+                      <div key={report.id} className="report-item">
+                        <div className="report-info">
+                          <h4>{report.title}</h4>
+                          <p className="report-expert">by {report.expert}</p>
+                          <div className="report-meta">
+                            <span className="report-date">Received: {report.receivedDate}</span>
+                            <span className="report-type">{report.type}</span>
+                          </div>
+                        </div>
+                        <div className="report-status">
+                          <span className={`status-badge ${report.status.toLowerCase().replace(' ', '-')}`}>
+                            {report.status}
+                          </span>
+                          <div className="report-points">+{report.points} pts</div>
+                        </div>
+                        <div className="report-actions">
+                          <button className="action-btn download-btn">Download</button>
+                          <button className="action-btn view-btn">View</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'GapAnalysis' && (
+            <div className="gap-analysis-section">
+              <div className="section-header">
+                <h2>Gap Analysis Dashboard</h2>
+                <p>Comprehensive compliance gap analysis and risk monitoring</p>
+              </div>
+
+              {/* Overall Score and Key Metrics */}
+              <div className="overall-metrics">
+                <div className="overall-score-card">
+                  <div className="score-circle-large">
+                    <span className="score-value-large">{gapAnalysis.overallScore}%</span>
+                    <span className="score-label">Overall Compliance</span>
+                  </div>
+                  <div className="score-details">
+                    <div className="score-trend">
+                      <span className="trend-indicator positive">↗</span>
+                      <span className="trend-text">+3% from last week</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="key-metrics-grid">
+                  {gapAnalysis.riskMetrics.map((metric) => (
+                    <div key={metric.id} className={`metric-card ${metric.status}`}>
+                      <div className="metric-header">
+                        <h4>{metric.metric}</h4>
+                        <span className={`status-indicator ${metric.status}`}></span>
+                      </div>
+                      <div className="metric-value">
+                        <span className="value">{metric.currentValue}</span>
+                        <span className="unit">{metric.unit}</span>
+                      </div>
+                      <div className="metric-threshold">
+                        <span>Threshold: {metric.threshold}{metric.unit}</span>
+                      </div>
+                      <div className="metric-trend">
+                        <span className={`trend-arrow ${metric.trend}`}>
+                          {metric.trend === 'increasing' ? '↗' : metric.trend === 'decreasing' ? '↘' : '→'}
+                        </span>
+                        <span className="trend-text">{metric.trend}</span>
+                      </div>
+                      <div className="mini-chart">
+                        <div className="mini-chart-container">
+                          {metric.miniChart.map((value, index) => (
+                            <div
+                              key={index}
+                              className="mini-chart-bar"
+                              style={{
+                                height: `${(value / Math.max(...metric.miniChart)) * 100}%`,
+                                backgroundColor: metric.status === 'good' ? '#10b981' : '#f59e0b'
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                        <div className="mini-chart-labels">
+                          <span>7d</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Critical Alerts */}
+              <div className="alerts-section">
+                <div className="section-title">
+                  <h3>Critical Alerts</h3>
+                  <span className="alert-count">{gapAnalysis.criticalAlerts.length}</span>
+                </div>
+                <div className="alerts-list">
+                  {gapAnalysis.criticalAlerts.map((alert) => (
+                    <div key={alert.id} className={`alert-item ${alert.type.toLowerCase()}`}>
+                      <div className="alert-icon">
+                        {alert.type === 'Critical' ? '🚨' : alert.type === 'High' ? '⚠️' : 'ℹ️'}
+                      </div>
+                      <div className="alert-content">
+                        <h4>{alert.title}</h4>
+                        <p>{alert.description}</p>
+                        <div className="alert-meta">
+                          <span className="alert-time">{alert.timestamp}</span>
+                          <span className="alert-action">{alert.action}</span>
+                        </div>
+                      </div>
+                      <div className="alert-actions">
+                        <button className="action-btn urgent-btn">Take Action</button>
+                      </div>
+                      <div className="alert-mini-chart">
+                        <div className="mini-chart-container">
+                          {alert.miniChart.map((value, index) => (
+                            <div
+                              key={index}
+                              className="mini-chart-bar"
+                              style={{
+                                height: `${(value / 100) * 100}%`,
+                                backgroundColor: alert.type === 'Critical' ? '#ef4444' : 
+                                               alert.type === 'High' ? '#f59e0b' : '#3b82f6'
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                        <div className="mini-chart-labels">
+                          <span>7d trend</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Compliance Gaps Grid */}
+              <div className="gaps-section">
+                <div className="section-title">
+                  <h3>Compliance Gaps</h3>
+                  <div className="gaps-summary">
+                    <span className="total-gaps">{gapAnalysis.complianceGaps.length} Total Gaps</span>
+                    <span className="critical-gaps">
+                      {gapAnalysis.complianceGaps.filter(gap => gap.priority === 'Critical').length} Critical
+                    </span>
+                  </div>
+                </div>
+                <div className="gaps-grid">
+                  {gapAnalysis.complianceGaps.map((gap) => (
+                    <div key={gap.id} className={`gap-card ${gap.priority.toLowerCase()}`}>
+                      <div className="gap-header">
+                        <div className="gap-category">{gap.category}</div>
+                        <div className={`priority-badge ${gap.priority.toLowerCase()}`}>
+                          {gap.priority}
+                        </div>
+                      </div>
+                      <h4 className="gap-title">{gap.title}</h4>
+                      <p className="gap-description">{gap.description}</p>
+                      
+                      <div className="gap-progress">
+                        <div className="progress-labels">
+                          <span>Current: {gap.currentLevel}%</span>
+                          <span>Target: {gap.targetLevel}%</span>
+                        </div>
+                        <div className="progress-bar">
+                          <div 
+                            className="progress-fill current" 
+                            style={{width: `${gap.currentLevel}%`}}
+                          ></div>
+                          <div 
+                            className="progress-fill target" 
+                            style={{width: `${gap.targetLevel}%`}}
+                          ></div>
+                        </div>
+                        <div className="gap-amount">
+                          Gap: {gap.gap}%
+                        </div>
+                      </div>
+
+                      <div className="gap-meta">
+                        <div className="gap-status">
+                          <span className={`status-badge ${gap.status.toLowerCase().replace(' ', '-')}`}>
+                            {gap.status}
+                          </span>
+                        </div>
+                        <div className="gap-updated">
+                          Updated: {gap.lastUpdated}
+                        </div>
+                      </div>
+
+                      <div className="gap-actions">
+                        <button className="action-btn view-btn">View Details</button>
+                        <button className="action-btn plan-btn">Create Plan</button>
+                      </div>
+                      <div className="gap-mini-chart">
+                        <div className="mini-chart-container">
+                          {gap.miniChart.map((value, index) => (
+                            <div
+                              key={index}
+                              className="mini-chart-line"
+                              style={{
+                                height: `${(value / 100) * 100}%`,
+                                backgroundColor: gap.priority === 'Critical' ? '#ef4444' : 
+                                               gap.priority === 'High' ? '#f59e0b' : 
+                                               gap.priority === 'Medium' ? '#3b82f6' : '#10b981'
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                        <div className="mini-chart-labels">
+                          <span>7d trend</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Performance Trends Chart */}
+              <div className="trends-section">
+                <div className="section-title">
+                  <h3>Performance Trends</h3>
+                  <span className="trend-period">Last 7 Days</span>
+                </div>
+                <div className="trends-chart">
+                  <div className="chart-container">
+                    <div className="chart-legend">
+                      <div className="legend-item">
+                        <span className="legend-color compliance"></span>
+                        <span>Compliance Score</span>
+                      </div>
+                      <div className="legend-item">
+                        <span className="legend-color risk"></span>
+                        <span>Risk Level</span>
+                      </div>
+                      <div className="legend-item">
+                        <span className="legend-color training"></span>
+                        <span>Training Progress</span>
+                      </div>
+                    </div>
+                    <div className="chart-area">
+                      <div className="chart-grid">
+                        {Array.from({length: 7}, (_, i) => (
+                          <div key={i} className="grid-line"></div>
+                        ))}
+                      </div>
+                      <div className="chart-lines">
+                        <div className="chart-line compliance">
+                          {gapAnalysis.performanceTrends.map((point, index) => (
+                            <div 
+                              key={index}
+                              className="chart-point"
+                              style={{
+                                left: `${(index / (gapAnalysis.performanceTrends.length - 1)) * 100}%`,
+                                bottom: `${point.compliance}%`
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                        <div className="chart-line risk">
+                          {gapAnalysis.performanceTrends.map((point, index) => (
+                            <div 
+                              key={index}
+                              className="chart-point"
+                              style={{
+                                left: `${(index / (gapAnalysis.performanceTrends.length - 1)) * 100}%`,
+                                bottom: `${point.risk * 4}%`
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                        <div className="chart-line training">
+                          {gapAnalysis.performanceTrends.map((point, index) => (
+                            <div 
+                              key={index}
+                              className="chart-point"
+                              style={{
+                                left: `${(index / (gapAnalysis.performanceTrends.length - 1)) * 100}%`,
+                                bottom: `${point.training}%`
+                              }}
+                            ></div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'ProcessSteps' && (
+            <div className="process-steps-section">
+              <div className="section-header">
+                <h2>Compliance Process Steps</h2>
+                <p>Follow these steps to complete your compliance journey</p>
+              </div>
+
+              {/* Progress Indicator */}
+              <div className="progress-indicator">
+                <div className="progress-line">
+                  {processSteps.steps.map((step, index) => (
+                    <div key={step.id} className="progress-step">
+                      <div className={`step-circle ${step.status}`}>
+                        {step.status === 'completed' ? '✓' : step.id}
+                      </div>
+                      {index < processSteps.steps.length - 1 && (
+                        <div className={`progress-connector ${step.status === 'completed' ? 'completed' : ''}`}></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Process Steps Cards */}
+              <div className="process-cards">
+                {processSteps.steps.map((step) => (
+                  <div key={step.id} className={`process-card ${step.status}`}>
+                    <div className="card-header">
+                      <div className="step-icon">{step.icon}</div>
+                      <div className="step-number">STEP {step.id}</div>
+                    </div>
+                    <div className="card-content">
+                      <h3 className="step-title">{step.title}</h3>
+                      <p className="step-description">{step.description}</p>
+                      {step.completedDate && (
+                        <div className="completion-date">
+                          Completed: {step.completedDate}
+                        </div>
+                      )}
+                    </div>
+                    <div className="card-footer">
+                      <div className={`status-badge ${step.status}`}>
+                        {step.status === 'completed' ? 'Completed' : 
+                         step.status === 'in-progress' ? 'In Progress' : 'Pending'}
+                      </div>
+                      {step.status === 'in-progress' && (
+                        <button className="action-btn continue-btn">Continue</button>
+                      )}
+                      {step.status === 'pending' && (
+                        <button className="action-btn start-btn" disabled>Start</button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Process Summary */}
+              <div className="process-summary">
+                <div className="summary-card">
+                  <h3>Process Overview</h3>
+                  <div className="summary-stats">
+                    <div className="stat-item">
+                      <span className="stat-number">{processSteps.steps.filter(s => s.status === 'completed').length}</span>
+                      <span className="stat-label">Completed</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-number">{processSteps.steps.filter(s => s.status === 'in-progress').length}</span>
+                      <span className="stat-label">In Progress</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-number">{processSteps.steps.filter(s => s.status === 'pending').length}</span>
+                      <span className="stat-label">Pending</span>
+                    </div>
+                  </div>
+                  <div className="progress-bar">
+                    <div 
+                      className="progress-fill" 
+                      style={{width: `${(processSteps.steps.filter(s => s.status === 'completed').length / processSteps.steps.length) * 100}%`}}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Integrations' && (
+            <div className="integrations-section">
+              <div className="section-header">
+                <h2>Integration Management</h2>
+                <p>Connect with partner websites, enterprise resellers, and client gateways</p>
+              </div>
+
+              {/* Partner Types Overview */}
+              <div className="partner-types">
+                <h3>Partner Integration Types</h3>
+                <div className="partner-types-grid">
+                  {integrations.partnerTypes.map((partner) => (
+                    <div key={partner.id} className="partner-type-card">
+                      <div className="partner-header">
+                        <h4>{partner.type}</h4>
+                        <span className="commission-badge">{partner.commission}</span>
+                      </div>
+                      <p className="partner-description">{partner.description}</p>
+                      <div className="partner-benefits">
+                        <h5>Benefits:</h5>
+                        <ul>
+                          {partner.benefits.map((benefit, index) => (
+                            <li key={index}>{benefit}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="partner-requirements">
+                        <h5>Requirements:</h5>
+                        <ul>
+                          {partner.requirements.map((req, index) => (
+                            <li key={index}>{req}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <button className="action-btn partner-btn">Become Partner</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Available Integrations */}
+              <div className="available-integrations">
+                <div className="section-title">
+                  <h3>Available Integrations</h3>
+                  <div className="integration-filters">
+                    <button className="filter-btn active">All</button>
+                    <button className="filter-btn">Enterprise Reseller</button>
+                    <button className="filter-btn">Associate Partner</button>
+                    <button className="filter-btn">Client Gateway</button>
+                  </div>
+                </div>
+                <div className="integrations-grid">
+                  {integrations.availableIntegrations.map((integration) => (
+                    <div key={integration.id} className="integration-card">
+                      <div className="integration-header">
+                        <div className="integration-logo">{integration.logo}</div>
+                        <div className="integration-info">
+                          <h4>{integration.name}</h4>
+                          <span className="integration-type">{integration.type}</span>
+                        </div>
+                        <span className={`category-badge ${integration.category.toLowerCase().replace(' ', '-')}`}>
+                          {integration.category}
+                        </span>
+                      </div>
+                      <p className="integration-description">{integration.description}</p>
+                      <div className="integration-features">
+                        {integration.features.map((feature, index) => (
+                          <span key={index} className="feature-tag">{feature}</span>
+                        ))}
+                      </div>
+                      <div className="integration-footer">
+                        <span className="pricing">{integration.pricing}</span>
+                        <button className="action-btn integrate-btn">Integrate</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Active Integrations */}
+              <div className="active-integrations">
+                <div className="section-title">
+                  <h3>Active Integrations</h3>
+                  <span className="active-count">{integrations.activeIntegrations.length} Active</span>
+                </div>
+                <div className="active-integrations-list">
+                  {integrations.activeIntegrations.map((integration) => (
+                    <div key={integration.id} className="active-integration-card">
+                      <div className="integration-status">
+                        <div className="status-indicator healthy"></div>
+                        <div className="integration-details">
+                          <h4>{integration.name}</h4>
+                          <span className="integration-category">{integration.category}</span>
+                        </div>
+                      </div>
+                      <div className="integration-metrics">
+                        <div className="metric">
+                          <span className="metric-label">API Calls</span>
+                          <span className="metric-value">{integration.apiCalls.toLocaleString()}</span>
+                        </div>
+                        <div className="metric">
+                          <span className="metric-label">Data Flow</span>
+                          <span className="metric-value">{integration.dataFlow}</span>
+                        </div>
+                        <div className="metric">
+                          <span className="metric-label">Last Sync</span>
+                          <span className="metric-value">{integration.lastSync}</span>
+                        </div>
+                      </div>
+                      <div className="integration-actions">
+                        <button className="action-btn view-btn">View Details</button>
+                        <button className="action-btn disconnect-btn">Disconnect</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* API Keys Management */}
+              <div className="api-keys-section">
+                <div className="section-title">
+                  <h3>API Keys Management</h3>
+                  <button className="action-btn create-key-btn">Create New Key</button>
+                </div>
+                <div className="api-keys-list">
+                  {integrations.apiKeys.map((key) => (
+                    <div key={key.id} className="api-key-card">
+                      <div className="key-info">
+                        <h4>{key.name}</h4>
+                        <div className="key-details">
+                          <span className="key-value">{key.key}</span>
+                          <span className="key-permissions">
+                            {key.permissions.join(', ')}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="key-meta">
+                        <div className="key-created">
+                          Created: {key.createdAt}
+                        </div>
+                        <div className="key-last-used">
+                          Last Used: {key.lastUsed}
+                        </div>
+                      </div>
+                      <div className="key-actions">
+                        <button className="action-btn copy-btn">Copy</button>
+                        <button className="action-btn regenerate-btn">Regenerate</button>
+                        <button className="action-btn delete-btn">Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Webhooks Management */}
+              <div className="webhooks-section">
+                <div className="section-title">
+                  <h3>Webhooks Management</h3>
+                  <button className="action-btn create-webhook-btn">Create Webhook</button>
+                </div>
+                <div className="webhooks-list">
+                  {integrations.webhooks.map((webhook) => (
+                    <div key={webhook.id} className="webhook-card">
+                      <div className="webhook-info">
+                        <h4>{webhook.name}</h4>
+                        <div className="webhook-url">{webhook.url}</div>
+                        <div className="webhook-events">
+                          {webhook.events.map((event, index) => (
+                            <span key={index} className="event-tag">{event}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="webhook-metrics">
+                        <div className="metric">
+                          <span className="metric-label">Success Rate</span>
+                          <span className="metric-value">{webhook.successRate}%</span>
+                        </div>
+                        <div className="metric">
+                          <span className="metric-label">Last Triggered</span>
+                          <span className="metric-value">{webhook.lastTriggered}</span>
+                        </div>
+                      </div>
+                      <div className="webhook-actions">
+                        <button className="action-btn test-btn">Test</button>
+                        <button className="action-btn edit-btn">Edit</button>
+                        <button className="action-btn delete-btn">Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>
