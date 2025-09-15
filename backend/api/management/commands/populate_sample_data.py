@@ -90,6 +90,49 @@ class Command(BaseCommand):
                 'name': 'SOX',
                 'description': 'Sarbanes-Oxley Act',
                 'version': '2002'
+            },
+            {
+                'framework': 'USA Compliance',
+                'name': 'CCPA/CPRA',
+                'description': 'California Consumer Privacy Act / California Privacy Rights Act',
+                'version': '2023'
+            },
+            {
+                'framework': 'USA Compliance',
+                'name': 'FISMA',
+                'description': 'Federal Information Security Management Act',
+                'version': '2014'
+            },
+            {
+                'framework': 'USA Compliance',
+                'name': 'PCI DSS',
+                'description': 'Payment Card Industry Data Security Standard',
+                'version': '2018'
+            },
+            # IEC Standards
+            {
+                'framework': 'IEC Standards',
+                'name': 'IEC 62443',
+                'description': 'Industrial Automation and Control Systems Cybersecurity',
+                'version': '2018'
+            },
+            {
+                'framework': 'IEC Standards',
+                'name': 'IEC 61508',
+                'description': 'Functional Safety of Electrical/Electronic Systems',
+                'version': '2010'
+            },
+            {
+                'framework': 'IEC Standards',
+                'name': 'IEC 60364',
+                'description': 'Electrical Installations',
+                'version': '2018'
+            },
+            {
+                'framework': 'IEC Standards',
+                'name': 'IEC 61000',
+                'description': 'Electromagnetic Compatibility (EMC)',
+                'version': '2019'
             }
         ]
         

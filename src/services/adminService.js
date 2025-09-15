@@ -377,6 +377,24 @@ class AdminService {
           is_active: true,
           created_at: '2024-01-02T00:00:00Z',
           standards: []
+        },
+        {
+          id: 3,
+          name: 'USA Compliance',
+          description: 'United States compliance frameworks and regulations',
+          category: 'USA',
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          standards: []
+        },
+        {
+          id: 4,
+          name: 'IEC Standards',
+          description: 'International Electrotechnical Commission standards',
+          category: 'IEC',
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          standards: []
         }
       ];
     }
@@ -416,6 +434,54 @@ class AdminService {
           questions: [],
           is_active: true,
           created_at: '2024-01-02T00:00:00Z'
+        },
+        {
+          id: 3,
+          name: 'HIPAA',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z'
+        },
+        {
+          id: 4,
+          name: 'SOX',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z'
+        },
+        {
+          id: 5,
+          name: 'CCPA/CPRA',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z'
+        },
+        {
+          id: 6,
+          name: 'IEC 62443',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z'
+        },
+        {
+          id: 7,
+          name: 'IEC 61508',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z'
+        },
+        {
+          id: 8,
+          name: 'IEC 60364',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z'
         }
       ];
     }
