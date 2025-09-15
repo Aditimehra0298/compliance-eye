@@ -8,7 +8,7 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
     {
       id: 'basic',
       name: 'Basic Assessment',
-      price: '$299',
+      price: '$99',
       description: 'Essential compliance assessment with basic reporting',
       features: [
         'ISO 27001 Assessment Quiz',
@@ -20,9 +20,9 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
       popular: false
     },
     {
-      id: 'professional',
-      name: 'Professional Assessment',
-      price: '$599',
+      id: 'premium',
+      name: 'Premium Assessment',
+      price: '$299',
       description: 'Comprehensive assessment with detailed reporting and recommendations',
       features: [
         'ISO 27001 Assessment Quiz',
@@ -31,27 +31,10 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
         'Implementation Roadmap',
         'Priority Support',
         '90-day Access',
-        'Document Review (3 documents)'
+        'Document Review (up to 6 documents)',
+        '1-on-1 Consultation Call'
       ],
       popular: true
-    },
-    {
-      id: 'enterprise',
-      name: 'Enterprise Assessment',
-      price: '$999',
-      description: 'Full-scale assessment with ongoing support and consultation',
-      features: [
-        'ISO 27001 Assessment Quiz',
-        'Executive Summary Report',
-        'Detailed Gap Analysis',
-        'Custom Implementation Plan',
-        'Dedicated Support',
-        '180-day Access',
-        'Full Document Review',
-        '1-on-1 Consultation Call',
-        'Follow-up Assessment'
-      ],
-      popular: false
     }
   ];
 
@@ -59,7 +42,7 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
     setSelectedPlan(planId);
   };
 
-  const handleProceedToPayment = () => {
+  const handleProceedToUpload = () => {
     if (selectedPlan) {
       const plan = paymentPlans.find(p => p.id === selectedPlan);
       onPaymentSelected(plan);
@@ -125,15 +108,15 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
           className="back-btn"
           onClick={onBackToUpload}
         >
-          Back to Document Upload
+          Back to Selection
         </button>
         
         <button 
           className={`proceed-btn ${selectedPlan ? 'enabled' : 'disabled'}`}
-          onClick={handleProceedToPayment}
+          onClick={handleProceedToUpload}
           disabled={!selectedPlan}
         >
-          {selectedPlan ? 'Proceed to Payment' : 'Select a Plan to Continue'}
+          {selectedPlan ? 'Proceed to Document Upload' : 'Select a Plan to Continue'}
         </button>
       </div>
 

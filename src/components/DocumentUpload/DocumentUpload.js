@@ -10,25 +10,25 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
       id: 'isms-scope',
       name: 'ISMS Scope Document',
       description: 'Document defining the boundaries and applicability of the ISMS',
-      required: true
+      required: false
     },
     {
       id: 'security-policy',
       name: 'Information Security Policy',
       description: 'Organization\'s information security policy document',
-      required: true
+      required: false
     },
     {
       id: 'risk-assessment',
       name: 'Risk Assessment and Treatment Report',
       description: 'Comprehensive risk assessment and treatment plan',
-      required: true
+      required: false
     },
     {
       id: 'statement-applicability',
       name: 'Statement of Applicability (SoA)',
       description: 'Statement of Applicability for ISO 27001 controls',
-      required: true
+      required: false
     },
     {
       id: 'internal-audit',
@@ -73,23 +73,20 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const getRequiredDocumentsCount = () => {
-    return requiredDocuments.filter(doc => doc.required).length;
+  const getTotalDocumentsCount = () => {
+    return requiredDocuments.length;
   };
 
-  const getUploadedRequiredCount = () => {
-    return requiredDocuments.filter(doc => 
-      doc.required && uploadedFiles[doc.id]
-    ).length;
+  const getUploadedCount = () => {
+    return Object.keys(uploadedFiles).length;
   };
 
   const canProceed = () => {
-    return getUploadedRequiredCount() === getRequiredDocumentsCount();
+    return true; // All documents are optional now
   };
 
-  const handleProceedToPayment = () => {
+  const handleProceedToAssessment = () => {
     onDocumentsUploaded(uploadedFiles);
-    onPaymentChoice();
   };
 
   const handleSkipUpload = () => {
@@ -99,19 +96,19 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
   return (
     <div className="document-upload-container">
       <div className="upload-header">
-        <h2>Document Upload for {complianceType}</h2>
-        <p>Please upload the required compliance documents to proceed with your assessment.</p>
+        <h2>Optional Document Upload for {complianceType}</h2>
+        <p>You can optionally upload compliance documents to enhance your assessment. All documents are optional.</p>
         <div className="upload-progress">
           <div className="progress-bar">
             <div 
               className="progress-fill" 
               style={{ 
-                width: `${(getUploadedRequiredCount() / getRequiredDocumentsCount()) * 100}%` 
+                width: `${(getUploadedCount() / getTotalDocumentsCount()) * 100}%` 
               }}
             ></div>
           </div>
           <span className="progress-text">
-            {getUploadedRequiredCount()} of {getRequiredDocumentsCount()} required documents uploaded
+            {getUploadedCount()} of {getTotalDocumentsCount()} documents uploaded (all optional)
           </span>
         </div>
       </div>
@@ -166,15 +163,14 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
           className="skip-btn"
           onClick={handleSkipUpload}
         >
-          Skip Upload (Optional)
+          Skip Upload & Start Assessment
         </button>
         
         <button 
-          className={`proceed-btn ${canProceed() ? 'enabled' : 'disabled'}`}
-          onClick={handleProceedToPayment}
-          disabled={!canProceed()}
+          className="proceed-btn enabled"
+          onClick={handleProceedToAssessment}
         >
-          {canProceed() ? 'Proceed to Payment' : `Upload ${getRequiredDocumentsCount() - getUploadedRequiredCount()} more required documents`}
+          Start Assessment {getUploadedCount() > 0 ? `with ${getUploadedCount()} documents` : ''}
         </button>
       </div>
     </div>

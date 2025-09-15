@@ -9,7 +9,7 @@ const ComplianceSelector = () => {
   const [selectedCompliance, setSelectedCompliance] = useState('');
   const [selectedStandard, setSelectedStandard] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
-  const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'upload', 'payment'
+  const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'payment', 'upload'
   const [uploadedDocuments, setUploadedDocuments] = useState({});
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -90,25 +90,42 @@ const ComplianceSelector = () => {
           }
         });
       } else if (selectedOption === 'paid') {
-        // Move to document upload step for paid assessment
-        setCurrentStep('upload');
+        // Move to payment selection step for paid assessment
+        setCurrentStep('payment');
       }
     }
   };
 
-  const handleDocumentsUploaded = (documents) => {
-    setUploadedDocuments(documents);
-    setCurrentStep('payment');
-  };
-
-  const handlePaymentChoice = () => {
-    setCurrentStep('payment');
-  };
-
   const handlePaymentSelected = (plan) => {
     setSelectedPlan(plan);
-    // Here you would integrate with your payment gateway
-    alert(`Selected ${plan.name} for ${plan.price}. Payment gateway integration coming soon!`);
+    setCurrentStep('upload');
+  };
+
+  const handleDocumentsUploaded = (documents) => {
+    setUploadedDocuments(documents);
+    // Proceed to quiz with plan and documents
+    navigate('/quiz', { 
+      state: { 
+        compliance: selectedCompliance,
+        standard: selectedStandard,
+        option: selectedOption,
+        plan: selectedPlan,
+        documents: uploadedDocuments
+      }
+    });
+  };
+
+  const handleSkipUpload = () => {
+    // Proceed to quiz without documents
+    navigate('/quiz', { 
+      state: { 
+        compliance: selectedCompliance,
+        standard: selectedStandard,
+        option: selectedOption,
+        plan: selectedPlan,
+        documents: {}
+      }
+    });
   };
 
   const handleBackToSelection = () => {
@@ -117,20 +134,20 @@ const ComplianceSelector = () => {
     setSelectedPlan(null);
   };
 
-  const handleBackToUpload = () => {
-    setCurrentStep('upload');
+  const handleBackToPayment = () => {
+    setCurrentStep('payment');
   };
 
   const isFormComplete = selectedCompliance && selectedStandard && selectedOption;
 
   // Render different steps
-  if (currentStep === 'upload') {
+  if (currentStep === 'payment') {
     return (
       <div className="compliance-selector">
-        <DocumentUpload
+        <PaymentChoice
           complianceType={`${selectedCompliance} - ${selectedStandard}`}
-          onDocumentsUploaded={handleDocumentsUploaded}
-          onPaymentChoice={handlePaymentChoice}
+          onPaymentSelected={handlePaymentSelected}
+          onBackToUpload={handleBackToPayment}
         />
         <div className="step-actions">
           <button 
@@ -144,20 +161,20 @@ const ComplianceSelector = () => {
     );
   }
 
-  if (currentStep === 'payment') {
+  if (currentStep === 'upload') {
     return (
       <div className="compliance-selector">
-        <PaymentChoice
+        <DocumentUpload
           complianceType={`${selectedCompliance} - ${selectedStandard}`}
-          onPaymentSelected={handlePaymentSelected}
-          onBackToUpload={handleBackToUpload}
+          onDocumentsUploaded={handleDocumentsUploaded}
+          onPaymentChoice={handleSkipUpload}
         />
         <div className="step-actions">
           <button 
             className="back-button"
-            onClick={handleBackToSelection}
+            onClick={handleBackToPayment}
           >
-            ← Back to Selection
+            ← Back to Payment
           </button>
         </div>
       </div>
