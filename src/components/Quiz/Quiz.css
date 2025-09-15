@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: #0f172a;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Epunda Slab', serif;
 }
 
 /* Header Styles */
@@ -46,6 +46,7 @@
   color: white;
   font-size: 1.5rem;
   font-weight: 700;
+  font-family: 'Epunda Slab', serif;
   margin: 0;
 }
 
@@ -58,6 +59,7 @@
   color: #a1a1aa;
   text-decoration: none;
   font-weight: 500;
+  font-family: 'Epunda Slab', serif;
   transition: color 0.3s ease;
 }
 
@@ -91,7 +93,7 @@
   min-height: calc(100vh - 80px);
   background: #0f172a;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Epunda Slab', serif;
   padding: clamp(40px, 8vw, 80px) clamp(20px, 5vw, 80px);
   position: relative;
   overflow: visible;
