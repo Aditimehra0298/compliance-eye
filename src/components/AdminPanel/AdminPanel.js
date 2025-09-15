@@ -84,6 +84,9 @@ const AdminPanel = () => {
   const [auditLogs, setAuditLogs] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUserDetails, setShowUserDetails] = useState(false);
+  const [quizAssessments, setQuizAssessments] = useState([]);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [realTimeData, setRealTimeData] = useState({
     totalUsers: 0,
     activeAssessments: 0,
@@ -148,12 +151,13 @@ const AdminPanel = () => {
   // Load all admin data
   const loadAllData = async () => {
     try {
-      const [metricsData, usersData, assessmentsData, standardsData, frameworksData] = await Promise.all([
+      const [metricsData, usersData, assessmentsData, standardsData, frameworksData, quizAssessmentsData] = await Promise.all([
         adminService.getRealTimeMetrics(),
         adminService.getAllUsersData(),
         adminService.getAssessmentsData(),
         adminService.getStandardsData(),
-        adminService.getFrameworksData()
+        adminService.getFrameworksData(),
+        adminService.getQuizAssessmentsData()
       ]);
       
       const location = await getCurrentLocation();
@@ -171,6 +175,7 @@ const AdminPanel = () => {
       setAssessments(assessmentsData);
       setStandards(standardsData);
       setFrameworks(frameworksData);
+      setQuizAssessments(quizAssessmentsData);
     } catch (error) {
       console.error('Error loading admin data:', error);
     }
@@ -513,6 +518,17 @@ const AdminPanel = () => {
     setSelectedUser(null);
   };
 
+  // Handle quiz details view
+  const handleViewQuizDetails = (quiz) => {
+    setSelectedQuiz(quiz);
+    setShowQuizDetails(true);
+  };
+
+  const handleCloseQuizDetails = () => {
+    setShowQuizDetails(false);
+    setSelectedQuiz(null);
+  };
+
   // Loading component
   if (isLoading) {
     return (
@@ -687,6 +703,40 @@ const AdminPanel = () => {
             ))}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+
+  const renderQuizAssessments = () => (
+    <div className="admin-section">
+      <div className="section-header">
+        <h2>Quiz Assessments</h2>
+        <div className="header-actions">
+          <button className="add-btn">+ Add New Quiz</button>
+          <button className="add-btn">📝 Edit Questions</button>
+        </div>
+      </div>
+      
+      <div className="quiz-assessments-grid">
+        {quizAssessments.map(quiz => (
+          <div key={quiz.id} className="quiz-assessment-card">
+            <div className="quiz-header">
+              <h3>{quiz.standard}</h3>
+              <span className={`status-badge ${quiz.status}`}>{quiz.status}</span>
+            </div>
+            <div className="quiz-info">
+              <p><strong>Framework:</strong> {quiz.framework}</p>
+              <p><strong>Questions:</strong> {quiz.total_questions}</p>
+              <p><strong>Last Updated:</strong> {formatDate(quiz.last_updated)}</p>
+              <p><strong>Created:</strong> {formatDate(quiz.created_at)}</p>
+            </div>
+            <div className="quiz-actions">
+              <button className="action-btn" onClick={() => handleViewQuizDetails(quiz)}>View Questions</button>
+              <button className="action-btn">Edit Quiz</button>
+              <button className="action-btn">Preview</button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -1054,6 +1104,14 @@ const AdminPanel = () => {
           </button>
           
           <button 
+            className={`nav-item ${activeTab === 'quiz-assessments' ? 'active' : ''}`}
+            onClick={() => setActiveTab('quiz-assessments')}
+          >
+            <span className="nav-icon">📝</span>
+            <span>Quiz Assessments</span>
+          </button>
+          
+          <button 
             className={`nav-item ${activeTab === 'individual' ? 'active' : ''}`}
             onClick={() => setActiveTab('individual')}
           >
@@ -1094,6 +1152,7 @@ const AdminPanel = () => {
           {activeTab === 'assessments' && renderAssessments()}
           {activeTab === 'frameworks' && renderFrameworks()}
           {activeTab === 'standards' && renderStandards()}
+          {activeTab === 'quiz-assessments' && renderQuizAssessments()}
           {activeTab === 'individual' && renderIndividualData()}
         </div>
       </div>
@@ -1481,6 +1540,96 @@ const AdminPanel = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quiz Details Modal */}
+      {showQuizDetails && selectedQuiz && (
+        <div className="modal-overlay">
+          <div className="modal-content large-modal quiz-details-modal">
+            <div className="modal-header">
+              <h3>Quiz Details - {selectedQuiz.standard}</h3>
+              <button className="close-btn" onClick={handleCloseQuizDetails}>×</button>
+            </div>
+            
+            <div className="quiz-details-content">
+              {/* Quiz Information */}
+              <div className="quiz-info-section">
+                <h4>📝 Quiz Information</h4>
+                <div className="info-grid">
+                  <div className="info-item">
+                    <label>Standard:</label>
+                    <span>{selectedQuiz.standard}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Framework:</label>
+                    <span>{selectedQuiz.framework}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Status:</label>
+                    <span className={`status-badge ${selectedQuiz.status}`}>{selectedQuiz.status}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Total Questions:</label>
+                    <span>{selectedQuiz.total_questions}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Created:</label>
+                    <span>{formatDate(selectedQuiz.created_at)}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Last Updated:</label>
+                    <span>{formatDate(selectedQuiz.last_updated)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Questions Section */}
+              <div className="questions-section">
+                <h4>❓ Questions & Options</h4>
+                <div className="questions-list">
+                  {selectedQuiz.questions.map((question, index) => (
+                    <div key={question.id} className="question-card">
+                      <div className="question-header">
+                        <h5>Question {question.question_number}</h5>
+                        <div className="question-actions">
+                          <button className="edit-btn">Edit</button>
+                          <button className="delete-btn">Delete</button>
+                        </div>
+                      </div>
+                      <div className="question-text">
+                        {question.question_text}
+                      </div>
+                      <div className="options-list">
+                        {question.options.map((option, optIndex) => (
+                          <div key={optIndex} className="option-item">
+                            <span className="option-letter">{option.letter}</span>
+                            <span className="option-text">{option.text}</span>
+                            <span className="option-points">{option.points} pts</span>
+                            <div className="option-actions">
+                              <button className="edit-option-btn">Edit</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quiz Actions */}
+              <div className="quiz-actions-section">
+                <h4>⚙️ Quiz Management</h4>
+                <div className="action-buttons">
+                  <button className="action-btn primary">Add New Question</button>
+                  <button className="action-btn">Edit Quiz Settings</button>
+                  <button className="action-btn">Preview Quiz</button>
+                  <button className="action-btn">Export Questions</button>
+                  <button className="action-btn">Import Questions</button>
                 </div>
               </div>
             </div>

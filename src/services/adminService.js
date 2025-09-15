@@ -820,6 +820,151 @@ class AdminService {
     }
   }
 
+  // Get quiz assessments with questions
+  async getQuizAssessmentsData() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/quiz-assessments/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch quiz assessments data');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching quiz assessments data:', error);
+      // Return mock data for development
+      return [
+        {
+          id: 1,
+          standard: 'ISO 27001',
+          framework: 'ISO Standards',
+          status: 'ready',
+          total_questions: 30,
+          questions: [
+            {
+              id: 1,
+              question_number: 1,
+              question_text: 'Information Security Policy - Does your organization have a documented information security policy that is approved by management and communicated to all relevant personnel?',
+              options: [
+                { letter: 'A', text: 'No documented policy', points: 2 },
+                { letter: 'B', text: 'Basic policy exists but not fully implemented', points: 4 },
+                { letter: 'C', text: 'Well implemented with good practices', points: 5.5 },
+                { letter: 'D', text: 'Excellent implementation with continuous improvement', points: 8 }
+              ]
+            },
+            {
+              id: 2,
+              question_number: 2,
+              question_text: 'Organization of Information Security - Is there a clear organizational structure for information security with defined roles and responsibilities?',
+              options: [
+                { letter: 'A', text: 'No clear structure', points: 2 },
+                { letter: 'B', text: 'Basic structure exists', points: 4 },
+                { letter: 'C', text: 'Well-defined structure with clear roles', points: 5.5 },
+                { letter: 'D', text: 'Excellent structure with regular reviews', points: 8 }
+              ]
+            },
+            {
+              id: 3,
+              question_number: 3,
+              question_text: 'Human Resource Security - Are there security procedures in place for hiring, training, and termination of employees?',
+              options: [
+                { letter: 'A', text: 'No formal procedures', points: 2 },
+                { letter: 'B', text: 'Basic procedures exist', points: 4 },
+                { letter: 'C', text: 'Comprehensive procedures implemented', points: 5.5 },
+                { letter: 'D', text: 'Excellent procedures with regular updates', points: 8 }
+              ]
+            }
+          ],
+          created_at: '2024-01-01T00:00:00Z',
+          last_updated: '2024-01-15T10:30:00Z'
+        },
+        {
+          id: 2,
+          standard: 'GDPR',
+          framework: 'EU Compliance',
+          status: 'ready',
+          total_questions: 25,
+          questions: [
+            {
+              id: 1,
+              question_number: 1,
+              question_text: 'Data Protection by Design - Does your organization implement data protection principles from the design stage of any processing activity?',
+              options: [
+                { letter: 'A', text: 'No implementation', points: 2 },
+                { letter: 'B', text: 'Basic implementation', points: 4 },
+                { letter: 'C', text: 'Good implementation', points: 5.5 },
+                { letter: 'D', text: 'Excellent implementation', points: 8 }
+              ]
+            },
+            {
+              id: 2,
+              question_number: 2,
+              question_text: 'Consent Management - Do you have proper mechanisms for obtaining, recording, and managing user consent?',
+              options: [
+                { letter: 'A', text: 'No consent mechanisms', points: 2 },
+                { letter: 'B', text: 'Basic consent collection', points: 4 },
+                { letter: 'C', text: 'Comprehensive consent management', points: 5.5 },
+                { letter: 'D', text: 'Advanced consent management with tracking', points: 8 }
+              ]
+            }
+          ],
+          created_at: '2024-01-02T00:00:00Z',
+          last_updated: '2024-01-16T14:20:00Z'
+        },
+        {
+          id: 3,
+          standard: 'HIPAA',
+          framework: 'USA Compliance',
+          status: 'ready',
+          total_questions: 20,
+          questions: [
+            {
+              id: 1,
+              question_number: 1,
+              question_text: 'Administrative Safeguards - Do you have administrative policies and procedures to protect health information?',
+              options: [
+                { letter: 'A', text: 'No administrative safeguards', points: 2 },
+                { letter: 'B', text: 'Basic policies exist', points: 4 },
+                { letter: 'C', text: 'Comprehensive administrative safeguards', points: 5.5 },
+                { letter: 'D', text: 'Excellent safeguards with regular audits', points: 8 }
+              ]
+            }
+          ],
+          created_at: '2024-01-03T00:00:00Z',
+          last_updated: '2024-01-17T09:15:00Z'
+        },
+        {
+          id: 4,
+          standard: 'IEC 62443',
+          framework: 'IEC Standards',
+          status: 'in_progress',
+          total_questions: 15,
+          questions: [
+            {
+              id: 1,
+              question_number: 1,
+              question_text: 'Industrial Network Security - Do you have proper network segmentation and security controls for industrial systems?',
+              options: [
+                { letter: 'A', text: 'No network security measures', points: 2 },
+                { letter: 'B', text: 'Basic network protection', points: 4 },
+                { letter: 'C', text: 'Good network security implementation', points: 5.5 },
+                { letter: 'D', text: 'Excellent network security with monitoring', points: 8 }
+              ]
+            }
+          ],
+          created_at: '2024-01-04T00:00:00Z',
+          last_updated: '2024-01-18T16:45:00Z'
+        }
+      ];
+    }
+  }
+
   // Add framework
   async addFramework(frameworkData) {
     try {
