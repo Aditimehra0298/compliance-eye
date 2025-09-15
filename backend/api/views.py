@@ -537,6 +537,68 @@ class AdminDashboardViewSet(viewsets.ViewSet):
         except Exception as e:
             return Response({'error': str(e)}, status=500)
 
+# Framework Management Views
+class ComplianceFrameworkManagementViewSet(viewsets.ModelViewSet):
+    """ViewSet for framework management"""
+    queryset = ComplianceFramework.objects.all()
+    serializer_class = ComplianceFrameworkSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        """Create a new framework"""
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Standard Management Views
+class ComplianceStandardManagementViewSet(viewsets.ModelViewSet):
+    """ViewSet for standard management"""
+    queryset = ComplianceStandard.objects.all()
+    serializer_class = ComplianceStandardSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        """Create a new standard"""
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['post'])
+    def add_questions(self, request, pk=None):
+        """Add questions to a standard"""
+        standard = self.get_object()
+        questions_data = request.data.get('questions', [])
+        
+        try:
+            for question_data in questions_data:
+                question = Question.objects.create(
+                    standard=standard,
+                    question_text=question_data['question_text'],
+                    question_number=question_data['question_number']
+                )
+                
+                # Create options
+                for option_data in question_data.get('options', []):
+                    QuestionOption.objects.create(
+                        question=question,
+                        option_text=option_data['option_text'],
+                        option_letter=option_data['option_letter'],
+                        points=option_data['points'],
+                        order=option_data.get('order', 1)
+                    )
+            
+            return Response({
+                'message': f'Added {len(questions_data)} questions to {standard.name}',
+                'questions_added': len(questions_data)
+            }, status=201)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
 # Public API Views
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

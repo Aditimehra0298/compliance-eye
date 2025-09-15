@@ -7,12 +7,38 @@ const AdminPanel = () => {
   const [users, setUsers] = useState([]);
   const [assessments, setAssessments] = useState([]);
   const [standards, setStandards] = useState([]);
+  const [frameworks, setFrameworks] = useState([]);
   const [realTimeData, setRealTimeData] = useState({
     totalUsers: 0,
     activeAssessments: 0,
     completedAssessments: 0,
     averageScore: 0,
     location: 'Unknown'
+  });
+
+  // Form states
+  const [showAddFramework, setShowAddFramework] = useState(false);
+  const [showAddStandard, setShowAddStandard] = useState(false);
+  const [showAddQuestions, setShowAddQuestions] = useState(false);
+  const [selectedFramework, setSelectedFramework] = useState(null);
+  const [selectedStandard, setSelectedStandard] = useState(null);
+
+  // Form data
+  const [frameworkForm, setFrameworkForm] = useState({
+    name: '',
+    description: '',
+    category: 'CUSTOM'
+  });
+
+  const [standardForm, setStandardForm] = useState({
+    name: '',
+    description: '',
+    version: '1.0',
+    framework: ''
+  });
+
+  const [questionsForm, setQuestionsForm] = useState({
+    questions: []
   });
 
   // Load real-time data
@@ -81,6 +107,20 @@ const AdminPanel = () => {
     loadStandardsData();
   }, []);
 
+  // Load frameworks data
+  useEffect(() => {
+    const loadFrameworksData = async () => {
+      try {
+        const data = await adminService.getFrameworksData();
+        setFrameworks(data);
+      } catch (error) {
+        console.error('Error loading frameworks data:', error);
+      }
+    };
+
+    loadFrameworksData();
+  }, []);
+
   const getCurrentLocation = async () => {
     try {
       const location = await adminService.getCurrentLocation();
@@ -88,6 +128,91 @@ const AdminPanel = () => {
     } catch (error) {
       return 'Location unavailable';
     }
+  };
+
+  // Form handlers
+  const handleAddFramework = async (e) => {
+    e.preventDefault();
+    try {
+      await adminService.addFramework(frameworkForm);
+      setFrameworkForm({ name: '', description: '', category: 'CUSTOM' });
+      setShowAddFramework(false);
+      // Reload frameworks
+      const data = await adminService.getFrameworksData();
+      setFrameworks(data);
+    } catch (error) {
+      console.error('Error adding framework:', error);
+    }
+  };
+
+  const handleAddStandard = async (e) => {
+    e.preventDefault();
+    try {
+      await adminService.addStandard(standardForm);
+      setStandardForm({ name: '', description: '', version: '1.0', framework: '' });
+      setShowAddStandard(false);
+      // Reload standards
+      const data = await adminService.getStandardsData();
+      setStandards(data);
+    } catch (error) {
+      console.error('Error adding standard:', error);
+    }
+  };
+
+  const handleAddQuestions = async (e) => {
+    e.preventDefault();
+    try {
+      await adminService.addQuestions(selectedStandard.id, questionsForm.questions);
+      setQuestionsForm({ questions: [] });
+      setShowAddQuestions(false);
+      // Reload standards
+      const data = await adminService.getStandardsData();
+      setStandards(data);
+    } catch (error) {
+      console.error('Error adding questions:', error);
+    }
+  };
+
+  const addQuestion = () => {
+    setQuestionsForm(prev => ({
+      questions: [...prev.questions, {
+        question_text: '',
+        question_number: prev.questions.length + 1,
+        options: [
+          { option_text: '', option_letter: 'A', points: 2.0, order: 1 },
+          { option_text: '', option_letter: 'B', points: 4.0, order: 2 },
+          { option_text: '', option_letter: 'C', points: 5.5, order: 3 },
+          { option_text: '', option_letter: 'D', points: 8.0, order: 4 }
+        ]
+      }]
+    }));
+  };
+
+  const updateQuestion = (index, field, value) => {
+    setQuestionsForm(prev => ({
+      questions: prev.questions.map((q, i) => 
+        i === index ? { ...q, [field]: value } : q
+      )
+    }));
+  };
+
+  const updateOption = (questionIndex, optionIndex, field, value) => {
+    setQuestionsForm(prev => ({
+      questions: prev.questions.map((q, qi) => 
+        qi === questionIndex ? {
+          ...q,
+          options: q.options.map((opt, oi) => 
+            oi === optionIndex ? { ...opt, [field]: value } : opt
+          )
+        } : q
+      )
+    }));
+  };
+
+  const removeQuestion = (index) => {
+    setQuestionsForm(prev => ({
+      questions: prev.questions.filter((_, i) => i !== index)
+    }));
   };
 
 
@@ -252,11 +377,94 @@ const AdminPanel = () => {
     </div>
   );
 
+  const renderFrameworks = () => (
+    <div className="admin-section">
+      <div className="section-header">
+        <h2>Compliance Frameworks</h2>
+        <button className="add-btn" onClick={() => setShowAddFramework(true)}>+ Add Framework</button>
+      </div>
+      
+      <div className="frameworks-grid">
+        {frameworks.map(framework => (
+          <div key={framework.id} className="framework-card">
+            <div className="framework-header">
+              <h3>{framework.name}</h3>
+              <span className={`status-indicator ${framework.is_active ? 'active' : 'inactive'}`}>
+                {framework.is_active ? 'Active' : 'Inactive'}
+              </span>
+            </div>
+            <div className="framework-info">
+              <p><strong>Category:</strong> {framework.category}</p>
+              <p><strong>Description:</strong> {framework.description}</p>
+              <p><strong>Standards:</strong> {framework.standards?.length || 0}</p>
+              <p><strong>Created:</strong> {new Date(framework.created_at).toLocaleDateString()}</p>
+            </div>
+            <div className="framework-actions">
+              <button className="action-btn">Edit</button>
+              <button className="action-btn" onClick={() => {
+                setSelectedFramework(framework);
+                setActiveTab('standards');
+              }}>View Standards</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Add Framework Modal */}
+      {showAddFramework && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3>Add New Framework</h3>
+              <button className="close-btn" onClick={() => setShowAddFramework(false)}>×</button>
+            </div>
+            <form onSubmit={handleAddFramework} className="modal-form">
+              <div className="form-group">
+                <label>Framework Name</label>
+                <input
+                  type="text"
+                  value={frameworkForm.name}
+                  onChange={(e) => setFrameworkForm({...frameworkForm, name: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Description</label>
+                <textarea
+                  value={frameworkForm.description}
+                  onChange={(e) => setFrameworkForm({...frameworkForm, description: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Category</label>
+                <select
+                  value={frameworkForm.category}
+                  onChange={(e) => setFrameworkForm({...frameworkForm, category: e.target.value})}
+                >
+                  <option value="EU">EU Compliance</option>
+                  <option value="USA">USA Compliance</option>
+                  <option value="ISO">ISO Standards</option>
+                  <option value="IEC">IEC Standards</option>
+                  <option value="CUSTOM">Custom</option>
+                </select>
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="cancel-btn" onClick={() => setShowAddFramework(false)}>Cancel</button>
+                <button type="submit" className="submit-btn">Add Framework</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   const renderStandards = () => (
     <div className="admin-section">
       <div className="section-header">
         <h2>Compliance Standards</h2>
-        <button className="add-btn">+ Add Standard</button>
+        <button className="add-btn" onClick={() => setShowAddStandard(true)}>+ Add Standard</button>
       </div>
       
       <div className="standards-grid">
@@ -275,12 +483,136 @@ const AdminPanel = () => {
             </div>
             <div className="standard-actions">
               <button className="action-btn">Edit</button>
-              <button className="action-btn">Questions</button>
+              <button className="action-btn" onClick={() => {
+                setSelectedStandard(standard);
+                setShowAddQuestions(true);
+              }}>Add Questions</button>
               <button className="action-btn">Deactivate</button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Add Standard Modal */}
+      {showAddStandard && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h3>Add New Standard</h3>
+              <button className="close-btn" onClick={() => setShowAddStandard(false)}>×</button>
+            </div>
+            <form onSubmit={handleAddStandard} className="modal-form">
+              <div className="form-group">
+                <label>Standard Name</label>
+                <input
+                  type="text"
+                  value={standardForm.name}
+                  onChange={(e) => setStandardForm({...standardForm, name: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Description</label>
+                <textarea
+                  value={standardForm.description}
+                  onChange={(e) => setStandardForm({...standardForm, description: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Version</label>
+                <input
+                  type="text"
+                  value={standardForm.version}
+                  onChange={(e) => setStandardForm({...standardForm, version: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Framework</label>
+                <select
+                  value={standardForm.framework}
+                  onChange={(e) => setStandardForm({...standardForm, framework: e.target.value})}
+                  required
+                >
+                  <option value="">Select Framework</option>
+                  {frameworks.map(framework => (
+                    <option key={framework.id} value={framework.id}>{framework.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="cancel-btn" onClick={() => setShowAddStandard(false)}>Cancel</button>
+                <button type="submit" className="submit-btn">Add Standard</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Add Questions Modal */}
+      {showAddQuestions && selectedStandard && (
+        <div className="modal-overlay">
+          <div className="modal-content large-modal">
+            <div className="modal-header">
+              <h3>Add Questions to {selectedStandard.name}</h3>
+              <button className="close-btn" onClick={() => setShowAddQuestions(false)}>×</button>
+            </div>
+            <form onSubmit={handleAddQuestions} className="modal-form">
+              <div className="questions-container">
+                {questionsForm.questions.map((question, index) => (
+                  <div key={index} className="question-card">
+                    <div className="question-header">
+                      <h4>Question {question.question_number}</h4>
+                      <button type="button" className="remove-btn" onClick={() => removeQuestion(index)}>Remove</button>
+                    </div>
+                    <div className="form-group">
+                      <label>Question Text</label>
+                      <textarea
+                        value={question.question_text}
+                        onChange={(e) => updateQuestion(index, 'question_text', e.target.value)}
+                        required
+                        rows="3"
+                      />
+                    </div>
+                    <div className="options-container">
+                      <h5>Answer Options</h5>
+                      {question.options.map((option, optionIndex) => (
+                        <div key={optionIndex} className="option-row">
+                          <div className="option-letter">{option.option_letter}</div>
+                          <input
+                            type="text"
+                            value={option.option_text}
+                            onChange={(e) => updateOption(index, optionIndex, 'option_text', e.target.value)}
+                            placeholder={`Option ${option.option_letter}`}
+                            required
+                          />
+                          <input
+                            type="number"
+                            value={option.points}
+                            onChange={(e) => updateOption(index, optionIndex, 'points', parseFloat(e.target.value))}
+                            step="0.1"
+                            min="0"
+                            max="10"
+                          />
+                          <span className="points-label">points</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <button type="button" className="add-question-btn" onClick={addQuestion}>
+                  + Add Question
+                </button>
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="cancel-btn" onClick={() => setShowAddQuestions(false)}>Cancel</button>
+                <button type="submit" className="submit-btn">Add Questions</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -385,6 +717,14 @@ const AdminPanel = () => {
           </button>
           
           <button 
+            className={`nav-item ${activeTab === 'frameworks' ? 'active' : ''}`}
+            onClick={() => setActiveTab('frameworks')}
+          >
+            <span className="nav-icon">🏗️</span>
+            <span>Frameworks</span>
+          </button>
+          
+          <button 
             className={`nav-item ${activeTab === 'standards' ? 'active' : ''}`}
             onClick={() => setActiveTab('standards')}
           >
@@ -428,6 +768,7 @@ const AdminPanel = () => {
           {activeTab === 'dashboard' && renderDashboard()}
           {activeTab === 'users' && renderUsers()}
           {activeTab === 'assessments' && renderAssessments()}
+          {activeTab === 'frameworks' && renderFrameworks()}
           {activeTab === 'standards' && renderStandards()}
           {activeTab === 'individual' && renderIndividualData()}
         </div>

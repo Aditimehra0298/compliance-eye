@@ -11,6 +11,10 @@ router.register(r'auth/logout', views.LogoutView, basename='logout')
 router.register(r'frameworks', views.ComplianceFrameworkViewSet)
 router.register(r'standards', views.ComplianceStandardViewSet)
 
+# Management endpoints (for admin panel)
+router.register(r'frameworks-management', views.ComplianceFrameworkManagementViewSet, basename='frameworks-management')
+router.register(r'standards-management', views.ComplianceStandardManagementViewSet, basename='standards-management')
+
 # Assessments
 router.register(r'assessments', views.AssessmentViewSet)
 

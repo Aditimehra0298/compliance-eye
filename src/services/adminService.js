@@ -188,6 +188,47 @@ class AdminService {
     }
   }
 
+  // Get frameworks data
+  async getFrameworksData() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/frameworks/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch frameworks data');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching frameworks data:', error);
+      // Return mock data for development
+      return [
+        {
+          id: 1,
+          name: 'ISO Standards',
+          description: 'International Organization for Standardization standards',
+          category: 'ISO',
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          standards: []
+        },
+        {
+          id: 2,
+          name: 'EU Compliance',
+          description: 'European Union compliance frameworks',
+          category: 'EU',
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          standards: []
+        }
+      ];
+    }
+  }
+
   // Get standards data
   async getStandardsData() {
     try {
@@ -210,16 +251,16 @@ class AdminService {
         {
           id: 1,
           name: 'ISO 27001',
-          framework: 'ISO Standards',
-          questions: 30,
+          framework: { name: 'ISO Standards' },
+          questions: [],
           is_active: true,
           created_at: '2024-01-01T00:00:00Z'
         },
         {
           id: 2,
           name: 'GDPR',
-          framework: 'EU Compliance',
-          questions: 25,
+          framework: { name: 'EU Compliance' },
+          questions: [],
           is_active: true,
           created_at: '2024-01-02T00:00:00Z'
         }
@@ -227,10 +268,33 @@ class AdminService {
     }
   }
 
-  // Add new standard
+  // Add framework
+  async addFramework(frameworkData) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/frameworks-management/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(frameworkData)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to add framework');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error adding framework:', error);
+      throw error;
+    }
+  }
+
+  // Add standard
   async addStandard(standardData) {
     try {
-      const response = await fetch(`${API_BASE_URL}/admin/add_standard/`, {
+      const response = await fetch(`${API_BASE_URL}/standards-management/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -249,6 +313,30 @@ class AdminService {
       throw error;
     }
   }
+
+  // Add questions to standard
+  async addQuestions(standardId, questionsData) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/standards-management/${standardId}/add_questions/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ questions: questionsData })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to add questions');
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error adding questions:', error);
+      throw error;
+    }
+  }
+
 
   // Get current location
   getCurrentLocation() {
