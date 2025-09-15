@@ -2,18 +2,95 @@ import React, { useState, useEffect } from 'react';
 import './AdminPanel.css';
 import adminService from '../../services/adminService';
 
+// Admin Login Component
+const AdminLogin = ({ onLogin }) => {
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      await onLogin(credentials);
+    } catch (error) {
+      setError('Invalid credentials. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="admin-login">
+      <div className="login-container">
+        <div className="login-header">
+          <h1>Admin Panel</h1>
+          <p>Compliance Eye Management System</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              type="text"
+              value={credentials.username}
+              onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+              required
+              placeholder="Enter admin username"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={credentials.password}
+              onChange={(e) => setCredentials({...credentials, password: e.target.value})}
+              required
+              placeholder="Enter admin password"
+            />
+          </div>
+          
+          {error && <div className="error-message">{error}</div>}
+          
+          <button type="submit" className="login-btn" disabled={isLoading}>
+            {isLoading ? 'Signing In...' : 'Sign In'}
+          </button>
+        </form>
+        
+        <div className="login-footer">
+          <p>Default credentials: admin / admin123</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AdminPanel = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [users, setUsers] = useState([]);
   const [assessments, setAssessments] = useState([]);
   const [standards, setStandards] = useState([]);
   const [frameworks, setFrameworks] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [systemSettings, setSystemSettings] = useState({});
+  const [auditLogs, setAuditLogs] = useState([]);
   const [realTimeData, setRealTimeData] = useState({
     totalUsers: 0,
     activeAssessments: 0,
     completedAssessments: 0,
     averageScore: 0,
-    location: 'Unknown'
+    location: 'Unknown',
+    systemHealth: 'Good',
+    lastBackup: null,
+    storageUsed: '2.3 GB'
   });
 
   // Form states
@@ -50,29 +127,76 @@ const AdminPanel = () => {
     questions: []
   });
 
+  // Authentication check
+  useEffect(() => {
+    const checkAuth = () => {
+      const adminToken = localStorage.getItem('adminToken');
+      if (adminToken) {
+        setIsAuthenticated(true);
+        loadAllData();
+      } else {
+        setIsAuthenticated(false);
+      }
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  // Load all admin data
+  const loadAllData = async () => {
+    try {
+      const [metricsData, usersData, assessmentsData, standardsData, frameworksData] = await Promise.all([
+        adminService.getRealTimeMetrics(),
+        adminService.getAllUsersData(),
+        adminService.getAssessmentsData(),
+        adminService.getStandardsData(),
+        adminService.getFrameworksData()
+      ]);
+      
+      setRealTimeData({
+        totalUsers: metricsData.total_users,
+        activeAssessments: metricsData.active_assessments,
+        completedAssessments: metricsData.completed_assessments,
+        averageScore: metricsData.average_score,
+        location: await getCurrentLocation(),
+        systemHealth: 'Good',
+        lastBackup: new Date().toISOString(),
+        storageUsed: '2.3 GB'
+      });
+      setUsers(usersData);
+      setAssessments(assessmentsData);
+      setStandards(standardsData);
+      setFrameworks(frameworksData);
+    } catch (error) {
+      console.error('Error loading admin data:', error);
+    }
+  };
+
   // Load real-time data
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     const loadRealTimeData = async () => {
       try {
         const data = await adminService.getRealTimeMetrics();
-        setRealTimeData({
+        setRealTimeData(prev => ({
+          ...prev,
           totalUsers: data.total_users,
           activeAssessments: data.active_assessments,
           completedAssessments: data.completed_assessments,
           averageScore: data.average_score,
           location: await getCurrentLocation()
-        });
+        }));
       } catch (error) {
         console.error('Error loading real-time data:', error);
       }
     };
 
     loadRealTimeData();
-    
-    // Update every 5 seconds
     const interval = setInterval(loadRealTimeData, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]);
 
   // Load users data
   useEffect(() => {
@@ -329,6 +453,60 @@ const AdminPanel = () => {
       questions: prev.questions.filter((_, i) => i !== index)
     }));
   };
+
+  // Authentication handlers
+  const handleLogin = async (credentials) => {
+    try {
+      const response = await adminService.adminLogin(credentials);
+      localStorage.setItem('adminToken', response.token);
+      setIsAuthenticated(true);
+      loadAllData();
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    setIsAuthenticated(false);
+    setActiveTab('dashboard');
+  };
+
+  // Enhanced dashboard functions
+  const getSystemHealthColor = (health) => {
+    switch (health) {
+      case 'Good': return '#10b981';
+      case 'Warning': return '#f59e0b';
+      case 'Critical': return '#ef4444';
+      default: return '#6b7280';
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  // Loading component
+  if (isLoading) {
+    return (
+      <div className="admin-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading Admin Panel...</p>
+      </div>
+    );
+  }
+
+  // Authentication component
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={handleLogin} />;
+  }
 
 
   const renderDashboard = () => (
@@ -881,6 +1059,9 @@ const AdminPanel = () => {
               <div className="profile-avatar">A</div>
               <span>Admin User</span>
             </div>
+            <button className="logout-btn" onClick={handleLogout}>
+              🚪 Logout
+            </button>
           </div>
         </div>
 

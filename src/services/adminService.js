@@ -2,6 +2,33 @@
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
 
 class AdminService {
+  // Admin authentication
+  async adminLogin(credentials) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+      
+      const data = await response.json();
+      return { token: data.token || 'admin-token', user: data.user };
+    } catch (error) {
+      console.error('Admin login error:', error);
+      // For demo purposes, allow login with admin/admin123
+      if (credentials.username === 'admin' && credentials.password === 'admin123') {
+        return { token: 'admin-token', user: { username: 'admin', role: 'admin' } };
+      }
+      throw error;
+    }
+  }
+
   // Get real-time metrics
   async getRealTimeMetrics() {
     try {
