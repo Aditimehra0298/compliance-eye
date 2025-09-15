@@ -13,6 +13,85 @@ const Quiz = () => {
   // Get compliance data from navigation state
   const complianceData = location.state || {};
 
+  // Anti-copy protection
+  useEffect(() => {
+    // Disable right-click context menu
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Disable keyboard shortcuts for copying
+    const handleKeyDown = (e) => {
+      // Disable Ctrl+C, Ctrl+A, Ctrl+V, Ctrl+X, Ctrl+Z
+      if (e.ctrlKey && (e.key === 'c' || e.key === 'a' || e.key === 'v' || e.key === 'x' || e.key === 'z')) {
+        e.preventDefault();
+        return false;
+      }
+      // Disable F12 (Developer Tools)
+      if (e.key === 'F12') {
+        e.preventDefault();
+        return false;
+      }
+      // Disable Ctrl+Shift+I (Developer Tools)
+      if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+        e.preventDefault();
+        return false;
+      }
+      // Disable Ctrl+U (View Source)
+      if (e.ctrlKey && e.key === 'u') {
+        e.preventDefault();
+        return false;
+      }
+      // Disable Ctrl+Shift+C (Element Inspector)
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Disable text selection
+    const handleSelectStart = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Disable drag
+    const handleDragStart = (e) => {
+      e.preventDefault();
+      return false;
+    };
+
+    // Anti-debugging: Detect if dev tools are open
+    const detectDevTools = () => {
+      const threshold = 160;
+      if (window.outerHeight - window.innerHeight > threshold || 
+          window.outerWidth - window.innerWidth > threshold) {
+        // Dev tools detected - redirect or show warning
+        alert('Developer tools detected. Please close them to continue with the assessment.');
+        window.location.href = '/dashboard';
+      }
+    };
+
+    // Check for dev tools periodically
+    const devToolsInterval = setInterval(detectDevTools, 1000);
+
+    // Add event listeners
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('selectstart', handleSelectStart);
+    document.addEventListener('dragstart', handleDragStart);
+
+    // Cleanup
+    return () => {
+      clearInterval(devToolsInterval);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('selectstart', handleSelectStart);
+      document.removeEventListener('dragstart', handleDragStart);
+    };
+  }, []);
+
   // ISO 27001 Questions - All 30 questions based on the provided data
   const questions = [
     {
