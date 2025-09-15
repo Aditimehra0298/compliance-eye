@@ -335,6 +335,208 @@ class SnowflakeDataViewSet(viewsets.ViewSet):
             })
         return Response({'error': 'Unable to fetch data from Snowflake'}, status=500)
 
+# Admin API Views
+class AdminDashboardViewSet(viewsets.ViewSet):
+    """ViewSet for admin dashboard data"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    @action(detail=False, methods=['get'])
+    def real_time_metrics(self, request):
+        """Get real-time metrics for admin dashboard"""
+        from django.db.models import Count, Avg
+        from django.contrib.auth.models import User
+        
+        # Get real-time data
+        total_users = User.objects.count()
+        active_assessments = Assessment.objects.filter(status='in_progress').count()
+        completed_assessments = Assessment.objects.filter(status='completed').count()
+        average_score = Assessment.objects.filter(status='completed').aggregate(
+            avg_score=Avg('percentage')
+        )['avg_score'] or 0
+        
+        # Get recent activity
+        recent_assessments = Assessment.objects.filter(
+            status='completed'
+        ).order_by('-completed_at')[:10]
+        
+        # Get user locations (simulated)
+        user_locations = [
+            {'user': user.username, 'location': 'New York, NY', 'last_login': user.last_login}
+            for user in User.objects.all()[:5]
+        ]
+        
+        return Response({
+            'total_users': total_users,
+            'active_assessments': active_assessments,
+            'completed_assessments': completed_assessments,
+            'average_score': float(average_score),
+            'recent_assessments': AssessmentSerializer(recent_assessments, many=True).data,
+            'user_locations': user_locations,
+            'timestamp': timezone.now()
+        })
+    
+    @action(detail=False, methods=['get'])
+    def individual_user_data(self, request):
+        """Get detailed individual user data including quiz responses"""
+        user_id = request.query_params.get('user_id')
+        
+        if user_id:
+            try:
+                user = User.objects.get(id=user_id)
+                assessments = Assessment.objects.filter(user=user)
+                
+                user_data = {
+                    'user': {
+                        'id': user.id,
+                        'username': user.username,
+                        'email': user.email,
+                        'first_name': user.first_name,
+                        'last_name': user.last_name,
+                        'last_login': user.last_login,
+                        'date_joined': user.date_joined
+                    },
+                    'profile': None,
+                    'assessments': [],
+                    'total_assessments': assessments.count(),
+                    'average_score': 0
+                }
+                
+                # Get user profile
+                try:
+                    profile = user.profile
+                    user_data['profile'] = {
+                        'company': profile.company,
+                        'industry': profile.industry,
+                        'role': profile.role,
+                        'phone': profile.phone
+                    }
+                except:
+                    pass
+                
+                # Get assessment details with responses
+                for assessment in assessments:
+                    assessment_data = AssessmentSerializer(assessment).data
+                    responses = AssessmentResponse.objects.filter(assessment=assessment)
+                    assessment_data['responses'] = []
+                    
+                    for response in responses:
+                        response_data = {
+                            'question': {
+                                'id': response.question.id,
+                                'question_number': response.question.question_number,
+                                'question_text': response.question.question_text
+                            },
+                            'selected_option': {
+                                'option_letter': response.selected_option.option_letter,
+                                'option_text': response.selected_option.option_text,
+                                'points': float(response.selected_option.points)
+                            },
+                            'points_earned': float(response.points_earned),
+                            'answered_at': response.answered_at
+                        }
+                        assessment_data['responses'].append(response_data)
+                    
+                    user_data['assessments'].append(assessment_data)
+                
+                # Calculate average score
+                if assessments.exists():
+                    total_score = sum(a.percentage for a in assessments if a.percentage > 0)
+                    count = sum(1 for a in assessments if a.percentage > 0)
+                    user_data['average_score'] = total_score / count if count > 0 else 0
+                
+                return Response(user_data)
+                
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=404)
+        else:
+            return Response({'error': 'user_id parameter required'}, status=400)
+    
+    @action(detail=False, methods=['get'])
+    def all_users_data(self, request):
+        """Get data for all users"""
+        users = User.objects.all()
+        users_data = []
+        
+        for user in users:
+            assessments = Assessment.objects.filter(user=user)
+            user_data = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'last_login': user.last_login,
+                'total_assessments': assessments.count(),
+                'completed_assessments': assessments.filter(status='completed').count(),
+                'average_score': 0
+            }
+            
+            # Calculate average score
+            completed_assessments = assessments.filter(status='completed')
+            if completed_assessments.exists():
+                total_score = sum(a.percentage for a in completed_assessments)
+                user_data['average_score'] = total_score / completed_assessments.count()
+            
+            users_data.append(user_data)
+        
+        return Response(users_data)
+    
+    @action(detail=False, methods=['post'])
+    def add_standard(self, request):
+        """Add new compliance standard from admin panel"""
+        framework_name = request.data.get('framework_name')
+        standard_name = request.data.get('standard_name')
+        description = request.data.get('description', '')
+        version = request.data.get('version', '1.0')
+        questions_data = request.data.get('questions', [])
+        
+        if not framework_name or not standard_name:
+            return Response({'error': 'framework_name and standard_name required'}, status=400)
+        
+        try:
+            # Get or create framework
+            framework, created = ComplianceFramework.objects.get_or_create(
+                name=framework_name,
+                defaults={
+                    'description': f'Framework for {framework_name}',
+                    'category': 'CUSTOM'
+                }
+            )
+            
+            # Create standard
+            standard = ComplianceStandard.objects.create(
+                framework=framework,
+                name=standard_name,
+                description=description,
+                version=version
+            )
+            
+            # Create questions
+            for question_data in questions_data:
+                question = Question.objects.create(
+                    standard=standard,
+                    question_text=question_data['question_text'],
+                    question_number=question_data['question_number']
+                )
+                
+                # Create options
+                for option_data in question_data.get('options', []):
+                    QuestionOption.objects.create(
+                        question=question,
+                        option_text=option_data['option_text'],
+                        option_letter=option_data['option_letter'],
+                        points=option_data['points'],
+                        order=option_data.get('order', 1)
+                    )
+            
+            return Response({
+                'message': 'Standard created successfully',
+                'standard_id': standard.id
+            }, status=201)
+            
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
 # Public API Views
 @api_view(['GET'])
 @permission_classes([permissions.AllowAny])

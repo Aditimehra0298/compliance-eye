@@ -29,6 +29,9 @@ router.register(r'contacts', views.ContactSubmissionViewSet)
 # Snowflake Integration
 router.register(r'snowflake', views.SnowflakeDataViewSet, basename='snowflake')
 
+# Admin Dashboard
+router.register(r'admin', views.AdminDashboardViewSet, basename='admin')
+
 urlpatterns = [
     path('', include(router.urls)),
     path('home/', views.home_data, name='home-data'),

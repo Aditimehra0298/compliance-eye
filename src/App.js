@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Profile from './components/Profile/Profile';
 import Quiz from './components/Quiz/Quiz';
 import ExpertReports from './components/ExpertReports/ExpertReports';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 import './App.css';
 
 function HomePage() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/expert-reports" element={<ExpertReports />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
       </div>
     </Router>
