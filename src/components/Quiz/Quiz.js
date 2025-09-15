@@ -404,17 +404,10 @@ const Quiz = () => {
 
         <div className="quiz-container">
           <div className="quiz-content">
-          <div className="quiz-header">
-            <h1>Assessment Complete!</h1>
-            <div className="iso-badge">
-              <div className="badge-icon">🛡️</div>
-              <div className="badge-content">
-                <span className="badge-title">ISO 27001</span>
-                <span className="badge-subtitle">Information Security Management</span>
-              </div>
+            <div className="quiz-header">
+              <h1>Assessment Complete!</h1>
+              <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
             </div>
-            <p>{complianceData.standard || 'Selected Standard'}</p>
-          </div>
           
             <div className="results-container">
               <div className="score-display">
@@ -484,13 +477,6 @@ const Quiz = () => {
         <div className="quiz-content">
           <div className="quiz-header">
             <h1>ISO 27001 Assessment</h1>
-            <div className="iso-badge">
-              <div className="badge-icon">🛡️</div>
-              <div className="badge-content">
-                <span className="badge-title">ISO 27001</span>
-                <span className="badge-subtitle">Information Security Management</span>
-              </div>
-            </div>
             <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
             <div className="progress-bar">
               <div 
