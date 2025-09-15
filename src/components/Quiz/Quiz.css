@@ -520,11 +520,33 @@
   color: white;
   font-size: 3rem;
   font-weight: 700;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   background: linear-gradient(135deg, #60a5fa, #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.score-details {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.score-details p {
+  margin: 8px 0;
+  color: #a1a1aa;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.score-details p:first-child {
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .score-bar {

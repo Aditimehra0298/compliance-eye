@@ -396,23 +396,35 @@ const Quiz = () => {
     const totalQuestions = questions.length;
     const answeredQuestions = Object.keys(answers).length;
     
-    if (answeredQuestions === 0) return 0;
+    if (answeredQuestions === 0) return { percentage: 0, totalPoints: 0, maxPoints: 0 };
     
-    // Simple scoring - each answer gets points based on maturity level
+    // New marking scheme: A=2, B=4, C=5.5, D=8 points out of 10
     let totalScore = 0;
     Object.values(answers).forEach(answer => {
-      // Assuming A=1, B=2, C=3, D=4 points
-      const optionIndex = questions.find(q => q.options.includes(answer))?.options.indexOf(answer);
-      if (optionIndex !== undefined) {
-        totalScore += (optionIndex + 1) * 25; // Convert to percentage
+      // Find which question this answer belongs to
+      const question = questions.find(q => q.options.includes(answer));
+      if (question) {
+        const optionIndex = question.options.indexOf(answer);
+        // A=0, B=1, C=2, D=3
+        const points = [2, 4, 5.5, 8][optionIndex] || 0;
+        totalScore += points;
       }
     });
     
-    return Math.round(totalScore / answeredQuestions);
+    // Convert to percentage (total possible is 10 points per question)
+    const maxPossibleScore = answeredQuestions * 10;
+    const percentage = (totalScore / maxPossibleScore) * 100;
+    
+    return {
+      percentage: Math.round(percentage),
+      totalPoints: totalScore,
+      maxPoints: maxPossibleScore
+    };
   };
 
   const generateRecommendations = () => {
-    const score = calculateScore();
+    const scoreData = calculateScore();
+    const score = scoreData.percentage;
     const recommendations = [];
     
     if (score < 25) {
@@ -437,8 +449,11 @@ const Quiz = () => {
   };
 
   const handleBackToDashboard = () => {
+    const scoreData = calculateScore();
     const assessmentData = {
-      score: calculateScore(),
+      score: scoreData.percentage,
+      totalPoints: scoreData.totalPoints,
+      maxPoints: scoreData.maxPoints,
       complianceType: complianceData.standard || 'ISO 27001',
       recommendations: generateRecommendations(),
       completedAt: new Date().toISOString()
@@ -453,7 +468,7 @@ const Quiz = () => {
   };
 
   if (showResults) {
-    const score = calculateScore();
+    const scoreData = calculateScore();
     return (
       <div className="quiz-page">
         {/* Header */}
@@ -490,9 +505,13 @@ const Quiz = () => {
           
             <div className="results-container">
               <div className="score-display">
-                <h2>Your Score: {score}%</h2>
+                <h2>Your Score: {scoreData.percentage}%</h2>
+                <div className="score-details">
+                  <p>Points: {scoreData.totalPoints.toFixed(1)} / {scoreData.maxPoints}</p>
+                  <p>Marking: A=2, B=4, C=5.5, D=8 points per question</p>
+                </div>
                 <div className="score-bar">
-                  <div className="score-fill" style={{width: `${score}%`}}></div>
+                  <div className="score-fill" style={{width: `${scoreData.percentage}%`}}></div>
                 </div>
               </div>
               
