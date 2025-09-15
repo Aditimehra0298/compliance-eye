@@ -96,16 +96,31 @@ const ComplianceSelector = () => {
 
   const handlePaymentSelected = (plan) => {
     setSelectedPlan(plan);
-    // Proceed to quiz with plan and documents
-    navigate('/quiz', { 
-      state: { 
-        compliance: selectedCompliance,
-        standard: selectedStandard,
-        option: plan.id === 'free' ? 'free' : 'paid',
-        plan: plan.id === 'free' ? null : plan,
-        documents: uploadedDocuments
-      }
-    });
+    
+    if (plan.id === 'basic') {
+      // Basic plan is free, proceed directly to quiz
+      navigate('/quiz', { 
+        state: { 
+          compliance: selectedCompliance,
+          standard: selectedStandard,
+          option: 'free',
+          plan: plan,
+          documents: uploadedDocuments
+        }
+      });
+    } else if (plan.id === 'advanced') {
+      // Advanced plan requires payment - for now, proceed to quiz
+      // TODO: Add payment gateway integration later
+      navigate('/quiz', { 
+        state: { 
+          compliance: selectedCompliance,
+          standard: selectedStandard,
+          option: 'paid',
+          plan: plan,
+          documents: uploadedDocuments
+        }
+      });
+    }
   };
 
   const handleFreeAssessment = () => {

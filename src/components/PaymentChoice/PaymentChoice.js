@@ -6,23 +6,9 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
 
   const paymentPlans = [
     {
-      id: 'free',
-      name: 'Free Assessment',
-      price: 'Free',
-      description: 'Basic compliance assessment with standard reporting',
-      features: [
-        'ISO 27001 Assessment Quiz',
-        'Basic Compliance Report',
-        'Gap Analysis Summary',
-        'Email Support',
-        '30-day Access'
-      ],
-      popular: false
-    },
-    {
       id: 'basic',
-      name: 'Basic Assessment',
-      price: '$99',
+      name: 'Basic Plan',
+      price: 'Free',
       description: 'Essential compliance assessment with basic reporting',
       features: [
         'ISO 27001 Assessment Quiz',
@@ -35,8 +21,8 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
       popular: false
     },
     {
-      id: 'premium',
-      name: 'Premium Assessment',
+      id: 'advanced',
+      name: 'Advanced Plan',
       price: '$299',
       description: 'Comprehensive assessment with detailed reporting and recommendations',
       features: [
@@ -47,7 +33,9 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
         'Priority Support',
         '90-day Access',
         'Document Review (up to 6 documents)',
-        '1-on-1 Consultation Call'
+        '1-on-1 Consultation Call',
+        'Advanced Analytics Dashboard',
+        'Custom Recommendations'
       ],
       popular: true
     }
@@ -64,11 +52,17 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
     }
   };
 
+  const getButtonText = () => {
+    if (!selectedPlan) return 'Select a Plan to Continue';
+    const plan = paymentPlans.find(p => p.id === selectedPlan);
+    return plan.id === 'basic' ? 'Start Free Assessment' : 'Proceed to Payment';
+  };
+
   return (
     <div className="payment-choice-container">
       <div className="payment-header">
         <h2>Choose Your Assessment Plan</h2>
-        <p>Select the assessment plan that best fits your organization's needs for {complianceType}.</p>
+        <p>Select between our free Basic plan or our comprehensive Advanced plan for {complianceType}.</p>
       </div>
 
       <div className="plans-grid">
@@ -131,7 +125,7 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
           onClick={handleProceedToAssessment}
           disabled={!selectedPlan}
         >
-          {selectedPlan ? 'Start Assessment' : 'Select a Plan to Continue'}
+          {getButtonText()}
         </button>
       </div>
 
