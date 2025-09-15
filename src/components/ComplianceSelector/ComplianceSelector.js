@@ -113,6 +113,61 @@ const ComplianceSelector = () => {
     setShowAddStandard(false);
   };
 
+  // Function to get proper standard descriptions based on framework
+  const getStandardDescription = (standard, framework) => {
+    const descriptions = {
+      'EU Compliance': {
+        'GDPR (General Data Protection Regulation) (EU 2016/679)': 'Comprehensive data protection regulation governing the processing of personal data within the EU and EEA.',
+        'Corporate Sustainability Due Diligence Directive (CSRD)': 'EU directive requiring companies to conduct due diligence on environmental and human rights impacts.',
+        'EU Deforestation Regulation (EUDR) (EU 2023/1115)': 'Regulation preventing products linked to deforestation from entering the EU market.',
+        'Batteries Regulation (EU 2023/1542)': 'Regulation establishing requirements for the sustainability and safety of batteries and waste batteries.',
+        'Product Safety Regulation (EU 2023/988)': 'Comprehensive regulation ensuring product safety and consumer protection across the EU.',
+        'AI Act (EU 2024/573)': 'First comprehensive AI regulation establishing rules for artificial intelligence systems.',
+        'Digital Services Act (DSA) (EU 2022/2065)': 'Regulation establishing obligations for digital service providers and online platforms.',
+        'Digital Markets Act (DMA) (EU 2022/1925)': 'Regulation ensuring fair and open digital markets by regulating gatekeeper platforms.',
+        'Fluorinated Gases Regulation': 'Regulation controlling fluorinated greenhouse gases to reduce emissions and combat climate change.',
+        'Union Customs Code (UCC)': 'Comprehensive customs legislation governing customs procedures and controls in the EU.',
+        'Whistleblower Protection Directive (EU 2019/1937)': 'Directive protecting individuals who report breaches of EU law from retaliation.',
+        'Anti-Money Laundering Directives': 'Directives preventing money laundering and terrorist financing in the financial sector.',
+        'Transparent Working Conditions Directive (EU 2019/1152)': 'Directive ensuring transparent and predictable working conditions for workers.',
+        'REACH Regulation (Registration, Evaluation, Authorisation and Restriction of Chemicals)': 'Comprehensive regulation on chemicals and their safe use.'
+      },
+      'USA Compliance': {
+        'HIPAA (Health Insurance Portability and Accountability Act)': 'Federal law protecting the privacy and security of health information in the US.',
+        'SOX (Sarbanes-Oxley Act)': 'Federal law establishing requirements for public company accounting and financial reporting.',
+        'CCPA (California Consumer Privacy Act) / CPRA (California Privacy Rights Act)': 'California state law providing comprehensive privacy rights and consumer protection.',
+        'FISMA (Federal Information Security Management Act)': 'Federal law requiring federal agencies to develop information security programs.',
+        'PCI DSS (Payment Card Industry Data Security Standard)': 'Security standards for organizations that handle credit card information.',
+        'OSHA Regulations (Occupational Safety and Health Administration)': 'Federal regulations ensuring safe and healthful working conditions.',
+        'Various State Data Privacy and Employment Laws': 'State-specific laws governing data privacy, employment, and consumer protection.'
+      },
+      'ISO Standards': {
+        'ISO 9001 (Quality Management Systems)': 'International standard for quality management systems, helping organizations improve efficiency.',
+        'ISO/IEC 27001 (Information Security Management Systems)': 'International standard for information security management systems and controls.',
+        'ISO 14001 (Environmental Management Systems)': 'International standard for environmental management systems and sustainability.',
+        'ISO 45001 (Occupational Health and Safety)': 'International standard for occupational health and safety management systems.',
+        'ISO 20000 (IT Service Management)': 'International standard for IT service management and service delivery.',
+        'ISO 50001 (Energy Management)': 'International standard for energy management systems and energy efficiency.',
+        'ISO 22000 (Food Safety Management)': 'International standard for food safety management systems in the food chain.',
+        'ISO 31000 (Risk Management)': 'International standard providing principles and guidelines for risk management.',
+        'ISO 22301 (Business Continuity Management)': 'International standard for business continuity management systems.'
+      },
+      'IEC Standards': {
+        'IEC 60364 (Electrical Installations)': 'International standard for electrical installations in buildings and structures.',
+        'IEC 61508 (Functional Safety of Electrical/Electronic Systems)': 'International standard for functional safety of electrical/electronic systems.',
+        'IEC 62443 (Industrial Automation and Control Systems Cybersecurity)': 'International standard for cybersecurity in industrial automation and control systems.',
+        'IEC 60601-1-2 (Electromagnetic Compatibility of Medical Electrical Equipment)': 'International standard for electromagnetic compatibility of medical electrical equipment.',
+        'IEC 61000 Series (Electromagnetic Compatibility - EMC)': 'Comprehensive series of standards for electromagnetic compatibility and interference.',
+        'IEC 61511 (Safety Instrumented Systems for Process Industries)': 'International standard for safety instrumented systems in process industries.',
+        'IEC 62061 (Safety of Machinery - Functional Safety)': 'International standard for functional safety of machinery and safety-related systems.',
+        'IEC 62304 (Medical Device Software Lifecycle Processes)': 'International standard for medical device software lifecycle processes.',
+        'IEC 60204 (Electrical Equipment of Machines)': 'International standard for electrical equipment of machines and safety requirements.'
+      }
+    };
+
+    return descriptions[framework]?.[standard] || 'Compliance standard for regulatory requirements and best practices.';
+  };
+
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -314,11 +369,7 @@ const ComplianceSelector = () => {
                   <div key={index} className="standard-card">
                     <h4>{standard}</h4>
                     <p className="standard-description">
-                      {standard.includes('ISO') ? 'International standard for quality and security management' :
-                       standard.includes('GDPR') ? 'European data protection regulation' :
-                       standard.includes('HIPAA') ? 'US healthcare data protection law' :
-                       standard.includes('IEC') ? 'International electrotechnical standard' :
-                       'Compliance standard for regulatory requirements'}
+                      {getStandardDescription(standard, selectedCompliance)}
                     </p>
                     <div className="standard-actions">
                       <button 
