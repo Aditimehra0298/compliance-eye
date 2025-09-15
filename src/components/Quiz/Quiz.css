@@ -19,6 +19,24 @@
   user-drag: none;
 }
 
+/* Multiple watermarks throughout the quiz content */
+.quiz-page::after {
+  content: 'COMPLIANCE EYE';
+  position: fixed;
+  top: 20%;
+  left: 20%;
+  transform: rotate(-30deg);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
 .quiz-page::before {
   content: '';
   position: fixed;
@@ -34,21 +52,108 @@
   z-index: 0;
 }
 
-/* Watermark overlay to deter screenshots */
-.quiz-page::after {
+/* Additional watermarks for quiz content area */
+.quiz-content::before {
   content: 'COMPLIANCE EYE';
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-  font-size: 3rem;
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  transform: rotate(15deg);
+  font-size: 2rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.05);
   pointer-events: none;
   z-index: 1;
   white-space: nowrap;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
+.quiz-content::after {
+  content: 'COMPLIANCE EYE';
+  position: absolute;
+  bottom: 20%;
+  left: 15%;
+  transform: rotate(-20deg);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
+/* Watermarks for question container */
+.question-container::before {
+  content: 'COMPLIANCE EYE';
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  transform: rotate(-25deg);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
+.question-container::after {
+  content: 'COMPLIANCE EYE';
+  position: absolute;
+  bottom: 10%;
+  right: 8%;
+  transform: rotate(20deg);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
+/* Watermarks for results container */
+.results-container::before {
+  content: 'COMPLIANCE EYE';
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  transform: rotate(-35deg);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  font-family: 'Epunda Slab', serif;
+}
+
+.results-container::after {
+  content: 'COMPLIANCE EYE';
+  position: absolute;
+  bottom: 15%;
+  right: 12%;
+  transform: rotate(25deg);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   font-family: 'Epunda Slab', serif;
 }
 
