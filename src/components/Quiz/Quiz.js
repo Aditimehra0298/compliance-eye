@@ -289,61 +289,6 @@ const Quiz = () => {
         "Comprehensive management of nonconformities, including advanced root cause analysis, preventive action plans, documented corrective actions, regular effectiveness reviews, and feedback loops for continual improvement.",
         "Advanced nonconformity management framework with AI-powered predictive analytics, automated root cause identification, strategic improvement actions integrated with organizational objectives, and continuous optimization of corrective processes."
       ]
-    },
-    {
-      id: 26,
-      clause: "10.2",
-      question: "Continual improvement - Continually improve suitability, adequacy and effectiveness of ISMS",
-      options: [
-        "Limited improvement activities without systematic approach, innovation integration, or strategic alignment measurement",
-        "Continual improvement process established with systematic documentation, performance measurement, and basic enhancement tracking",
-        "Comprehensive improvement program with innovation integration, strategic alignment optimization, performance excellence, and systematic organizational enhancement",
-        "Advanced improvement framework with AI-powered innovation analysis, automated strategic optimization, predictive excellence measurement, and organizational transformation leadership"
-      ]
-    },
-    {
-      id: 27,
-      clause: "5.4",
-      question: "Information security policy - The organization shall establish an information security policy that is appropriate to the purpose of the organization",
-      options: [
-        "Basic information security policy exists with minimal communication and no regular review",
-        "Policy is documented and communicated to all personnel with basic review processes",
-        "Policy is comprehensive, regularly reviewed, communicated through multiple channels, and includes specific security objectives",
-        "Policy is fully integrated with business strategy, regularly assessed for effectiveness, includes measurable objectives, and is continuously improved based on performance metrics"
-      ]
-    },
-    {
-      id: 28,
-      clause: "6.4",
-      question: "Planning of changes - The organization shall determine the need for changes to the ISMS and the consequences of intended changes",
-      options: [
-        "Changes are made reactively without formal assessment of consequences or impact on ISMS",
-        "Basic change assessment process exists with documentation of major changes and their impact",
-        "Comprehensive change management process with formal impact assessment, stakeholder consultation, and risk evaluation for all changes",
-        "Advanced change management framework with predictive impact analysis, automated change tracking, and strategic alignment with business objectives"
-      ]
-    },
-    {
-      id: 29,
-      clause: "7.6",
-      question: "Documented information - The organization shall control documented information required by the ISMS and by this International Standard",
-      options: [
-        "Basic documentation exists without formal control processes or version management",
-        "Document control procedure established with basic approval workflows and version control",
-        "Comprehensive document control with lifecycle management, access controls, and regular review cycles",
-        "Advanced document management system with automated controls, AI-based classification, and blockchain integrity verification"
-      ]
-    },
-    {
-      id: 30,
-      clause: "8.4",
-      question: "Operational planning and control - The organization shall plan, implement and control the processes needed to meet information security requirements",
-      options: [
-        "Basic operational activities without formal planning or control mechanisms",
-        "Operational processes documented with basic control implementation and defined criteria",
-        "Comprehensive operational control with integrated process management and regular monitoring",
-        "Advanced operational framework with predictive analytics, automated controls, and strategic alignment"
-      ]
     }
   ];
 
@@ -368,84 +313,64 @@ const Quiz = () => {
     }
   };
 
+  const calculateScore = () => {
+    const totalQuestions = questions.length;
+    const answeredQuestions = Object.keys(answers).length;
+    
+    if (answeredQuestions === 0) return 0;
+    
+    // Simple scoring - each answer gets points based on maturity level
+    let totalScore = 0;
+    Object.values(answers).forEach(answer => {
+      // Assuming A=1, B=2, C=3, D=4 points
+      const optionIndex = questions.find(q => q.options.includes(answer))?.options.indexOf(answer);
+      if (optionIndex !== undefined) {
+        totalScore += (optionIndex + 1) * 25; // Convert to percentage
+      }
+    });
+    
+    return Math.round(totalScore / answeredQuestions);
+  };
+
+  const generateRecommendations = () => {
+    const score = calculateScore();
+    const recommendations = [];
+    
+    if (score < 25) {
+      recommendations.push("Focus on basic ISMS implementation and documentation");
+      recommendations.push("Establish fundamental security policies and procedures");
+      recommendations.push("Conduct initial risk assessment and treatment planning");
+    } else if (score < 50) {
+      recommendations.push("Enhance existing controls and improve documentation");
+      recommendations.push("Implement regular monitoring and review processes");
+      recommendations.push("Develop comprehensive training programs");
+    } else if (score < 75) {
+      recommendations.push("Optimize current processes and integrate with business operations");
+      recommendations.push("Implement advanced monitoring and analytics");
+      recommendations.push("Focus on continuous improvement and strategic alignment");
+    } else {
+      recommendations.push("Maintain excellence and explore advanced technologies");
+      recommendations.push("Consider AI-driven security solutions");
+      recommendations.push("Focus on strategic risk management and business integration");
+    }
+    
+    return recommendations;
+  };
+
   const handleBackToDashboard = () => {
-    // Pass assessment data to dashboard
     const assessmentData = {
-      compliance: complianceData.compliance,
-      standard: complianceData.standard,
-      option: complianceData.option,
       score: calculateScore(),
-      answers: answers,
-      recommendations: generateRecommendations()
+      complianceType: complianceData.standard || 'ISO 27001',
+      recommendations: generateRecommendations(),
+      completedAt: new Date().toISOString()
     };
     
     navigate('/dashboard', { 
       state: { 
-        showPersonalizedReports: true,
-        assessmentData: assessmentData
-      }
+        showPersonalizedReports: true, 
+        assessmentData 
+      } 
     });
-  };
-
-  const calculateScore = () => {
-    const totalQuestions = questions.length;
-    const answeredQuestions = Object.keys(answers).length;
-    const score = (answeredQuestions / totalQuestions) * 100;
-    return Math.round(score);
-  };
-
-  const generateRecommendations = () => {
-    const recommendations = [];
-    const score = calculateScore();
-    
-    // Based on compliance type and score, recommend specific reports
-    if (complianceData.compliance === 'EU Compliance') {
-      if (score < 60) {
-        recommendations.push('GDPR Compliance Deep Dive');
-        recommendations.push('Data Protection Impact Assessment');
-      } else if (score < 80) {
-        recommendations.push('GDPR Implementation Guide');
-        recommendations.push('Privacy by Design Framework');
-      } else {
-        recommendations.push('GDPR Advanced Compliance');
-        recommendations.push('Data Governance Excellence');
-      }
-    } else if (complianceData.compliance === 'USA Compliance') {
-      if (score < 60) {
-        recommendations.push('HIPAA Security Assessment');
-        recommendations.push('SOX Compliance Review');
-      } else if (score < 80) {
-        recommendations.push('CCPA/CPRA Privacy Assessment');
-        recommendations.push('Financial Controls Audit');
-      } else {
-        recommendations.push('Advanced US Compliance');
-        recommendations.push('Regulatory Excellence Program');
-      }
-    } else if (complianceData.compliance === 'ISO Standards') {
-      if (score < 60) {
-        recommendations.push('ISO 27001 Implementation Guide');
-        recommendations.push('Quality Management Systems');
-      } else if (score < 80) {
-        recommendations.push('ISO 14001 Environmental Management');
-        recommendations.push('ISO 45001 Safety Management');
-      } else {
-        recommendations.push('ISO 22301 Business Continuity');
-        recommendations.push('Integrated Management Systems');
-      }
-    } else if (complianceData.compliance === 'IEC Standards') {
-      if (score < 60) {
-        recommendations.push('IEC 62443 Cybersecurity Framework');
-        recommendations.push('IEC 61508 Functional Safety');
-      } else if (score < 80) {
-        recommendations.push('IEC 60364 Electrical Installations');
-        recommendations.push('IEC 61000 EMC Standards');
-      } else {
-        recommendations.push('IEC 62304 Medical Device Software');
-        recommendations.push('Advanced IEC Compliance');
-      }
-    }
-    
-    return recommendations;
   };
 
   if (showResults) {
@@ -500,37 +425,37 @@ const Quiz = () => {
               <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
             </div>
           
-          <div className="results-container">
-          <div className="score-display">
-            <h2>Your Score: {score}%</h2>
-            <div className="score-bar">
-              <div className="score-fill" style={{width: `${score}%`}}></div>
+            <div className="results-container">
+              <div className="score-display">
+                <h2>Your Score: {score}%</h2>
+                <div className="score-bar">
+                  <div className="score-fill" style={{width: `${score}%`}}></div>
+                </div>
+              </div>
+              
+              <div className="recommendations">
+                <h3>Recommendations:</h3>
+                <ul>
+                  {generateRecommendations().map((rec, index) => (
+                    <li key={index}>{rec}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="quiz-actions">
+                <button className="back-btn" onClick={handleBackToDashboard}>
+                  Back to Dashboard
+                </button>
+                <button className="retake-btn" onClick={() => {
+                  setCurrentQuestion(0);
+                  setAnswers({});
+                  setShowResults(false);
+                }}>
+                  Retake Assessment
+                </button>
+              </div>
             </div>
           </div>
-          
-          <div className="recommendations">
-            <h3>Recommendations:</h3>
-            <ul>
-              <li>Review and update your data protection policies</li>
-              <li>Conduct regular compliance training for staff</li>
-              <li>Implement automated compliance monitoring</li>
-              <li>Schedule regular compliance audits</li>
-            </ul>
-          </div>
-          
-          <div className="quiz-actions">
-            <button className="back-btn" onClick={handleBackToDashboard}>
-              Back to Dashboard
-            </button>
-            <button className="retake-btn" onClick={() => {
-              setCurrentQuestion(0);
-              setAnswers({});
-              setShowResults(false);
-            }}>
-              Retake Assessment
-            </button>
-          </div>
-        </div>
         </div>
         <Footer />
       </div>
