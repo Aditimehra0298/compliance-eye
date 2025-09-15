@@ -797,7 +797,9 @@ const AdminPanel = () => {
             </div>
             <div className="standard-info">
               <p><strong>Framework:</strong> {standard.framework?.name || 'Unknown'}</p>
+              <p><strong>Version:</strong> {standard.version || 'N/A'}</p>
               <p><strong>Questions:</strong> {standard.questions?.length || 0}</p>
+              <p><strong>Description:</strong> {standard.description || 'No description available'}</p>
               <p><strong>Created:</strong> {new Date(standard.created_at).toLocaleDateString()}</p>
             </div>
             <div className="standard-actions">

@@ -419,69 +419,402 @@ class AdminService {
       console.error('Error fetching standards data:', error);
       // Return mock data for development
       return [
+        // EU Compliance Standards
         {
           id: 1,
-          name: 'ISO 27001',
-          framework: { name: 'ISO Standards' },
-          questions: [],
-          is_active: true,
-          created_at: '2024-01-01T00:00:00Z'
-        },
-        {
-          id: 2,
-          name: 'GDPR',
+          name: 'GDPR (General Data Protection Regulation)',
           framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-02T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Comprehensive data protection regulation governing the processing of personal data within the EU and EEA.',
+          version: '2016/679'
+        },
+        {
+          id: 2,
+          name: 'Corporate Sustainability Due Diligence Directive (CSRD)',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'EU directive requiring companies to conduct due diligence on environmental and human rights impacts.',
+          version: '2023'
         },
         {
           id: 3,
-          name: 'HIPAA',
-          framework: { name: 'USA Compliance' },
+          name: 'EU Deforestation Regulation (EUDR)',
+          framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-03T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Regulation preventing products linked to deforestation from entering the EU market.',
+          version: '2023/1115'
         },
         {
           id: 4,
-          name: 'SOX',
-          framework: { name: 'USA Compliance' },
+          name: 'Batteries Regulation',
+          framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-03T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Regulation establishing requirements for the sustainability and safety of batteries and waste batteries.',
+          version: '2023/1542'
         },
         {
           id: 5,
-          name: 'CCPA/CPRA',
-          framework: { name: 'USA Compliance' },
+          name: 'Product Safety Regulation',
+          framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-03T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Comprehensive regulation ensuring product safety and consumer protection across the EU.',
+          version: '2023/988'
         },
         {
           id: 6,
-          name: 'IEC 62443',
-          framework: { name: 'IEC Standards' },
+          name: 'AI Act',
+          framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-04T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'First comprehensive AI regulation establishing rules for artificial intelligence systems.',
+          version: '2024/573'
         },
         {
           id: 7,
-          name: 'IEC 61508',
-          framework: { name: 'IEC Standards' },
+          name: 'Digital Services Act (DSA)',
+          framework: { name: 'EU Compliance' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-04T00:00:00Z'
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Regulation establishing obligations for digital service providers and online platforms.',
+          version: '2022/2065'
         },
         {
           id: 8,
-          name: 'IEC 60364',
+          name: 'Digital Markets Act (DMA)',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Regulation ensuring fair and open digital markets by regulating gatekeeper platforms.',
+          version: '2022/1925'
+        },
+        {
+          id: 9,
+          name: 'Fluorinated Gases Regulation',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Regulation controlling fluorinated greenhouse gases to reduce emissions and combat climate change.',
+          version: '2023'
+        },
+        {
+          id: 10,
+          name: 'Union Customs Code (UCC)',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Comprehensive customs legislation governing customs procedures and controls in the EU.',
+          version: '2023'
+        },
+        {
+          id: 11,
+          name: 'Whistleblower Protection Directive',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Directive protecting individuals who report breaches of EU law from retaliation.',
+          version: '2019/1937'
+        },
+        {
+          id: 12,
+          name: 'Anti-Money Laundering Directives',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Directives preventing money laundering and terrorist financing in the financial sector.',
+          version: '2023'
+        },
+        {
+          id: 13,
+          name: 'Transparent Working Conditions Directive',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Directive ensuring transparent and predictable working conditions for workers.',
+          version: '2019/1152'
+        },
+        {
+          id: 14,
+          name: 'REACH Regulation',
+          framework: { name: 'EU Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-01T00:00:00Z',
+          description: 'Comprehensive regulation on chemicals and their safe use.',
+          version: '2023'
+        },
+
+        // USA Compliance Standards
+        {
+          id: 15,
+          name: 'HIPAA (Health Insurance Portability and Accountability Act)',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'Federal law protecting the privacy and security of health information in the US.',
+          version: '2013'
+        },
+        {
+          id: 16,
+          name: 'SOX (Sarbanes-Oxley Act)',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'Federal law establishing requirements for public company accounting and financial reporting.',
+          version: '2002'
+        },
+        {
+          id: 17,
+          name: 'CCPA (California Consumer Privacy Act) / CPRA',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'California state law providing comprehensive privacy rights and consumer protection.',
+          version: '2023'
+        },
+        {
+          id: 18,
+          name: 'FISMA (Federal Information Security Management Act)',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'Federal law requiring federal agencies to develop information security programs.',
+          version: '2014'
+        },
+        {
+          id: 19,
+          name: 'PCI DSS (Payment Card Industry Data Security Standard)',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'Security standards for organizations that handle credit card information.',
+          version: '2018'
+        },
+        {
+          id: 20,
+          name: 'OSHA Regulations',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'Federal regulations ensuring safe and healthful working conditions.',
+          version: '2023'
+        },
+        {
+          id: 21,
+          name: 'Various State Data Privacy and Employment Laws',
+          framework: { name: 'USA Compliance' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-02T00:00:00Z',
+          description: 'State-specific laws governing data privacy, employment, and consumer protection.',
+          version: '2024'
+        },
+
+        // ISO Standards
+        {
+          id: 22,
+          name: 'ISO 9001 (Quality Management Systems)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for quality management systems, helping organizations improve efficiency.',
+          version: '2015'
+        },
+        {
+          id: 23,
+          name: 'ISO/IEC 27001 (Information Security Management Systems)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for information security management systems and controls.',
+          version: '2022'
+        },
+        {
+          id: 24,
+          name: 'ISO 14001 (Environmental Management Systems)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for environmental management systems and sustainability.',
+          version: '2015'
+        },
+        {
+          id: 25,
+          name: 'ISO 45001 (Occupational Health and Safety)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for occupational health and safety management systems.',
+          version: '2018'
+        },
+        {
+          id: 26,
+          name: 'ISO 20000 (IT Service Management)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for IT service management and service delivery.',
+          version: '2018'
+        },
+        {
+          id: 27,
+          name: 'ISO 50001 (Energy Management)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for energy management systems and energy efficiency.',
+          version: '2018'
+        },
+        {
+          id: 28,
+          name: 'ISO 22000 (Food Safety Management)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for food safety management systems in the food chain.',
+          version: '2018'
+        },
+        {
+          id: 29,
+          name: 'ISO 31000 (Risk Management)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard providing principles and guidelines for risk management.',
+          version: '2018'
+        },
+        {
+          id: 30,
+          name: 'ISO 22301 (Business Continuity Management)',
+          framework: { name: 'ISO Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-03T00:00:00Z',
+          description: 'International standard for business continuity management systems.',
+          version: '2019'
+        },
+
+        // IEC Standards
+        {
+          id: 31,
+          name: 'IEC 60364 (Electrical Installations)',
           framework: { name: 'IEC Standards' },
           questions: [],
           is_active: true,
-          created_at: '2024-01-04T00:00:00Z'
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for electrical installations in buildings and structures.',
+          version: '2018'
+        },
+        {
+          id: 32,
+          name: 'IEC 61508 (Functional Safety of Electrical/Electronic Systems)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for functional safety of electrical/electronic systems.',
+          version: '2010'
+        },
+        {
+          id: 33,
+          name: 'IEC 62443 (Industrial Automation and Control Systems Cybersecurity)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for cybersecurity in industrial automation and control systems.',
+          version: '2018'
+        },
+        {
+          id: 34,
+          name: 'IEC 60601-1-2 (Electromagnetic Compatibility of Medical Electrical Equipment)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for electromagnetic compatibility of medical electrical equipment.',
+          version: '2014'
+        },
+        {
+          id: 35,
+          name: 'IEC 61000 Series (Electromagnetic Compatibility - EMC)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'Comprehensive series of standards for electromagnetic compatibility and interference.',
+          version: '2019'
+        },
+        {
+          id: 36,
+          name: 'IEC 61511 (Safety Instrumented Systems for Process Industries)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for safety instrumented systems in process industries.',
+          version: '2016'
+        },
+        {
+          id: 37,
+          name: 'IEC 62061 (Safety of Machinery - Functional Safety)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for functional safety of machinery and safety-related systems.',
+          version: '2021'
+        },
+        {
+          id: 38,
+          name: 'IEC 62304 (Medical Device Software Lifecycle Processes)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for medical device software lifecycle processes.',
+          version: '2006'
+        },
+        {
+          id: 39,
+          name: 'IEC 60204 (Electrical Equipment of Machines)',
+          framework: { name: 'IEC Standards' },
+          questions: [],
+          is_active: true,
+          created_at: '2024-01-04T00:00:00Z',
+          description: 'International standard for electrical equipment of machines and safety requirements.',
+          version: '2018'
         }
       ];
     }

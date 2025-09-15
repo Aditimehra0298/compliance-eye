@@ -28,88 +28,6 @@ const Dashboard = () => {
     currentStep: 1,
     steps: []
   });
-
-  const [frameworks, setFrameworks] = useState([
-    {
-      id: 1,
-      name: 'ISO Standards',
-      description: 'International Organization for Standardization standards for quality, security, and management systems',
-      category: 'ISO',
-      is_active: true,
-      created_at: '2024-01-01T00:00:00Z',
-      standards: [
-        'ISO 9001 (Quality Management Systems)',
-        'ISO/IEC 27001 (Information Security Management Systems)',
-        'ISO 14001 (Environmental Management Systems)',
-        'ISO 45001 (Occupational Health and Safety)',
-        'ISO 20000 (IT Service Management)',
-        'ISO 50001 (Energy Management)',
-        'ISO 22000 (Food Safety Management)',
-        'ISO 31000 (Risk Management)',
-        'ISO 22301 (Business Continuity Management)'
-      ]
-    },
-    {
-      id: 2,
-      name: 'EU Compliance',
-      description: 'European Union compliance frameworks including GDPR, DSA, and other EU regulations',
-      category: 'EU',
-      is_active: true,
-      created_at: '2024-01-02T00:00:00Z',
-      standards: [
-        'GDPR (General Data Protection Regulation)',
-        'Corporate Sustainability Due Diligence Directive (CSRD)',
-        'EU Deforestation Regulation (EUDR)',
-        'Batteries Regulation',
-        'Product Safety Regulation',
-        'AI Act',
-        'Digital Services Act (DSA)',
-        'Digital Markets Act (DMA)',
-        'Fluorinated Gases Regulation',
-        'Union Customs Code (UCC)',
-        'Whistleblower Protection Directive',
-        'Anti-Money Laundering Directives',
-        'Transparent Working Conditions Directive',
-        'REACH Regulation'
-      ]
-    },
-    {
-      id: 3,
-      name: 'USA Compliance',
-      description: 'United States compliance frameworks including HIPAA, SOX, and other US regulations',
-      category: 'USA',
-      is_active: true,
-      created_at: '2024-01-03T00:00:00Z',
-      standards: [
-        'HIPAA (Health Insurance Portability and Accountability Act)',
-        'SOX (Sarbanes-Oxley Act)',
-        'CCPA (California Consumer Privacy Act) / CPRA',
-        'FISMA (Federal Information Security Management Act)',
-        'PCI DSS (Payment Card Industry Data Security Standard)',
-        'OSHA Regulations',
-        'Various State Data Privacy and Employment Laws'
-      ]
-    },
-    {
-      id: 4,
-      name: 'IEC Standards',
-      description: 'International Electrotechnical Commission standards for electrical and electronic technologies',
-      category: 'IEC',
-      is_active: true,
-      created_at: '2024-01-04T00:00:00Z',
-      standards: [
-        'IEC 60364 (Electrical Installations)',
-        'IEC 61508 (Functional Safety of Electrical/Electronic Systems)',
-        'IEC 62443 (Industrial Automation and Control Systems Cybersecurity)',
-        'IEC 60601-1-2 (Electromagnetic Compatibility of Medical Electrical Equipment)',
-        'IEC 61000 Series (Electromagnetic Compatibility - EMC)',
-        'IEC 61511 (Safety Instrumented Systems for Process Industries)',
-        'IEC 62061 (Safety of Machinery - Functional Safety)',
-        'IEC 62304 (Medical Device Software Lifecycle Processes)',
-        'IEC 60204 (Electrical Equipment of Machines)'
-      ]
-    }
-  ]);
   
   
   // Get user info from localStorage
@@ -449,12 +367,9 @@ const Dashboard = () => {
             <li className="nav-item">
               <a href="#" className={`nav-link ${activeTab === 'GapAnalysis' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('GapAnalysis'); }}>Gap Analysis</a>
             </li>
-              <li className="nav-item">
-                <a href="#" className={`nav-link ${activeTab === 'ProcessSteps' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('ProcessSteps'); }}>Process Steps</a>
-              </li>
-              <li className="nav-item">
-                <a href="#" className={`nav-link ${activeTab === 'Frameworks' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('Frameworks'); }}>Frameworks</a>
-              </li>
+            <li className="nav-item">
+              <a href="#" className={`nav-link ${activeTab === 'ProcessSteps' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleTabChange('ProcessSteps'); }}>Process Steps</a>
+            </li>
 
             <li className="nav-item">
               <a href="#" className="nav-link">Suscriptions</a>
@@ -1528,91 +1443,6 @@ const Dashboard = () => {
                       className="progress-fill" 
                       style={{width: `${(processSteps.steps.filter(s => s.status === 'completed').length / processSteps.steps.length) * 100}%`}}
                     ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Frameworks Section */}
-          {activeTab === 'Frameworks' && (
-            <div className="frameworks-section">
-              <div className="section-header">
-                <h2>Compliance Frameworks</h2>
-                <p>Explore all available compliance frameworks and their standards</p>
-              </div>
-
-              <div className="frameworks-grid">
-                {frameworks.map(framework => (
-                  <div key={framework.id} className="framework-card">
-                    <div className="framework-header">
-                      <div className="framework-title">
-                        <h3>{framework.name}</h3>
-                        <span className={`category-badge ${framework.category.toLowerCase()}`}>
-                          {framework.category}
-                        </span>
-                      </div>
-                      <div className="framework-status">
-                        <span className={`status-indicator ${framework.is_active ? 'active' : 'inactive'}`}>
-                          {framework.is_active ? 'Active' : 'Inactive'}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="framework-content">
-                      <p className="framework-description">{framework.description}</p>
-                      
-                      <div className="standards-preview">
-                        <h4>Available Standards ({framework.standards.length})</h4>
-                        <div className="standards-list">
-                          {framework.standards.slice(0, 3).map((standard, index) => (
-                            <div key={index} className="standard-item">
-                              <span className="standard-name">{standard}</span>
-                            </div>
-                          ))}
-                          {framework.standards.length > 3 && (
-                            <div className="more-standards">
-                              +{framework.standards.length - 3} more standards
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="framework-actions">
-                      <button 
-                        className="action-btn primary"
-                        onClick={() => {
-                          setActiveTab('Home');
-                          // You could also set the selected framework here
-                        }}
-                      >
-                        Start Assessment
-                      </button>
-                      <button className="action-btn secondary">
-                        View All Standards
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="frameworks-summary">
-                <div className="summary-card">
-                  <h3>Framework Overview</h3>
-                  <div className="summary-stats">
-                    <div className="stat">
-                      <span className="stat-number">{frameworks.length}</span>
-                      <span className="stat-label">Total Frameworks</span>
-                    </div>
-                    <div className="stat">
-                      <span className="stat-number">{frameworks.reduce((total, f) => total + f.standards.length, 0)}</span>
-                      <span className="stat-label">Total Standards</span>
-                    </div>
-                    <div className="stat">
-                      <span className="stat-number">{frameworks.filter(f => f.is_active).length}</span>
-                      <span className="stat-label">Active Frameworks</span>
-                    </div>
                   </div>
                 </div>
               </div>
