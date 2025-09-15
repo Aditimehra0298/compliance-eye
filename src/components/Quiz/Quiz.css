@@ -1,7 +1,7 @@
 /* Quiz Styles */
 .quiz-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+  background: #0f172a;
   color: white;
   font-family: 'Inter', sans-serif;
   padding: 40px 20px;
@@ -38,9 +38,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(30, 27, 75, 0.9) 0%,
-    rgba(49, 46, 129, 0.8) 50%,
-    rgba(30, 27, 75, 0.95) 100%
+    rgba(15, 23, 42, 0.9) 0%,
+    rgba(30, 41, 59, 0.8) 50%,
+    rgba(15, 23, 42, 0.95) 100%
   );
   z-index: -1;
 }
@@ -121,13 +121,13 @@
 }
 
 .question-container {
-  background: rgba(15, 15, 15, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1e293b;
+  border: 1px solid #334155;
   border-radius: 24px;
   padding: 48px;
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(51, 65, 85, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   position: relative;
@@ -174,8 +174,8 @@
   display: flex;
   align-items: flex-start;
   padding: 20px 24px;
-  background: rgba(30, 30, 30, 0.8);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: #334155;
+  border: 2px solid #475569;
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -184,17 +184,17 @@
 }
 
 .option-label:hover {
-  border-color: rgba(139, 92, 246, 0.5);
-  background: rgba(40, 40, 40, 0.9);
+  border-color: #3b82f6;
+  background: #475569;
   transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
 }
 
 .option-label.selected {
-  border-color: #8b5cf6;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
   box-shadow: 
-    0 8px 25px rgba(139, 92, 246, 0.3),
+    0 8px 25px rgba(59, 130, 246, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
@@ -202,7 +202,7 @@
   margin-right: 16px;
   width: 20px;
   height: 20px;
-  accent-color: #8b5cf6;
+  accent-color: #3b82f6;
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -259,16 +259,16 @@
 }
 
 .next-btn {
-  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   color: white;
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .next-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
-  background: linear-gradient(135deg, #a855f7, #8b5cf6);
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
 }
 
 .next-btn:disabled {
@@ -279,13 +279,13 @@
 
 /* Results Styles */
 .results-container {
-  background: rgba(15, 15, 15, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1e293b;
+  border: 1px solid #334155;
   border-radius: 24px;
   padding: 48px;
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(51, 65, 85, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   text-align: center;
