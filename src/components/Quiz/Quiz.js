@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 import './Quiz.css';
 
 const Quiz = () => {
@@ -450,33 +451,54 @@ const Quiz = () => {
   if (showResults) {
     const score = calculateScore();
     return (
-      <div className="quiz-container">
-        {/* Video Background */}
-        <div className="quiz-video-background">
-          <video 
-            className="quiz-background-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            webkit-playsinline="true"
-          >
-            <source src="/Untitled design (9).mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="quiz-video-overlay"></div>
+      <div className="quiz-page">
+        {/* Header */}
+        <div className="hero-nav-content">
+          <div className="nav-container">
+            <div className="nav-left">
+              <div className="nav-logo">
+                <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
+                <h2>Compliance Eye</h2>
+              </div>
+            </div>
+            <div className="nav-menu">
+              <a href="#home" className="nav-link">Home</a>
+              <a href="#about" className="nav-link">About</a>
+              <a href="#services" className="nav-link">Services</a>
+              <a href="#contact" className="nav-link">Contact</a>
+            </div>
+            <div className="nav-right">
+              <div className="social-nav">
+                <a href="#" className="social-link">LinkedIn</a>
+                <a href="#" className="social-link">Twitter</a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="quiz-content">
-          <div className="quiz-header">
-            <div className="integration-tags">
-              <span className="integration-tag google">Google Classroom</span>
-              <span className="integration-tag microsoft">Microsoft Teams</span>
-            </div>
-            <h1>Assessment Complete!</h1>
-            <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
+        <div className="quiz-container">
+          {/* Video Background */}
+          <div className="quiz-video-background">
+            <video 
+              className="quiz-background-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              webkit-playsinline="true"
+            >
+              <source src="/Untitled design (9).mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="quiz-video-overlay"></div>
           </div>
+
+          <div className="quiz-content">
+            <div className="quiz-header">
+              <h1>Assessment Complete!</h1>
+              <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
+            </div>
           
           <div className="results-container">
           <div className="score-display">
@@ -510,37 +532,59 @@ const Quiz = () => {
           </div>
         </div>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="quiz-container">
-      {/* Video Background */}
-      <div className="quiz-video-background">
-        <video 
-          className="quiz-background-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          webkit-playsinline="true"
-        >
-          <source src="/Untitled design (9).mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="quiz-video-overlay"></div>
+    <div className="quiz-page">
+      {/* Header */}
+      <div className="hero-nav-content">
+        <div className="nav-container">
+          <div className="nav-left">
+            <div className="nav-logo">
+              <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
+              <h2>Compliance Eye</h2>
+            </div>
+          </div>
+          <div className="nav-menu">
+            <a href="#home" className="nav-link">Home</a>
+            <a href="#about" className="nav-link">About</a>
+            <a href="#services" className="nav-link">Services</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </div>
+          <div className="nav-right">
+            <div className="social-nav">
+              <a href="#" className="social-link">LinkedIn</a>
+              <a href="#" className="social-link">Twitter</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="quiz-content">
-        <div className="quiz-header">
-          <div className="integration-tags">
-            <span className="integration-tag google">Google Classroom</span>
-            <span className="integration-tag microsoft">Microsoft Teams</span>
-          </div>
-          <h1>ISO 27001 Assessment</h1>
-          <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
+      <div className="quiz-container">
+        {/* Video Background */}
+        <div className="quiz-video-background">
+          <video 
+            className="quiz-background-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            webkit-playsinline="true"
+          >
+            <source src="/Untitled design (9).mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="quiz-video-overlay"></div>
+        </div>
+
+        <div className="quiz-content">
+          <div className="quiz-header">
+            <h1>ISO 27001 Assessment</h1>
+            <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
           <div className="progress-bar">
             <div 
               className="progress-fill" 
@@ -594,6 +638,7 @@ const Quiz = () => {
         </div>
       </div>
       </div>
+      <Footer />
     </div>
   );
 };
