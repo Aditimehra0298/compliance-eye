@@ -468,6 +468,10 @@ const Quiz = () => {
 
         <div className="quiz-content">
           <div className="quiz-header">
+            <div className="integration-tags">
+              <span className="integration-tag google">Google Classroom</span>
+              <span className="integration-tag microsoft">Microsoft Teams</span>
+            </div>
             <h1>Assessment Complete!</h1>
             <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
           </div>
@@ -527,6 +531,10 @@ const Quiz = () => {
 
       <div className="quiz-content">
         <div className="quiz-header">
+          <div className="integration-tags">
+            <span className="integration-tag google">Google Classroom</span>
+            <span className="integration-tag microsoft">Microsoft Teams</span>
+          </div>
           <h1>ISO 27001 Assessment</h1>
           <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
           <div className="progress-bar">
@@ -544,6 +552,7 @@ const Quiz = () => {
           <h2 className="question-text">
             {questions[currentQuestion].question}
           </h2>
+          <p className="instruction-text">Choose only 1 answer</p>
         
         <div className="options-container">
           {questions[currentQuestion].options.map((option, index) => (
