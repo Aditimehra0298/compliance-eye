@@ -585,57 +585,58 @@ const Quiz = () => {
           <div className="quiz-header">
             <h1>ISO 27001 Assessment</h1>
             <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
-          <div className="progress-bar">
-            <div 
-              className="progress-fill" 
-              style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
-            ></div>
+            <div className="progress-bar">
+              <div 
+                className="progress-fill" 
+                style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
+              ></div>
+            </div>
+            <div className="question-counter">
+              Question {currentQuestion + 1} of {questions.length}
+            </div>
           </div>
-          <div className="question-counter">
-            Question {currentQuestion + 1} of {questions.length}
+
+          <div className="question-container">
+            <h2 className="question-text">
+              {questions[currentQuestion].question}
+            </h2>
+            <p className="instruction-text">Choose only 1 answer</p>
+          
+            <div className="options-container">
+              {questions[currentQuestion].options.map((option, index) => (
+                <label 
+                  key={index} 
+                  className={`option-label ${answers[questions[currentQuestion].id] === option ? 'selected' : ''}`}
+                >
+                  <input
+                    type="radio"
+                    name={`question-${questions[currentQuestion].id}`}
+                    value={option}
+                    checked={answers[questions[currentQuestion].id] === option}
+                    onChange={() => handleAnswerSelect(questions[currentQuestion].id, option)}
+                  />
+                  <span className="option-text">{option}</span>
+                </label>
+              ))}
+            </div>
+
+            <div className="quiz-actions">
+              <button 
+                className="prev-btn" 
+                onClick={handlePrevious}
+                disabled={currentQuestion === 0}
+              >
+                Previous
+              </button>
+              <button 
+                className="next-btn" 
+                onClick={handleNext}
+                disabled={!answers[questions[currentQuestion].id]}
+              >
+                {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+              </button>
+            </div>
           </div>
-        </div>
-
-        <div className="question-container">
-          <h2 className="question-text">
-            {questions[currentQuestion].question}
-          </h2>
-          <p className="instruction-text">Choose only 1 answer</p>
-        
-        <div className="options-container">
-          {questions[currentQuestion].options.map((option, index) => (
-            <label 
-              key={index} 
-              className={`option-label ${answers[questions[currentQuestion].id] === option ? 'selected' : ''}`}
-            >
-              <input
-                type="radio"
-                name={`question-${questions[currentQuestion].id}`}
-                value={option}
-                checked={answers[questions[currentQuestion].id] === option}
-                onChange={() => handleAnswerSelect(questions[currentQuestion].id, option)}
-              />
-              <span className="option-text">{option}</span>
-            </label>
-          ))}
-        </div>
-
-        <div className="quiz-actions">
-          <button 
-            className="prev-btn" 
-            onClick={handlePrevious}
-            disabled={currentQuestion === 0}
-          >
-            Previous
-          </button>
-          <button 
-            className="next-btn" 
-            onClick={handleNext}
-            disabled={!answers[questions[currentQuestion].id]}
-          >
-            {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-          </button>
-        </div>
         </div>
       </div>
       <Footer />
