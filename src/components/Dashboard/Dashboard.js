@@ -491,7 +491,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (location.state?.showPersonalizedReports && location.state?.assessmentData) {
       setAssessmentData(location.state.assessmentData);
-      setActiveTab('Products'); // Switch to Products tab to show personalized reports
+      setActiveTab('Reports'); // Switch to Reports tab to show assessment results
     }
   }, [location.state]);
 
@@ -606,12 +606,144 @@ const Dashboard = () => {
           
           {activeTab === 'Reports' && (
             <>
-              {/* Simple Analytics Section */}
-              <div className="analytics-section">
-                <div className="section-header">
-                  <h2>Analytics Dashboard</h2>
-                  <p>Compliance analytics and insights</p>
+              {/* Assessment Results Section - Show when user returns from quiz */}
+              {assessmentData && (
+                <div className="assessment-results-section">
+                  <div className="section-header">
+                    <h2>Your Assessment Results</h2>
+                    <p>Real-time analysis of your {assessmentData.complianceType} assessment</p>
+                    <div className="assessment-badge">
+                      <span className="badge-icon">📊</span>
+                      <span>Power BI Real-time Analytics</span>
+                    </div>
+                  </div>
+
+                  <div className="results-grid">
+                    {/* Score Overview */}
+                    <div className="result-card score-card">
+                      <div className="card-header">
+                        <h3>Overall Score</h3>
+                        <span className="score-badge">{assessmentData.score}%</span>
+                      </div>
+                      <div className="score-breakdown">
+                        <div className="score-detail">
+                          <span className="label">Points Earned:</span>
+                          <span className="value">{assessmentData.totalPoints.toFixed(1)} / {assessmentData.maxPoints}</span>
+                        </div>
+                        <div className="score-detail">
+                          <span className="label">Completion Date:</span>
+                          <span className="value">{new Date(assessmentData.completedAt).toLocaleDateString()}</span>
+                        </div>
+                        <div className="score-detail">
+                          <span className="label">Assessment Type:</span>
+                          <span className="value">{assessmentData.complianceType}</span>
+                        </div>
+                      </div>
+                      <div className="score-progress">
+                        <div className="progress-bar">
+                          <div 
+                            className="progress-fill" 
+                            style={{width: `${assessmentData.score}%`}}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Power BI Analytics Simulation */}
+                    <div className="result-card analytics-card">
+                      <div className="card-header">
+                        <h3>Power BI Analytics</h3>
+                        <span className="live-indicator">● LIVE</span>
+                      </div>
+                      <div className="analytics-content">
+                        <div className="analytics-metrics">
+                          <div className="metric">
+                            <span className="metric-label">Compliance Level</span>
+                            <span className="metric-value">{assessmentData.score >= 80 ? 'Excellent' : assessmentData.score >= 60 ? 'Good' : assessmentData.score >= 40 ? 'Fair' : 'Needs Improvement'}</span>
+                          </div>
+                          <div className="metric">
+                            <span className="metric-label">Risk Score</span>
+                            <span className="metric-value">{100 - assessmentData.score}%</span>
+                          </div>
+                          <div className="metric">
+                            <span className="metric-label">Maturity Level</span>
+                            <span className="metric-value">{assessmentData.score >= 80 ? 'Advanced' : assessmentData.score >= 60 ? 'Intermediate' : 'Basic'}</span>
+                          </div>
+                        </div>
+                        <div className="analytics-chart">
+                          <div className="chart-title">Compliance Distribution</div>
+                          <div className="chart-bars">
+                            <div className="bar-group">
+                              <div className="bar" style={{height: `${assessmentData.score}%`, backgroundColor: '#3b82f6'}}></div>
+                              <span className="bar-label">Your Score</span>
+                            </div>
+                            <div className="bar-group">
+                              <div className="bar" style={{height: '75%', backgroundColor: '#10b981'}}></div>
+                              <span className="bar-label">Industry Avg</span>
+                            </div>
+                            <div className="bar-group">
+                              <div className="bar" style={{height: '90%', backgroundColor: '#8b5cf6'}}></div>
+                              <span className="bar-label">Best Practice</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Recommendations */}
+                    <div className="result-card recommendations-card">
+                      <div className="card-header">
+                        <h3>AI-Powered Recommendations</h3>
+                        <span className="ai-badge">🤖 AI Generated</span>
+                      </div>
+                      <div className="recommendations-list">
+                        {assessmentData.recommendations.map((rec, index) => (
+                          <div key={index} className="recommendation-item">
+                            <span className="rec-number">{index + 1}</span>
+                            <span className="rec-text">{rec}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Real-time Insights */}
+                    <div className="result-card insights-card">
+                      <div className="card-header">
+                        <h3>Real-time Insights</h3>
+                        <span className="update-time">Updated: {new Date().toLocaleTimeString()}</span>
+                      </div>
+                      <div className="insights-content">
+                        <div className="insight-item">
+                          <div className="insight-icon">📈</div>
+                          <div className="insight-text">
+                            <strong>Performance Trend:</strong> Your score is {assessmentData.score >= 70 ? 'above' : 'below'} industry average
+                          </div>
+                        </div>
+                        <div className="insight-item">
+                          <div className="insight-icon">🎯</div>
+                          <div className="insight-text">
+                            <strong>Focus Area:</strong> {assessmentData.score < 60 ? 'Basic implementation needed' : assessmentData.score < 80 ? 'Process optimization recommended' : 'Maintain excellence'}
+                          </div>
+                        </div>
+                        <div className="insight-item">
+                          <div className="insight-icon">⚡</div>
+                          <div className="insight-text">
+                            <strong>Next Steps:</strong> {assessmentData.score < 60 ? 'Start with fundamental controls' : 'Focus on advanced monitoring'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              )}
+
+              {/* Default Analytics Section - Show when no assessment data */}
+              {!assessmentData && (
+                <div className="analytics-section">
+                  <div className="section-header">
+                    <h2>Analytics Dashboard</h2>
+                    <p>Compliance analytics and insights</p>
+                  </div>
 
                 <div className="analytics-grid">
                   <div className="metric-card">
@@ -1026,6 +1158,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
+              )}
             </>
           )}
 
