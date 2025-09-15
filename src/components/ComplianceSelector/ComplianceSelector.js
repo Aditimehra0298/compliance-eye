@@ -12,6 +12,9 @@ const ComplianceSelector = () => {
   const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'upload', 'payment'
   const [uploadedDocuments, setUploadedDocuments] = useState({});
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [showAllStandards, setShowAllStandards] = useState(false);
+  const [showAddStandard, setShowAddStandard] = useState(false);
+  const [newStandard, setNewStandard] = useState({ name: '', description: '', version: '' });
 
   const complianceStandards = {
     'EU Compliance': [
@@ -67,11 +70,47 @@ const ComplianceSelector = () => {
     setSelectedCompliance(e.target.value);
     setSelectedStandard('');
     setSelectedOption('');
+    setShowAllStandards(false);
+    setShowAddStandard(false);
   };
 
   const handleStandardChange = (e) => {
     setSelectedStandard(e.target.value);
     setSelectedOption('');
+  };
+
+  const handleViewAllStandards = () => {
+    setShowAllStandards(true);
+    setShowAddStandard(false);
+  };
+
+  const handleAddNewStandard = () => {
+    setShowAddStandard(true);
+    setShowAllStandards(false);
+  };
+
+  const handleNewStandardChange = (field, value) => {
+    setNewStandard(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSaveNewStandard = () => {
+    if (newStandard.name && newStandard.description && newStandard.version) {
+      // Here you would typically save to backend
+      // For now, we'll just show a success message
+      alert(`New standard "${newStandard.name}" added successfully!`);
+      setNewStandard({ name: '', description: '', version: '' });
+      setShowAddStandard(false);
+    } else {
+      alert('Please fill in all fields');
+    }
+  };
+
+  const handleCancelAddStandard = () => {
+    setNewStandard({ name: '', description: '', version: '' });
+    setShowAddStandard(false);
   };
 
   const handleOptionChange = (e) => {
@@ -203,17 +242,37 @@ const ComplianceSelector = () => {
             <div className="step-number">1</div>
             <div className="step-content">
               <label className="step-label">Choose Compliance Framework</label>
-              <select 
-                value={selectedCompliance} 
-                onChange={handleComplianceChange}
-                className="compliance-dropdown"
-              >
-                <option value="">Select Compliance Framework</option>
-                <option value="EU Compliance">EU Compliance</option>
-                <option value="USA Compliance">USA Compliance</option>
-                <option value="ISO Standards">ISO Standards</option>
-                <option value="IEC Standards">IEC Standards</option>
-              </select>
+              <div className="compliance-selection">
+                <select 
+                  value={selectedCompliance} 
+                  onChange={handleComplianceChange}
+                  className="compliance-dropdown"
+                >
+                  <option value="">Select Compliance Framework</option>
+                  <option value="EU Compliance">EU Compliance</option>
+                  <option value="USA Compliance">USA Compliance</option>
+                  <option value="ISO Standards">ISO Standards</option>
+                  <option value="IEC Standards">IEC Standards</option>
+                </select>
+                {selectedCompliance && (
+                  <div className="framework-actions">
+                    <button 
+                      type="button"
+                      className="view-all-btn"
+                      onClick={handleViewAllStandards}
+                    >
+                      View All Standards
+                    </button>
+                    <button 
+                      type="button"
+                      className="edit-btn"
+                      onClick={handleAddNewStandard}
+                    >
+                      Add New Standard
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -238,8 +297,109 @@ const ComplianceSelector = () => {
           )}
 
 
+          {/* All Standards View */}
+          {showAllStandards && selectedCompliance && (
+            <div className="all-standards-section">
+              <div className="standards-header">
+                <h3>All {selectedCompliance} Standards</h3>
+                <button 
+                  className="close-standards-btn"
+                  onClick={() => setShowAllStandards(false)}
+                >
+                  ×
+                </button>
+              </div>
+              <div className="standards-grid">
+                {complianceStandards[selectedCompliance]?.map((standard, index) => (
+                  <div key={index} className="standard-card">
+                    <h4>{standard}</h4>
+                    <p className="standard-description">
+                      {standard.includes('ISO') ? 'International standard for quality and security management' :
+                       standard.includes('GDPR') ? 'European data protection regulation' :
+                       standard.includes('HIPAA') ? 'US healthcare data protection law' :
+                       standard.includes('IEC') ? 'International electrotechnical standard' :
+                       'Compliance standard for regulatory requirements'}
+                    </p>
+                    <div className="standard-actions">
+                      <button 
+                        className="select-standard-btn"
+                        onClick={() => {
+                          setSelectedStandard(standard);
+                          setShowAllStandards(false);
+                        }}
+                      >
+                        Select This Standard
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Add New Standard Form */}
+          {showAddStandard && selectedCompliance && (
+            <div className="add-standard-section">
+              <div className="add-standard-header">
+                <h3>Add New {selectedCompliance} Standard</h3>
+                <button 
+                  className="close-add-btn"
+                  onClick={handleCancelAddStandard}
+                >
+                  ×
+                </button>
+              </div>
+              <div className="add-standard-form">
+                <div className="form-group">
+                  <label>Standard Name</label>
+                  <input
+                    type="text"
+                    value={newStandard.name}
+                    onChange={(e) => handleNewStandardChange('name', e.target.value)}
+                    placeholder="e.g., ISO 27001, GDPR, HIPAA"
+                    className="standard-input"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description</label>
+                  <textarea
+                    value={newStandard.description}
+                    onChange={(e) => handleNewStandardChange('description', e.target.value)}
+                    placeholder="Brief description of the standard"
+                    className="standard-textarea"
+                    rows="3"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Version</label>
+                  <input
+                    type="text"
+                    value={newStandard.version}
+                    onChange={(e) => handleNewStandardChange('version', e.target.value)}
+                    placeholder="e.g., 2022, 2018, v1.0"
+                    className="standard-input"
+                  />
+                </div>
+                <div className="form-actions">
+                  <button 
+                    className="cancel-btn"
+                    onClick={handleCancelAddStandard}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    className="save-btn"
+                    onClick={handleSaveNewStandard}
+                  >
+                    Save Standard
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Start Assessment Button */}
-          {selectedCompliance && selectedStandard && (
+          {selectedCompliance && selectedStandard && !showAllStandards && !showAddStandard && (
             <div className="form-actions">
               <button 
                 className="start-assessment-btn"
