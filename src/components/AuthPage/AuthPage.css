@@ -463,10 +463,10 @@
   color: #a78bfa;
 }
 
-/* Right Panel - Promotional */
+/* Right Panel - Video */
 .promo-panel {
   background: #001122;
-  padding: 60px 80px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -546,16 +546,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
 }
 
 .login-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 0;
   transition: transform 0.3s ease;
 }
 
@@ -738,9 +738,12 @@
     min-height: calc(100vh - 160px); /* Account for navbar and footer */
   }
   
-  .auth-panel,
-  .promo-panel {
+  .auth-panel {
     padding: 40px 60px;
+  }
+  
+  .promo-panel {
+    padding: 0;
   }
   
   .video-container {
@@ -762,9 +765,12 @@
     min-height: calc(100vh - 140px);
   }
   
-  .auth-panel,
-  .promo-panel {
+  .auth-panel {
     padding: 30px 40px;
+  }
+  
+  .promo-panel {
+    padding: 0;
   }
   
   .auth-title {
@@ -789,9 +795,12 @@
     min-height: calc(100vh - 120px);
   }
   
-  .auth-panel,
-  .promo-panel {
+  .auth-panel {
     padding: 20px 30px;
+  }
+  
+  .promo-panel {
+    padding: 0;
   }
   
   .auth-title {
