@@ -401,22 +401,6 @@ const Quiz = () => {
           </div>
         </div>
 
-        {/* Video Background */}
-        <div className="quiz-video-background">
-          <video 
-            className="quiz-background-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            webkit-playsinline="true"
-          >
-            <source src="/Untitled design (9).mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="quiz-video-overlay"></div>
-        </div>
 
         <div className="quiz-container">
           <div className="quiz-content">
@@ -488,22 +472,6 @@ const Quiz = () => {
         </div>
       </div>
 
-      {/* Video Background */}
-      <div className="quiz-video-background">
-        <video 
-          className="quiz-background-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          webkit-playsinline="true"
-        >
-          <source src="/Untitled design (9).mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="quiz-video-overlay"></div>
-      </div>
 
       <div className="quiz-container">
         <div className="quiz-content">
