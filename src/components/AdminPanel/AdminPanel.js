@@ -20,8 +20,10 @@ const AdminPanel = () => {
   const [showAddFramework, setShowAddFramework] = useState(false);
   const [showAddStandard, setShowAddStandard] = useState(false);
   const [showAddQuestions, setShowAddQuestions] = useState(false);
+  const [showQuestionWorkflow, setShowQuestionWorkflow] = useState(false);
   const [selectedFramework, setSelectedFramework] = useState(null);
   const [selectedStandard, setSelectedStandard] = useState(null);
+  const [workflowStep, setWorkflowStep] = useState('framework'); // 'framework', 'standard', 'questions'
 
   // Form data
   const [frameworkForm, setFrameworkForm] = useState({
@@ -38,6 +40,13 @@ const AdminPanel = () => {
   });
 
   const [questionsForm, setQuestionsForm] = useState({
+    questions: []
+  });
+
+  // Workflow form data
+  const [workflowData, setWorkflowData] = useState({
+    framework: null,
+    standard: null,
     questions: []
   });
 
@@ -211,6 +220,112 @@ const AdminPanel = () => {
 
   const removeQuestion = (index) => {
     setQuestionsForm(prev => ({
+      questions: prev.questions.filter((_, i) => i !== index)
+    }));
+  };
+
+  // Workflow handlers
+  const startQuestionWorkflow = () => {
+    setShowQuestionWorkflow(true);
+    setWorkflowStep('framework');
+    setWorkflowData({ framework: null, standard: null, questions: [] });
+  };
+
+  const handleFrameworkSelection = (framework) => {
+    setWorkflowData(prev => ({ ...prev, framework }));
+    setWorkflowStep('standard');
+  };
+
+  const handleCreateFramework = async (frameworkData) => {
+    try {
+      const newFramework = await adminService.addFramework(frameworkData);
+      setWorkflowData(prev => ({ ...prev, framework: newFramework }));
+      setWorkflowStep('standard');
+      // Reload frameworks
+      const data = await adminService.getFrameworksData();
+      setFrameworks(data);
+    } catch (error) {
+      console.error('Error creating framework:', error);
+    }
+  };
+
+  const handleStandardSelection = (standard) => {
+    setWorkflowData(prev => ({ ...prev, standard }));
+    setWorkflowStep('questions');
+  };
+
+  const handleCreateStandard = async (standardData) => {
+    try {
+      const newStandard = await adminService.addStandard({
+        ...standardData,
+        framework: workflowData.framework.id
+      });
+      setWorkflowData(prev => ({ ...prev, standard: newStandard }));
+      setWorkflowStep('questions');
+      // Reload standards
+      const data = await adminService.getStandardsData();
+      setStandards(data);
+    } catch (error) {
+      console.error('Error creating standard:', error);
+    }
+  };
+
+  const handleWorkflowQuestionsSubmit = async () => {
+    try {
+      await adminService.addQuestions(workflowData.standard.id, workflowData.questions);
+      setWorkflowData({ framework: null, standard: null, questions: [] });
+      setShowQuestionWorkflow(false);
+      setWorkflowStep('framework');
+      // Reload standards
+      const data = await adminService.getStandardsData();
+      setStandards(data);
+    } catch (error) {
+      console.error('Error adding questions:', error);
+    }
+  };
+
+  const addWorkflowQuestion = () => {
+    setWorkflowData(prev => ({
+      ...prev,
+      questions: [...prev.questions, {
+        question_text: '',
+        question_number: prev.questions.length + 1,
+        options: [
+          { option_text: '', option_letter: 'A', points: 2.0, order: 1 },
+          { option_text: '', option_letter: 'B', points: 4.0, order: 2 },
+          { option_text: '', option_letter: 'C', points: 5.5, order: 3 },
+          { option_text: '', option_letter: 'D', points: 8.0, order: 4 }
+        ]
+      }]
+    }));
+  };
+
+  const updateWorkflowQuestion = (index, field, value) => {
+    setWorkflowData(prev => ({
+      ...prev,
+      questions: prev.questions.map((q, i) => 
+        i === index ? { ...q, [field]: value } : q
+      )
+    }));
+  };
+
+  const updateWorkflowOption = (questionIndex, optionIndex, field, value) => {
+    setWorkflowData(prev => ({
+      ...prev,
+      questions: prev.questions.map((q, qi) => 
+        qi === questionIndex ? {
+          ...q,
+          options: q.options.map((opt, oi) => 
+            oi === optionIndex ? { ...opt, [field]: value } : opt
+          )
+        } : q
+      )
+    }));
+  };
+
+  const removeWorkflowQuestion = (index) => {
+    setWorkflowData(prev => ({
+      ...prev,
       questions: prev.questions.filter((_, i) => i !== index)
     }));
   };
@@ -464,7 +579,12 @@ const AdminPanel = () => {
     <div className="admin-section">
       <div className="section-header">
         <h2>Compliance Standards</h2>
-        <button className="add-btn" onClick={() => setShowAddStandard(true)}>+ Add Standard</button>
+        <div className="header-actions">
+          <button className="workflow-btn" onClick={startQuestionWorkflow}>
+            📝 Add Questions Workflow
+          </button>
+          <button className="add-btn" onClick={() => setShowAddStandard(true)}>+ Add Standard</button>
+        </div>
       </div>
       
       <div className="standards-grid">
@@ -773,6 +893,224 @@ const AdminPanel = () => {
           {activeTab === 'individual' && renderIndividualData()}
         </div>
       </div>
+
+      {/* Question Workflow Modal */}
+      {showQuestionWorkflow && (
+        <div className="modal-overlay">
+          <div className="modal-content large-modal">
+            <div className="modal-header">
+              <h3>Add Questions Workflow</h3>
+              <button className="close-btn" onClick={() => setShowQuestionWorkflow(false)}>×</button>
+            </div>
+            
+            <div className="workflow-container">
+              {/* Step 1: Framework Selection */}
+              {workflowStep === 'framework' && (
+                <div className="workflow-step">
+                  <div className="step-header">
+                    <h4>Step 1: Select or Create Framework</h4>
+                    <p>Choose an existing compliance framework or create a new one</p>
+                  </div>
+                  
+                  <div className="framework-selection">
+                    <h5>Existing Frameworks:</h5>
+                    <div className="framework-list">
+                      {frameworks.map(framework => (
+                        <div 
+                          key={framework.id} 
+                          className={`framework-item ${workflowData.framework?.id === framework.id ? 'selected' : ''}`}
+                          onClick={() => handleFrameworkSelection(framework)}
+                        >
+                          <div className="framework-info">
+                            <h6>{framework.name}</h6>
+                            <p>{framework.description}</p>
+                            <span className="category-badge">{framework.category}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="divider">
+                      <span>OR</span>
+                    </div>
+                    
+                    <h5>Create New Framework:</h5>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      handleCreateFramework(frameworkForm);
+                    }} className="workflow-form">
+                      <div className="form-group">
+                        <label>Framework Name</label>
+                        <input
+                          type="text"
+                          value={frameworkForm.name}
+                          onChange={(e) => setFrameworkForm({...frameworkForm, name: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Description</label>
+                        <textarea
+                          value={frameworkForm.description}
+                          onChange={(e) => setFrameworkForm({...frameworkForm, description: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Category</label>
+                        <select
+                          value={frameworkForm.category}
+                          onChange={(e) => setFrameworkForm({...frameworkForm, category: e.target.value})}
+                        >
+                          <option value="EU">EU Compliance</option>
+                          <option value="USA">USA Compliance</option>
+                          <option value="ISO">ISO Standards</option>
+                          <option value="IEC">IEC Standards</option>
+                          <option value="CUSTOM">Custom</option>
+                        </select>
+                      </div>
+                      <button type="submit" className="submit-btn">Create Framework</button>
+                    </form>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2: Standard Selection */}
+              {workflowStep === 'standard' && (
+                <div className="workflow-step">
+                  <div className="step-header">
+                    <h4>Step 2: Select or Create Standard</h4>
+                    <p>Choose a standard under {workflowData.framework?.name} or create a new one</p>
+                  </div>
+                  
+                  <div className="standard-selection">
+                    <h5>Existing Standards:</h5>
+                    <div className="standard-list">
+                      {standards.filter(s => s.framework?.id === workflowData.framework?.id).map(standard => (
+                        <div 
+                          key={standard.id} 
+                          className={`standard-item ${workflowData.standard?.id === standard.id ? 'selected' : ''}`}
+                          onClick={() => handleStandardSelection(standard)}
+                        >
+                          <div className="standard-info">
+                            <h6>{standard.name}</h6>
+                            <p>{standard.description}</p>
+                            <span className="version-badge">v{standard.version}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="divider">
+                      <span>OR</span>
+                    </div>
+                    
+                    <h5>Create New Standard:</h5>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      handleCreateStandard(standardForm);
+                    }} className="workflow-form">
+                      <div className="form-group">
+                        <label>Standard Name</label>
+                        <input
+                          type="text"
+                          value={standardForm.name}
+                          onChange={(e) => setStandardForm({...standardForm, name: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Description</label>
+                        <textarea
+                          value={standardForm.description}
+                          onChange={(e) => setStandardForm({...standardForm, description: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Version</label>
+                        <input
+                          type="text"
+                          value={standardForm.version}
+                          onChange={(e) => setStandardForm({...standardForm, version: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <button type="submit" className="submit-btn">Create Standard</button>
+                    </form>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Questions */}
+              {workflowStep === 'questions' && (
+                <div className="workflow-step">
+                  <div className="step-header">
+                    <h4>Step 3: Add Questions</h4>
+                    <p>Add questions for {workflowData.standard?.name} under {workflowData.framework?.name}</p>
+                  </div>
+                  
+                  <div className="questions-container">
+                    {workflowData.questions.map((question, index) => (
+                      <div key={index} className="question-card">
+                        <div className="question-header">
+                          <h4>Question {question.question_number}</h4>
+                          <button type="button" className="remove-btn" onClick={() => removeWorkflowQuestion(index)}>Remove</button>
+                        </div>
+                        <div className="form-group">
+                          <label>Question Text</label>
+                          <textarea
+                            value={question.question_text}
+                            onChange={(e) => updateWorkflowQuestion(index, 'question_text', e.target.value)}
+                            required
+                            rows="3"
+                          />
+                        </div>
+                        <div className="options-container">
+                          <h5>Answer Options</h5>
+                          {question.options.map((option, optionIndex) => (
+                            <div key={optionIndex} className="option-row">
+                              <div className="option-letter">{option.option_letter}</div>
+                              <input
+                                type="text"
+                                value={option.option_text}
+                                onChange={(e) => updateWorkflowOption(index, optionIndex, 'option_text', e.target.value)}
+                                placeholder={`Option ${option.option_letter}`}
+                                required
+                              />
+                              <input
+                                type="number"
+                                value={option.points}
+                                onChange={(e) => updateWorkflowOption(index, optionIndex, 'points', parseFloat(e.target.value))}
+                                step="0.1"
+                                min="0"
+                                max="10"
+                              />
+                              <span className="points-label">points</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" className="add-question-btn" onClick={addWorkflowQuestion}>
+                      + Add Question
+                    </button>
+                  </div>
+                  
+                  <div className="workflow-actions">
+                    <button type="button" className="back-btn" onClick={() => setWorkflowStep('standard')}>
+                      ← Back to Standards
+                    </button>
+                    <button type="button" className="submit-btn" onClick={handleWorkflowQuestionsSubmit}>
+                      Complete Workflow
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
