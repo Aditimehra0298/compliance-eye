@@ -138,7 +138,7 @@ const AuthPage = () => {
               muted
               playsInline
             >
-              <source src="/WhatsApp Video 2025-09-15 at 09.39.24.mp4" type="video/mp4" />
+              <source src="/login-video-optimized.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div className="video-overlay">
