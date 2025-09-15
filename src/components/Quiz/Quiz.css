@@ -601,45 +601,28 @@
 
 .thank-you-actions {
   display: flex;
-  gap: 20px;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
-.view-results-btn, .dashboard-btn {
-  padding: 16px 32px;
+.dashboard-btn {
+  padding: 18px 40px;
   border: none;
   border-radius: 12px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 180px;
+  min-width: 220px;
   backdrop-filter: blur(10px);
-}
-
-.view-results-btn {
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
   box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
-.view-results-btn:hover {
+.dashboard-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-}
-
-.dashboard-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dashboard-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 }
 
 /* Responsive Thank You Page */
@@ -660,14 +643,11 @@
     font-size: 1rem;
   }
   
-  .thank-you-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .view-results-btn, .dashboard-btn {
+  .dashboard-btn {
     width: 100%;
     max-width: 300px;
+    font-size: 1.1rem;
+    padding: 16px 32px;
   }
 }
 

@@ -450,10 +450,6 @@ const Quiz = () => {
     return recommendations;
   };
 
-  const handleViewResults = () => {
-    setShowThankYou(false);
-    setShowResults(true);
-  };
 
   const handleBackToDashboard = () => {
     const scoreData = calculateScore();
@@ -510,16 +506,11 @@ const Quiz = () => {
                 Your {complianceData.standard || 'ISO 27001'} assessment has been completed successfully.
               </p>
               <p className="thank-you-subtitle">
-                We've analyzed your responses and prepared a comprehensive report with personalized recommendations.
+                We've analyzed your responses and prepared a comprehensive report with personalized recommendations. 
+                Go to your dashboard to view your detailed results and recommendations.
               </p>
               
               <div className="thank-you-actions">
-                <button 
-                  className="view-results-btn"
-                  onClick={handleViewResults}
-                >
-                  View Your Results
-                </button>
                 <button 
                   className="dashboard-btn"
                   onClick={handleBackToDashboard}
