@@ -12,31 +12,62 @@ const Quiz = () => {
   // Get compliance data from navigation state
   const complianceData = location.state || {};
 
+  // ISO 27001 Questions based on the provided data
   const questions = [
     {
       id: 1,
-      question: "Does your organization have a documented data protection policy?",
-      options: ["Yes, fully documented", "Partially documented", "No documentation", "Not applicable"]
+      clause: "4.1",
+      question: "Understanding the organization and its context - Has the organization identified and documented the list of external and internal issues?",
+      options: [
+        "My organization is aware of the internal and external issues but not documented them",
+        "My organization has documented all possible internal and external issues in one format with the help of a brain storming session",
+        "The enlisted internal and external issues are linked to ISO 27002 controls and also our internal process related to them and are reviewed on a yearly basis",
+        "Internal and external issues are identified, enlisted and linked to ISO 27002 controls and also graded with regards to their ability to influence our organization success and this grading is then linked to the risk analysis elements"
+      ]
     },
     {
       id: 2,
-      question: "Have you conducted a data protection impact assessment (DPIA)?",
-      options: ["Yes, completed", "In progress", "Not started", "Not required"]
+      clause: "4.2",
+      question: "Understanding the needs and expectations of interested parties - Has the organization identified the list of Interested parties?",
+      options: [
+        "My organization has identified most important interested parties which are three like employees, customers and suppliers - and we have captured their requirements",
+        "My organization has identified all legal and government stakeholders in addition to suppliers, customers and employees and have identified their contact person and documented their key requirements in a list",
+        "We have identified level 2 suppliers and customers in addition to government, legal and employee stakeholders, we have documented separately for each stakeholder their requirements and also have identified how we are able to meet these requirements. We have also identified risk arising out of this exercise and included these risk in our formal risk assessment",
+        "Our organization has a process for identifying all possible stakeholders and categorises them for importance. We review this list at least once in a year. There is a stakeholder engagement process with clearly accountable people who have responsibilities to identify explicit and implicit requirements. These requirements serve as input in making revisions to our ISMS policy and IS objectives"
+      ]
     },
     {
       id: 3,
-      question: "Do you have a designated Data Protection Officer (DPO)?",
-      options: ["Yes, appointed", "Planning to appoint", "Not required", "Not applicable"]
+      clause: "4.3",
+      question: "Determining the scope of the ISMS - Has the organization established the scope of the ISMS?",
+      options: [
+        "The organization has reduced the scope to limited set of activities because of any reason and does not covers all activities which may have additional risks",
+        "We have a documented scope document which is part of our IS policy document. It identifies the building that we occupy and the software that we use and all key activities we do to service our client",
+        "The scope document covers all activities and links to external and internal issues and interested parties requirements identified by the organization",
+        "The scope is linked to organizational activities and interfaces with other activities performed by interested parties including vendors"
+      ]
     },
     {
       id: 4,
-      question: "Are your data processing activities recorded in a register?",
-      options: ["Yes, comprehensive", "Partially recorded", "No register", "Not applicable"]
+      clause: "4.4",
+      question: "Information Security Management System - Has the organization established an ISMS with defined processes and interactions?",
+      options: [
+        "Basic ISMS structure exists with minimal documentation, Processes are identified and listed",
+        "ALL key processes identified and listed as a flow chart",
+        "ISMS processes are listed as core and non core and high level and subprocesses are also identified ,integrated and regularly reviewed",
+        "ISMS is fully integrated with business processes, continuously improved, and strategically aligned, Core and non core processes and subprocesses are mapped for responsibility and interafaces, whether they are linked to internal or external issue or any interested parties requirments"
+      ]
     },
     {
       id: 5,
-      question: "Do you have procedures for handling data subject requests?",
-      options: ["Yes, fully implemented", "Partially implemented", "No procedures", "Not applicable"]
+      clause: "5.1",
+      question: "Leadership and commitment - Has the organization made an ISMS policy and IS objectives which are compatible with the direction of the organization?",
+      options: [
+        "Organization has basic awareness of leadership requirements but limited documentation",
+        "Top management has documented commitment and established basic ISMS policy",
+        "Leadership commitment is integrated into business processes with regular communication and IS objectives which are coming out of the IS policy are reviewed for achievement Top managment asks the key members for inputs to change the policy and to makeit more clear and understandable for action expected out from each employee",
+        "Leadership demonstrates continuous commitment through measurable actions, resource allocation, and strategic integration , and at every moment of internal address highlights the Policy and what it means in the current context. It also reviews the IS objectives for achievement in the review meetings and encorages to refine these objectives by more engaegement."
+      ]
     }
   ];
 
@@ -145,12 +176,28 @@ const Quiz = () => {
     const score = calculateScore();
     return (
       <div className="quiz-container">
-        <div className="quiz-header">
-          <h1>Assessment Complete!</h1>
-          <p>Compliance Standard: {complianceData.standard || 'Selected Standard'}</p>
+        {/* Video Background */}
+        <div className="quiz-video-background">
+          <video 
+            className="quiz-background-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source src="/Untitled design (9).mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="quiz-video-overlay"></div>
         </div>
-        
-        <div className="results-container">
+
+        <div className="quiz-content">
+          <div className="quiz-header">
+            <h1>Assessment Complete!</h1>
+            <p>ISO 27001 - {complianceData.standard || 'Selected Standard'}</p>
+          </div>
+          
+          <div className="results-container">
           <div className="score-display">
             <h2>Your Score: {score}%</h2>
             <div className="score-bar">
@@ -181,30 +228,47 @@ const Quiz = () => {
             </button>
           </div>
         </div>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="quiz-container">
-      <div className="quiz-header">
-        <h1>Compliance Assessment</h1>
-        <p>{complianceData.compliance} - {complianceData.standard}</p>
-        <div className="progress-bar">
-          <div 
-            className="progress-fill" 
-            style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
-          ></div>
-        </div>
-        <div className="question-counter">
-          Question {currentQuestion + 1} of {questions.length}
-        </div>
+      {/* Video Background */}
+      <div className="quiz-video-background">
+        <video 
+          className="quiz-background-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/Untitled design (9).mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="quiz-video-overlay"></div>
       </div>
 
-      <div className="question-container">
-        <h2 className="question-text">
-          {questions[currentQuestion].question}
-        </h2>
+      <div className="quiz-content">
+        <div className="quiz-header">
+          <h1>ISO 27001 Assessment</h1>
+          <p>Clause {questions[currentQuestion].clause} - {complianceData.standard}</p>
+          <div className="progress-bar">
+            <div 
+              className="progress-fill" 
+              style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
+            ></div>
+          </div>
+          <div className="question-counter">
+            Question {currentQuestion + 1} of {questions.length}
+          </div>
+        </div>
+
+        <div className="question-container">
+          <h2 className="question-text">
+            {questions[currentQuestion].question}
+          </h2>
         
         <div className="options-container">
           {questions[currentQuestion].options.map((option, index) => (
@@ -240,6 +304,7 @@ const Quiz = () => {
             {currentQuestion === questions.length - 1 ? 'Finish' : 'Next'}
           </button>
         </div>
+      </div>
       </div>
     </div>
   );
