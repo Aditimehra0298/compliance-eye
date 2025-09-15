@@ -82,6 +82,8 @@ const AdminPanel = () => {
   const [notifications, setNotifications] = useState([]);
   const [systemSettings, setSystemSettings] = useState({});
   const [auditLogs, setAuditLogs] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUserDetails, setShowUserDetails] = useState(false);
   const [realTimeData, setRealTimeData] = useState({
     totalUsers: 0,
     activeAssessments: 0,
@@ -495,6 +497,22 @@ const AdminPanel = () => {
     });
   };
 
+  // Handle user details view
+  const handleViewUserDetails = async (userId) => {
+    try {
+      const userData = await adminService.getIndividualUserData(userId);
+      setSelectedUser(userData);
+      setShowUserDetails(true);
+    } catch (error) {
+      console.error('Error loading user details:', error);
+    }
+  };
+
+  const handleCloseUserDetails = () => {
+    setShowUserDetails(false);
+    setSelectedUser(null);
+  };
+
   // Loading component
   if (isLoading) {
     return (
@@ -620,8 +638,9 @@ const AdminPanel = () => {
               </div>
             </div>
             <div className="user-actions">
-              <button className="action-btn">View Details</button>
+              <button className="action-btn" onClick={() => handleViewUserDetails(user.id)}>View Details</button>
               <button className="action-btn">Edit</button>
+              <button className="action-btn">Deactivate</button>
             </div>
           </div>
         ))}
@@ -1290,6 +1309,178 @@ const AdminPanel = () => {
                   </div>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* User Details Modal */}
+      {showUserDetails && selectedUser && (
+        <div className="modal-overlay">
+          <div className="modal-content large-modal user-details-modal">
+            <div className="modal-header">
+              <h3>User Details - {selectedUser.user.first_name} {selectedUser.user.last_name}</h3>
+              <button className="close-btn" onClick={handleCloseUserDetails}>×</button>
+            </div>
+            
+            <div className="user-details-content">
+              {/* User Information */}
+              <div className="details-section">
+                <h4>👤 User Information</h4>
+                <div className="info-grid">
+                  <div className="info-item">
+                    <label>Name:</label>
+                    <span>{selectedUser.user.first_name} {selectedUser.user.last_name}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Email:</label>
+                    <span>{selectedUser.user.email}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Username:</label>
+                    <span>{selectedUser.user.username}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Company:</label>
+                    <span>{selectedUser.profile.company}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Industry:</label>
+                    <span>{selectedUser.profile.industry}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Role:</label>
+                    <span>{selectedUser.profile.role}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Phone:</label>
+                    <span>{selectedUser.profile.phone}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Location:</label>
+                    <span>{selectedUser.user.location}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Joined:</label>
+                    <span>{formatDate(selectedUser.user.date_joined)}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Last Login:</label>
+                    <span>{formatDate(selectedUser.user.last_login)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Documents Section */}
+              <div className="details-section">
+                <h4>📄 Uploaded Documents</h4>
+                <div className="documents-grid">
+                  {selectedUser.documents.map(doc => (
+                    <div key={doc.id} className="document-card">
+                      <div className="document-header">
+                        <h5>{doc.name}</h5>
+                        <span className={`status-badge ${doc.status}`}>{doc.status}</span>
+                      </div>
+                      <div className="document-info">
+                        <p><strong>Type:</strong> {doc.type}</p>
+                        <p><strong>Category:</strong> {doc.category}</p>
+                        <p><strong>Size:</strong> {doc.size}</p>
+                        <p><strong>Uploaded:</strong> {formatDate(doc.uploaded_at)}</p>
+                        <p><strong>Description:</strong> {doc.description}</p>
+                      </div>
+                      <div className="document-actions">
+                        <button className="action-btn">Download</button>
+                        <button className="action-btn">View</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Assessment Answers Section */}
+              <div className="details-section">
+                <h4>📝 Assessment Answers</h4>
+                {selectedUser.assessments.map(assessment => (
+                  <div key={assessment.id} className="assessment-card">
+                    <div className="assessment-header">
+                      <h5>{assessment.standard} Assessment</h5>
+                      <div className="assessment-score">
+                        <span className="score">{assessment.percentage}%</span>
+                        <span className="status">{assessment.status}</span>
+                      </div>
+                    </div>
+                    <div className="responses-container">
+                      <h6>Question Responses:</h6>
+                      {assessment.responses.map((response, index) => (
+                        <div key={index} className="response-item">
+                          <div className="question">
+                            <strong>Q{response.question.question_number}:</strong> {response.question.question_text}
+                          </div>
+                          <div className="answer">
+                            <strong>Answer:</strong> {response.selected_option.option_letter} - {response.selected_option.option_text}
+                          </div>
+                          <div className="points">
+                            <strong>Points:</strong> {response.points_earned}/{response.selected_option.points} 
+                            <span className={`correctness ${response.points_earned === response.selected_option.points ? 'correct' : 'incorrect'}`}>
+                              {response.points_earned === response.selected_option.points ? '✓' : '✗'}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Payment Proofs Section */}
+              <div className="details-section">
+                <h4>💳 Payment History</h4>
+                <div className="payments-grid">
+                  {selectedUser.payments.map(payment => (
+                    <div key={payment.id} className="payment-card">
+                      <div className="payment-header">
+                        <h5>Payment #{payment.id}</h5>
+                        <span className={`status-badge ${payment.status}`}>{payment.status}</span>
+                      </div>
+                      <div className="payment-info">
+                        <p><strong>Amount:</strong> ${payment.amount} {payment.currency}</p>
+                        <p><strong>Method:</strong> {payment.payment_method}</p>
+                        <p><strong>Plan:</strong> {payment.plan_type}</p>
+                        <p><strong>Description:</strong> {payment.description}</p>
+                        <p><strong>Transaction ID:</strong> {payment.transaction_id}</p>
+                        <p><strong>Invoice:</strong> {payment.invoice_number}</p>
+                        <p><strong>Date:</strong> {formatDate(payment.paid_at || payment.created_at)}</p>
+                      </div>
+                      <div className="payment-actions">
+                        {payment.receipt_url && (
+                          <button className="action-btn">View Receipt</button>
+                        )}
+                        <button className="action-btn">Download Invoice</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Activity Log Section */}
+              <div className="details-section">
+                <h4>📊 Activity Log</h4>
+                <div className="activity-list">
+                  {selectedUser.activity_log.map(activity => (
+                    <div key={activity.id} className="activity-item">
+                      <div className="activity-icon">🔍</div>
+                      <div className="activity-content">
+                        <div className="activity-action">{activity.action}</div>
+                        <div className="activity-description">{activity.description}</div>
+                        <div className="activity-meta">
+                          <span>{formatDate(activity.timestamp)}</span>
+                          <span>IP: {activity.ip_address}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

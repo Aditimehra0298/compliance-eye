@@ -136,13 +136,17 @@ class AdminService {
           first_name: 'John',
           last_name: 'Doe',
           last_login: '2024-01-15T10:30:00Z',
-          date_joined: '2024-01-01T00:00:00Z'
+          date_joined: '2024-01-01T00:00:00Z',
+          is_active: true,
+          location: 'New York, NY'
         },
         profile: {
-          company: 'Tech Corp',
+          company: 'Tech Corp Inc.',
           industry: 'Technology',
-          role: 'compliance_officer',
-          phone: '+1-555-0123'
+          role: 'IT Manager',
+          phone: '+1-555-0123',
+          address: '123 Tech Street, New York, NY 10001',
+          website: 'https://techcorp.com'
         },
         assessments: [
           {
@@ -167,6 +171,128 @@ class AdminService {
                 answered_at: '2024-01-15T14:25:00Z'
               }
             ]
+          }
+        ],
+        documents: [
+          {
+            id: 1,
+            name: 'Security Policy Document.pdf',
+            type: 'policy',
+            category: 'Information Security Policy',
+            uploaded_at: '2024-01-16T09:15:00Z',
+            size: '2.3 MB',
+            status: 'approved',
+            file_url: '/documents/security_policy.pdf',
+            description: 'Comprehensive information security policy document'
+          },
+          {
+            id: 2,
+            name: 'Risk Assessment Report.xlsx',
+            type: 'assessment',
+            category: 'Risk Management',
+            uploaded_at: '2024-01-17T14:22:00Z',
+            size: '1.8 MB',
+            status: 'pending_review',
+            file_url: '/documents/risk_assessment.xlsx',
+            description: 'Detailed risk assessment for all business processes'
+          },
+          {
+            id: 3,
+            name: 'Incident Response Plan.docx',
+            type: 'procedure',
+            category: 'Incident Management',
+            uploaded_at: '2024-01-18T11:45:00Z',
+            size: '3.1 MB',
+            status: 'approved',
+            file_url: '/documents/incident_response.docx',
+            description: 'Step-by-step incident response procedures'
+          },
+          {
+            id: 4,
+            name: 'Business Continuity Plan.pdf',
+            type: 'plan',
+            category: 'Business Continuity',
+            uploaded_at: '2024-01-19T16:30:00Z',
+            size: '4.2 MB',
+            status: 'under_review',
+            file_url: '/documents/bcp.pdf',
+            description: 'Business continuity and disaster recovery plan'
+          }
+        ],
+        payments: [
+          {
+            id: 1,
+            amount: 99.99,
+            currency: 'USD',
+            status: 'completed',
+            payment_method: 'Credit Card',
+            card_last_four: '4242',
+            transaction_id: 'TXN123456789',
+            paid_at: '2024-01-17T11:30:00Z',
+            plan_type: 'Advanced',
+            description: 'ISO 27001 Advanced Assessment',
+            receipt_url: '/receipts/receipt_123456.pdf',
+            invoice_number: 'INV-2024-001'
+          },
+          {
+            id: 2,
+            amount: 49.99,
+            currency: 'USD',
+            status: 'pending',
+            payment_method: 'PayPal',
+            transaction_id: 'PP789012345',
+            created_at: '2024-01-19T16:20:00Z',
+            plan_type: 'Basic',
+            description: 'GDPR Basic Assessment',
+            receipt_url: null,
+            invoice_number: 'INV-2024-002'
+          },
+          {
+            id: 3,
+            amount: 199.99,
+            currency: 'USD',
+            status: 'completed',
+            payment_method: 'Bank Transfer',
+            transaction_id: 'BT987654321',
+            paid_at: '2024-01-20T09:15:00Z',
+            plan_type: 'Enterprise',
+            description: 'Full Compliance Suite',
+            receipt_url: '/receipts/receipt_789012.pdf',
+            invoice_number: 'INV-2024-003'
+          }
+        ],
+        activity_log: [
+          {
+            id: 1,
+            action: 'Assessment Completed',
+            description: 'Completed ISO 27001 assessment with score 78.5%',
+            timestamp: '2024-01-15T14:30:00Z',
+            ip_address: '192.168.1.100',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          },
+          {
+            id: 2,
+            action: 'Document Uploaded',
+            description: 'Uploaded Security Policy Document.pdf',
+            timestamp: '2024-01-16T09:15:00Z',
+            ip_address: '192.168.1.100',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          },
+          {
+            id: 3,
+            action: 'Payment Made',
+            description: 'Payment of $99.99 for Advanced plan',
+            timestamp: '2024-01-17T11:30:00Z',
+            ip_address: '192.168.1.100',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+          },
+          {
+            id: 4,
+            action: 'Profile Updated',
+            description: 'Updated company information and contact details',
+            timestamp: '2024-01-18T13:45:00Z',
+            ip_address: '192.168.1.100',
+            user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
           }
         ],
         total_assessments: 1,
