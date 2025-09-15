@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DocumentUpload from '../DocumentUpload/DocumentUpload';
+import PaymentChoice from '../PaymentChoice/PaymentChoice';
 import './ComplianceSelector.css';
 
 const ComplianceSelector = () => {
@@ -7,6 +9,9 @@ const ComplianceSelector = () => {
   const [selectedCompliance, setSelectedCompliance] = useState('');
   const [selectedStandard, setSelectedStandard] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'upload', 'payment'
+  const [uploadedDocuments, setUploadedDocuments] = useState({});
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const complianceStandards = {
     'EU Compliance': [
@@ -85,20 +90,79 @@ const ComplianceSelector = () => {
           }
         });
       } else if (selectedOption === 'paid') {
-        // Redirect to payment gateway (to be implemented later)
-        alert('Payment gateway will be implemented soon. For now, you can proceed with the free assessment.');
-        navigate('/quiz', { 
-          state: { 
-            compliance: selectedCompliance,
-            standard: selectedStandard,
-            option: 'free' // Default to free for now
-          }
-        });
+        // Move to document upload step for paid assessment
+        setCurrentStep('upload');
       }
     }
   };
 
+  const handleDocumentsUploaded = (documents) => {
+    setUploadedDocuments(documents);
+    setCurrentStep('payment');
+  };
+
+  const handlePaymentChoice = () => {
+    setCurrentStep('payment');
+  };
+
+  const handlePaymentSelected = (plan) => {
+    setSelectedPlan(plan);
+    // Here you would integrate with your payment gateway
+    alert(`Selected ${plan.name} for ${plan.price}. Payment gateway integration coming soon!`);
+  };
+
+  const handleBackToSelection = () => {
+    setCurrentStep('selection');
+    setUploadedDocuments({});
+    setSelectedPlan(null);
+  };
+
+  const handleBackToUpload = () => {
+    setCurrentStep('upload');
+  };
+
   const isFormComplete = selectedCompliance && selectedStandard && selectedOption;
+
+  // Render different steps
+  if (currentStep === 'upload') {
+    return (
+      <div className="compliance-selector">
+        <DocumentUpload
+          complianceType={`${selectedCompliance} - ${selectedStandard}`}
+          onDocumentsUploaded={handleDocumentsUploaded}
+          onPaymentChoice={handlePaymentChoice}
+        />
+        <div className="step-actions">
+          <button 
+            className="back-button"
+            onClick={handleBackToSelection}
+          >
+            ← Back to Selection
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentStep === 'payment') {
+    return (
+      <div className="compliance-selector">
+        <PaymentChoice
+          complianceType={`${selectedCompliance} - ${selectedStandard}`}
+          onPaymentSelected={handlePaymentSelected}
+          onBackToUpload={handleBackToUpload}
+        />
+        <div className="step-actions">
+          <button 
+            className="back-button"
+            onClick={handleBackToSelection}
+          >
+            ← Back to Selection
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="compliance-selector">
