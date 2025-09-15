@@ -9,6 +9,7 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   // Get compliance data from navigation state
   const complianceData = location.state || {};
@@ -382,7 +383,8 @@ const Quiz = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      setShowResults(true);
+      // Quiz completed - show thank you page first
+      setShowThankYou(true);
     }
   };
 
@@ -448,6 +450,11 @@ const Quiz = () => {
     return recommendations;
   };
 
+  const handleViewResults = () => {
+    setShowThankYou(false);
+    setShowResults(true);
+  };
+
   const handleBackToDashboard = () => {
     const scoreData = calculateScore();
     const assessmentData = {
@@ -466,6 +473,68 @@ const Quiz = () => {
       } 
     });
   };
+
+  if (showThankYou) {
+    return (
+      <div className="quiz-page">
+        {/* Header */}
+        <div className="hero-nav-content">
+          <div className="nav-container">
+            <div className="nav-left">
+              <div className="nav-logo">
+                <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
+                <h2>Compliance Eye</h2>
+              </div>
+            </div>
+            <div className="nav-menu">
+              <a href="#home" className="nav-link">Home</a>
+              <a href="#about" className="nav-link">About</a>
+              <a href="#services" className="nav-link">Services</a>
+              <a href="#contact" className="nav-link">Contact</a>
+            </div>
+            <div className="nav-right">
+              <div className="social-nav">
+                <a href="#" className="social-link">LinkedIn</a>
+                <a href="#" className="social-link">Twitter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="quiz-container">
+          <div className="quiz-content">
+            <div className="thank-you-container">
+              <div className="thank-you-icon">✅</div>
+              <h1>Thank You!</h1>
+              <p className="thank-you-message">
+                Your {complianceData.standard || 'ISO 27001'} assessment has been completed successfully.
+              </p>
+              <p className="thank-you-subtitle">
+                We've analyzed your responses and prepared a comprehensive report with personalized recommendations.
+              </p>
+              
+              <div className="thank-you-actions">
+                <button 
+                  className="view-results-btn"
+                  onClick={handleViewResults}
+                >
+                  View Your Results
+                </button>
+                <button 
+                  className="dashboard-btn"
+                  onClick={handleBackToDashboard}
+                >
+                  Go to Dashboard
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Footer />
+      </div>
+    );
+  }
 
   if (showResults) {
     const scoreData = calculateScore();
