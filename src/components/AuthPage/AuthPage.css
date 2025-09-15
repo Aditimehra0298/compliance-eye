@@ -537,8 +537,8 @@
   font-weight: bold;
 }
 
-/* Promotional Graphics */
-.promo-graphics {
+/* Video Container */
+.video-container {
   position: relative;
   z-index: 2;
   height: 100%;
@@ -546,19 +546,61 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.login-image {
+.login-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: 12px;
   transition: transform 0.3s ease;
 }
 
-.login-image:hover {
+.login-video:hover {
   transform: scale(1.02);
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 3;
+}
+
+.video-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 16px 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #ffffff, #e0e7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.video-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 
 .background-text {
@@ -701,12 +743,17 @@
     padding: 40px 60px;
   }
   
-  .promo-graphics {
+  .video-container {
     height: 100%;
+    min-height: 400px;
   }
   
-  .background-text {
-    font-size: 8rem;
+  .video-title {
+    font-size: 2.5rem;
+  }
+  
+  .video-subtitle {
+    font-size: 1rem;
   }
 }
 
@@ -724,14 +771,16 @@
     font-size: 2.5rem;
   }
   
-  .promo-title {
+  .video-title {
     font-size: 2rem;
   }
   
+  .video-subtitle {
+    font-size: 0.9rem;
+  }
   
-  .geometric-shape {
-    width: 150px;
-    height: 150px;
+  .video-container {
+    min-height: 300px;
   }
 }
 
@@ -749,18 +798,16 @@
     font-size: 2rem;
   }
   
-  .promo-title {
+  .video-title {
     font-size: 1.8rem;
   }
   
-  
-  .background-text {
-    font-size: 6rem;
+  .video-subtitle {
+    font-size: 0.8rem;
   }
   
-  .geometric-shape {
-    width: 120px;
-    height: 120px;
+  .video-container {
+    min-height: 250px;
   }
 }
 

@@ -128,33 +128,23 @@ const AuthPage = () => {
           </div>
         </div>
 
-        {/* Right Panel - Promotional Content */}
+        {/* Right Panel - Video Content */}
         <div className="promo-panel">
-          <div className="promo-content">
-            <h2 className="promo-title">400K+ users. 50M+ AI generated reports.</h2>
-            <button className="join-btn">
-              Join Now
-              <div className="join-arrow">↑</div>
-            </button>
-          </div>
-          
-          <div className="promo-graphics">
-            <div className="background-text">3D</div>
-            <div className="geometric-shape">
-              <div className="shape-corners">
-                <div className="corner-dot"></div>
-                <div className="corner-dot"></div>
-                <div className="corner-dot"></div>
-                <div className="corner-dot"></div>
-              </div>
-              <div className="shape-lines">
-                <div className="dashed-line"></div>
-                <div className="dashed-line"></div>
-                <div className="dashed-line"></div>
-                <div className="dashed-line"></div>
-              </div>
+          <div className="video-container">
+            <video 
+              className="login-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/WhatsApp Video 2025-09-15 at 09.39.24.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="video-overlay">
+              <h2 className="video-title">Compliance Eye</h2>
+              <p className="video-subtitle">AI-Powered Compliance Solutions</p>
             </div>
-            <div className="rotating-arrow">↻</div>
           </div>
         </div>
       </div>
