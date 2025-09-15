@@ -459,6 +459,8 @@ const Quiz = () => {
             loop
             muted
             playsInline
+            preload="auto"
+            webkit-playsinline="true"
           >
             <source src="/Untitled design (9).mp4" type="video/mp4" />
             Your browser does not support the video tag.
@@ -522,6 +524,8 @@ const Quiz = () => {
           loop
           muted
           playsInline
+          preload="auto"
+          webkit-playsinline="true"
         >
           <source src="/Untitled design (9).mp4" type="video/mp4" />
           Your browser does not support the video tag.

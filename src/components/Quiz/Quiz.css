@@ -21,13 +21,14 @@
   height: 100%;
   z-index: -2;
   overflow: hidden;
+  background: #0f172a; /* Fallback background */
 }
 
 .quiz-background-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.2;
+  opacity: 0.6;
 }
 
 .quiz-video-overlay {
@@ -38,9 +39,9 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(15, 23, 42, 0.9) 0%,
-    rgba(30, 41, 59, 0.8) 50%,
-    rgba(15, 23, 42, 0.95) 100%
+    rgba(15, 23, 42, 0.4) 0%,
+    rgba(30, 41, 59, 0.3) 50%,
+    rgba(15, 23, 42, 0.5) 100%
   );
   z-index: -1;
 }
