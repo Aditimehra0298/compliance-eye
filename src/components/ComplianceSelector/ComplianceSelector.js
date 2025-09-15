@@ -9,7 +9,7 @@ const ComplianceSelector = () => {
   const [selectedCompliance, setSelectedCompliance] = useState('');
   const [selectedStandard, setSelectedStandard] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
-  const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'payment', 'upload'
+  const [currentStep, setCurrentStep] = useState('selection'); // 'selection', 'upload', 'payment'
   const [uploadedDocuments, setUploadedDocuments] = useState({});
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -79,51 +79,44 @@ const ComplianceSelector = () => {
   };
 
   const handleStartAssessment = () => {
-    if (selectedCompliance && selectedStandard && selectedOption) {
-      if (selectedOption === 'free') {
-        // Redirect to quiz assessment
-        navigate('/quiz', { 
-          state: { 
-            compliance: selectedCompliance,
-            standard: selectedStandard,
-            option: selectedOption
-          }
-        });
-      } else if (selectedOption === 'paid') {
-        // Move to payment selection step for paid assessment
-        setCurrentStep('payment');
-      }
+    if (selectedCompliance && selectedStandard) {
+      // Move to document upload step first
+      setCurrentStep('upload');
     }
-  };
-
-  const handlePaymentSelected = (plan) => {
-    setSelectedPlan(plan);
-    setCurrentStep('upload');
   };
 
   const handleDocumentsUploaded = (documents) => {
     setUploadedDocuments(documents);
+    setCurrentStep('payment');
+  };
+
+  const handleSkipUpload = () => {
+    setCurrentStep('payment');
+  };
+
+  const handlePaymentSelected = (plan) => {
+    setSelectedPlan(plan);
     // Proceed to quiz with plan and documents
     navigate('/quiz', { 
       state: { 
         compliance: selectedCompliance,
         standard: selectedStandard,
-        option: selectedOption,
-        plan: selectedPlan,
+        option: plan.id === 'free' ? 'free' : 'paid',
+        plan: plan.id === 'free' ? null : plan,
         documents: uploadedDocuments
       }
     });
   };
 
-  const handleSkipUpload = () => {
-    // Proceed to quiz without documents
+  const handleFreeAssessment = () => {
+    // Proceed to quiz without payment
     navigate('/quiz', { 
       state: { 
         compliance: selectedCompliance,
         standard: selectedStandard,
-        option: selectedOption,
-        plan: selectedPlan,
-        documents: {}
+        option: 'free',
+        plan: null,
+        documents: uploadedDocuments
       }
     });
   };
@@ -134,20 +127,20 @@ const ComplianceSelector = () => {
     setSelectedPlan(null);
   };
 
-  const handleBackToPayment = () => {
-    setCurrentStep('payment');
+  const handleBackToUpload = () => {
+    setCurrentStep('upload');
   };
 
   const isFormComplete = selectedCompliance && selectedStandard && selectedOption;
 
   // Render different steps
-  if (currentStep === 'payment') {
+  if (currentStep === 'upload') {
     return (
       <div className="compliance-selector">
-        <PaymentChoice
+        <DocumentUpload
           complianceType={`${selectedCompliance} - ${selectedStandard}`}
-          onPaymentSelected={handlePaymentSelected}
-          onBackToUpload={handleBackToPayment}
+          onDocumentsUploaded={handleDocumentsUploaded}
+          onPaymentChoice={handleSkipUpload}
         />
         <div className="step-actions">
           <button 
@@ -161,20 +154,20 @@ const ComplianceSelector = () => {
     );
   }
 
-  if (currentStep === 'upload') {
+  if (currentStep === 'payment') {
     return (
       <div className="compliance-selector">
-        <DocumentUpload
+        <PaymentChoice
           complianceType={`${selectedCompliance} - ${selectedStandard}`}
-          onDocumentsUploaded={handleDocumentsUploaded}
-          onPaymentChoice={handleSkipUpload}
+          onPaymentSelected={handlePaymentSelected}
+          onBackToUpload={handleBackToUpload}
         />
         <div className="step-actions">
           <button 
             className="back-button"
-            onClick={handleBackToPayment}
+            onClick={handleBackToUpload}
           >
-            ← Back to Payment
+            ← Back to Document Upload
           </button>
         </div>
       </div>
@@ -229,54 +222,21 @@ const ComplianceSelector = () => {
             </div>
           )}
 
-          {/* Step 3: Choose Free or Paid Option */}
-          {selectedStandard && (
-            <div className="form-step">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <label className="step-label">Choose Assessment Type</label>
-                <div className="option-cards">
-                  <div 
-                    className={`option-card ${selectedOption === 'free' ? 'selected' : ''}`}
-                    onClick={() => setSelectedOption('free')}
-                  >
-                    <div className="option-icon">🆓</div>
-                    <div className="option-content">
-                      <h3>Free Assessment</h3>
-                      <p>Basic compliance assessment with standard reporting</p>
-                      <div className="option-price">Free</div>
-                    </div>
-                  </div>
-                  <div 
-                    className={`option-card ${selectedOption === 'paid' ? 'selected' : ''}`}
-                    onClick={() => setSelectedOption('paid')}
-                  >
-                    <div className="option-icon">💎</div>
-                    <div className="option-content">
-                      <h3>Premium Assessment</h3>
-                      <p>Comprehensive assessment with detailed analytics and recommendations</p>
-                      <div className="option-price">$99/month</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Start Assessment Button */}
-          {isFormComplete && (
+          {selectedCompliance && selectedStandard && (
             <div className="form-actions">
               <button 
                 className="start-assessment-btn"
                 onClick={handleStartAssessment}
               >
-                Start Assessment
+                Continue to Document Upload
               </button>
             </div>
           )}
 
           {/* Selected Options Summary */}
-          {isFormComplete && (
+          {selectedCompliance && selectedStandard && (
             <div className="selection-summary">
               <h4>Your Selection:</h4>
               <div className="summary-item">
@@ -284,9 +244,6 @@ const ComplianceSelector = () => {
               </div>
               <div className="summary-item">
                 <strong>Standard:</strong> {selectedStandard}
-              </div>
-              <div className="summary-item">
-                <strong>Type:</strong> {selectedOption === 'free' ? 'Free Assessment' : 'Premium Assessment'}
               </div>
             </div>
           )}

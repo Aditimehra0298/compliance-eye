@@ -96,8 +96,8 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
   return (
     <div className="document-upload-container">
       <div className="upload-header">
-        <h2>Optional Document Upload for {complianceType}</h2>
-        <p>You can optionally upload compliance documents to enhance your assessment. All documents are optional.</p>
+        <h2>Document Upload for {complianceType}</h2>
+        <p>Upload your compliance documents to enhance your assessment. All documents are optional - you can skip this step.</p>
         <div className="upload-progress">
           <div className="progress-bar">
             <div 
@@ -163,14 +163,14 @@ const DocumentUpload = ({ complianceType, onDocumentsUploaded, onPaymentChoice }
           className="skip-btn"
           onClick={handleSkipUpload}
         >
-          Skip Upload & Start Assessment
+          Skip Upload & Choose Plan
         </button>
         
         <button 
           className="proceed-btn enabled"
           onClick={handleProceedToAssessment}
         >
-          Start Assessment {getUploadedCount() > 0 ? `with ${getUploadedCount()} documents` : ''}
+          Continue to Plan Selection {getUploadedCount() > 0 ? `with ${getUploadedCount()} documents` : ''}
         </button>
       </div>
     </div>

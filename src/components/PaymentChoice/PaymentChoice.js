@@ -6,6 +6,20 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
 
   const paymentPlans = [
     {
+      id: 'free',
+      name: 'Free Assessment',
+      price: 'Free',
+      description: 'Basic compliance assessment with standard reporting',
+      features: [
+        'ISO 27001 Assessment Quiz',
+        'Basic Compliance Report',
+        'Gap Analysis Summary',
+        'Email Support',
+        '30-day Access'
+      ],
+      popular: false
+    },
+    {
       id: 'basic',
       name: 'Basic Assessment',
       price: '$99',
@@ -15,7 +29,8 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
         'Basic Compliance Report',
         'Gap Analysis Summary',
         'Email Support',
-        '30-day Access'
+        '30-day Access',
+        'Document Review (up to 3 documents)'
       ],
       popular: false
     },
@@ -42,7 +57,7 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
     setSelectedPlan(planId);
   };
 
-  const handleProceedToUpload = () => {
+  const handleProceedToAssessment = () => {
     if (selectedPlan) {
       const plan = paymentPlans.find(p => p.id === selectedPlan);
       onPaymentSelected(plan);
@@ -113,10 +128,10 @@ const PaymentChoice = ({ complianceType, onPaymentSelected, onBackToUpload }) =>
         
         <button 
           className={`proceed-btn ${selectedPlan ? 'enabled' : 'disabled'}`}
-          onClick={handleProceedToUpload}
+          onClick={handleProceedToAssessment}
           disabled={!selectedPlan}
         >
-          {selectedPlan ? 'Proceed to Document Upload' : 'Select a Plan to Continue'}
+          {selectedPlan ? 'Start Assessment' : 'Select a Plan to Continue'}
         </button>
       </div>
 
