@@ -154,12 +154,13 @@ const AdminPanel = () => {
         adminService.getFrameworksData()
       ]);
       
+      const location = await getCurrentLocation();
       setRealTimeData({
         totalUsers: metricsData.total_users,
         activeAssessments: metricsData.active_assessments,
         completedAssessments: metricsData.completed_assessments,
         averageScore: metricsData.average_score,
-        location: await getCurrentLocation(),
+        location: location,
         systemHealth: 'Good',
         lastBackup: new Date().toISOString(),
         storageUsed: '2.3 GB'
@@ -180,13 +181,14 @@ const AdminPanel = () => {
     const loadRealTimeData = async () => {
       try {
         const data = await adminService.getRealTimeMetrics();
+        const location = await getCurrentLocation();
         setRealTimeData(prev => ({
           ...prev,
           totalUsers: data.total_users,
           activeAssessments: data.active_assessments,
           completedAssessments: data.completed_assessments,
           averageScore: data.average_score,
-          location: await getCurrentLocation()
+          location: location
         }));
       } catch (error) {
         console.error('Error loading real-time data:', error);
