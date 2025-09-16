@@ -156,6 +156,10 @@ const AuthPage = () => {
           </div>
         </div>
 
+        {/* Right Panel - Empty for your video */}
+        <div className="promo-panel">
+          {/* Add your video here */}
+        </div>
       </div>
       <Footer />
     </div>
