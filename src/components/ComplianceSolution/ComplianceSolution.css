@@ -501,6 +501,7 @@
     line-height: 1.2;
     letter-spacing: -1px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .expertise-description {
@@ -1084,6 +1085,7 @@
     
     .expertise-title {
         font-size: 2.8rem;
+        white-space: normal;
     }
     
     .expertise-description {
@@ -1122,6 +1124,7 @@
     
     .expertise-title {
         font-size: 2.4rem;
+        white-space: normal;
     }
     
     .expertise-description {
@@ -1162,6 +1165,7 @@
     .expertise-title {
         font-size: 1.8rem;
         line-height: 1.1;
+        white-space: normal;
     }
     
     .expertise-description {
