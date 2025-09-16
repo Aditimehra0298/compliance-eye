@@ -479,17 +479,19 @@
     padding-top: clamp(40px, 8vw, 60px);
     width: 100%;
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .expertise-header {
     text-align: center;
     margin-bottom: clamp(40px, 8vw, 60px);
-    max-width: clamp(320px, 95vw, 1200px);
+    max-width: none;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
     padding: 0 clamp(20px, 4vw, 40px);
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .expertise-title {
@@ -501,6 +503,11 @@
     line-height: 1.2;
     letter-spacing: -1px;
     text-align: center;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+    width: 100%;
+    max-width: none;
 }
 
 .expertise-description {
@@ -989,6 +996,21 @@
 
 /* Comprehensive Responsive Design for Expertise Section */
 
+/* Desktop screens (992px and up) - Single line title */
+@media (min-width: 992px) {
+    .expertise-title,
+    .desktop-single-line {
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+    }
+    
+    .expertise-header {
+        max-width: 95vw !important;
+        width: 100% !important;
+    }
+}
+
 /* Extra Large screens (1400px and up) - Expertise Section */
 @media (min-width: 1400px) {
     .expertise-section {
@@ -1432,6 +1454,40 @@
     .feature-card:active {
         transform: translateY(-2px);
     }
+}
+
+/* CRITICAL FIX: Ensure expertise title displays fully */
+.expertise-title,
+.desktop-single-line {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+    min-width: max-content !important;
+}
+
+.expertise-header {
+    max-width: none !important;
+    width: 100% !important;
+    overflow: visible !important;
+    min-width: max-content !important;
+}
+
+.expertise-section {
+    overflow: visible !important;
+    min-width: max-content !important;
+}
+
+/* Additional fix for text truncation */
+h2.expertise-title {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: max-content !important;
 }
 
 /* High DPI displays for Compliance Solution */

@@ -129,7 +129,7 @@ const ComplianceSolution = () => {
           {/* New Expertise Section */}
           <div className="expertise-section">
             <div className="expertise-header">
-              <h2 className="expertise-title">Stay Ahead with Trusted Compliance Expertise</h2>
+              <h2 className="expertise-title desktop-single-line">Stay Ahead with Trusted Compliance Expertise</h2>
               <p className="expertise-description">
                 Welcome to your partner in navigating the complex world of compliance.
                 We combine deep industry knowledge, cutting-edge technology, and certified expertise to ensure your organization meets regulatory standards confidently.
