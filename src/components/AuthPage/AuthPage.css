@@ -340,7 +340,7 @@
 
 .form-input {
   width: 100%;
-  padding: 16px 20px 16px 65px;
+  padding: 16px 20px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   color: white;
@@ -348,7 +348,6 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  text-indent: 0;
 }
 
 .form-input::placeholder {
@@ -361,11 +360,6 @@
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
   transform: translateY(-1px);
-}
-
-.form-input:focus + .input-icon {
-  color: #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
 }
 
 .form-input:disabled {

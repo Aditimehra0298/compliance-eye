@@ -158,9 +158,6 @@ const AuthPage = () => {
                     autoComplete="email"
                     disabled={isLoading}
                   />
-                  <div className="input-icon">
-                    <i className="fas fa-envelope"></i>
-                  </div>
                 </div>
               </div>
 
