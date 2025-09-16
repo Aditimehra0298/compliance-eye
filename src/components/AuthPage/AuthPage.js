@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -10,90 +10,32 @@ const AuthPage = () => {
     email: '',
     password: ''
   });
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-
-  // Load saved credentials on component mount
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('rememberedEmail');
-    if (savedEmail) {
-      setFormData(prev => ({ ...prev, email: savedEmail }));
-      setRememberMe(true);
-    }
-  }, []);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user starts typing
-    if (error) {
-      setError('');
-    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleRememberMeChange = (e) => {
-    setRememberMe(e.target.checked);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setIsLoading(true);
+    console.log('Login:', formData);
     
-    // Basic validation
-    if (!formData.email || !formData.password) {
-      setError('Please fill in all fields.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (!formData.email.includes('@')) {
-      setError('Please enter a valid email address.');
-      setIsLoading(false);
-      return;
-    }
-    
-    try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+    // Simple login logic for testing
+    if (formData.email === 'test@example.com' && formData.password === 'password123') {
+      // Store user data in localStorage
+      const userData = {
+        email: formData.email,
+        name: 'Test User',
+        username: 'testuser'
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
       
-      // Simple login logic for testing
-      if (formData.email === 'test@example.com' && formData.password === 'password123') {
-        // Store user data in localStorage
-        const userData = {
-          email: formData.email,
-          name: 'Test User',
-          username: 'testuser',
-          loginTime: new Date().toISOString()
-        };
-        localStorage.setItem('user', JSON.stringify(userData));
-        
-        // Remember email if checkbox is checked
-        if (rememberMe) {
-          localStorage.setItem('rememberedEmail', formData.email);
-        } else {
-          localStorage.removeItem('rememberedEmail');
-        }
-        
-        // Redirect to dashboard
-        navigate('/dashboard');
-      } else {
-        setError('Invalid credentials. Please check your email and password.');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
+      // Redirect to dashboard
+      navigate('/dashboard');
+    } else {
+      alert('Invalid credentials. Use test@example.com / password123');
     }
   };
 
@@ -107,8 +49,8 @@ const AuthPage = () => {
           </ul>
           
           <div className="nav-logo">
-            <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
-            <h2>Compliance Eye</h2>
+            <img src="/l7.png" alt="DamnArt" className="logo-image" />
+            <h2>DamnArt</h2>
           </div>
           
           <div className="nav-right">
@@ -132,145 +74,76 @@ const AuthPage = () => {
               Log in to your Compliance Eye account to continue.
             </p>
 
-            {/* Error Message */}
-            {error && (
-              <div className="error-message">
-                {error}
-              </div>
-            )}
 
             {/* Authentication Form */}
-            <form className="auth-form" onSubmit={handleSubmit} noValidate>
+            <form className="auth-form" onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="email" className="form-label">
-                  Email Address
-                </label>
-                <div className="input-wrapper">
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email address"
-                    className="form-input"
-                    required
-                    autoComplete="email"
-                    disabled={isLoading}
-                  />
-                </div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Your email address"
+                  required
+                />
               </div>
 
               <div className="form-group">
                 <div className="password-header">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <a href="#" className="forgot-password" onClick={(e) => e.preventDefault()}>
-                    Forgot password?
-                  </a>
+                  <label htmlFor="password">Password</label>
+                  <a href="#" className="forgot-password">Forgot password?</a>
                 </div>
-                <div className="input-wrapper">
+                <div className="password-input">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type="password"
                     id="password"
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    placeholder="Enter your password"
-                    className="form-input"
+                    placeholder="Your password"
                     required
-                    autoComplete="current-password"
-                    disabled={isLoading}
                   />
-                  <button 
-                    type="button" 
-                    className="password-toggle"
-                    onClick={togglePasswordVisibility}
-                    disabled={isLoading}
-                  >
-                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  <button type="button" className="password-toggle">
+                    👁️
                   </button>
                 </div>
               </div>
 
-              <div className="form-options">
-                <label className="checkbox-wrapper">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={handleRememberMeChange}
-                    disabled={isLoading}
-                  />
-                  <span className="checkmark"></span>
-                  <span className="checkbox-label">Remember me</span>
-                </label>
-              </div>
-
-              <button 
-                type="submit" 
-                className={`auth-submit-btn ${isLoading ? 'loading' : ''}`}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <div className="spinner"></div>
-                    Signing In...
-                  </>
-                ) : (
-                  'Sign In'
-                )}
+              <button type="submit" className="auth-submit-btn">
+                Sign In
               </button>
             </form>
 
-            <div className="auth-divider">
-              <span className="divider-text">or</span>
-            </div>
-
             <div className="auth-switch">
-              <span className="switch-text">Don't have an account? </span>
+              <span>Don't have an account? </span>
               <button 
                 onClick={() => navigate('/register')} 
                 className="switch-btn"
-                disabled={isLoading}
               >
-                Create Account
+                Register here
               </button>
             </div>
-
-            {/* Demo Credentials - Hidden */}
-            {/* <div className="demo-credentials">
-              <div className="demo-header">
-                <i className="fas fa-info-circle"></i>
-                <h4>Demo Credentials</h4>
-              </div>
-              <div className="credentials-list">
-                <div className="credential-item">
-                  <i className="fas fa-envelope"></i>
-                  <span className="credential-label">Email:</span>
-                  <span className="credential-value">test@example.com</span>
-                </div>
-                <div className="credential-item">
-                  <i className="fas fa-lock"></i>
-                  <span className="credential-label">Password:</span>
-                  <span className="credential-value">password123</span>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
 
-        {/* Right Panel - Image */}
+        {/* Right Panel - Video Content */}
         <div className="promo-panel">
-          <div className="image-container">
-            <img 
-              src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
-              alt="Compliance Eye" 
-              className="login-image"
-            />
-            <div className="image-overlay">
-              <h2 className="image-title">Compliance Eye</h2>
-              <p className="image-subtitle">AI-Powered Compliance Solutions</p>
+          <div className="video-container">
+            <video 
+              className="login-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/login-video-optimized.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="video-overlay">
+              <h2 className="video-title">Compliance Eye</h2>
+              <p className="video-subtitle">AI-Powered Compliance Solutions</p>
             </div>
           </div>
         </div>

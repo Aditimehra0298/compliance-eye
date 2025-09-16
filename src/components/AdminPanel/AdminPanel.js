@@ -87,17 +87,6 @@ const AdminPanel = () => {
   const [quizAssessments, setQuizAssessments] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [showQuizDetails, setShowQuizDetails] = useState(false);
-  const [editingQuestion, setEditingQuestion] = useState(null);
-  const [showAddQuestion, setShowAddQuestion] = useState(false);
-  const [questionForm, setQuestionForm] = useState({
-    question_text: '',
-    options: [
-      { letter: 'A', text: '', points: 2 },
-      { letter: 'B', text: '', points: 4 },
-      { letter: 'C', text: '', points: 5.5 },
-      { letter: 'D', text: '', points: 8 }
-    ]
-  });
   const [realTimeData, setRealTimeData] = useState({
     totalUsers: 0,
     activeAssessments: 0,
@@ -538,105 +527,6 @@ const AdminPanel = () => {
   const handleCloseQuizDetails = () => {
     setShowQuizDetails(false);
     setSelectedQuiz(null);
-  };
-
-  // Handle question editing
-  const handleEditQuestion = (question) => {
-    setEditingQuestion(question);
-    setQuestionForm({
-      question_text: question.question_text,
-      options: question.options.map(option => ({ ...option }))
-    });
-  };
-
-  const handleCancelEdit = () => {
-    setEditingQuestion(null);
-    setQuestionForm({
-      question_text: '',
-      options: [
-        { letter: 'A', text: '', points: 2 },
-        { letter: 'B', text: '', points: 4 },
-        { letter: 'C', text: '', points: 5.5 },
-        { letter: 'D', text: '', points: 8 }
-      ]
-    });
-  };
-
-  const handleSaveQuestion = () => {
-    if (editingQuestion) {
-      // Update existing question
-      const updatedQuiz = {
-        ...selectedQuiz,
-        questions: selectedQuiz.questions.map(q => 
-          q.id === editingQuestion.id 
-            ? { ...q, question_text: questionForm.question_text, options: questionForm.options }
-            : q
-        )
-      };
-      setSelectedQuiz(updatedQuiz);
-      setQuizAssessments(prev => 
-        prev.map(quiz => quiz.id === selectedQuiz.id ? updatedQuiz : quiz)
-      );
-    } else {
-      // Add new question
-      const newQuestion = {
-        id: Date.now(),
-        question_number: selectedQuiz.questions.length + 1,
-        question_text: questionForm.question_text,
-        options: questionForm.options
-      };
-      const updatedQuiz = {
-        ...selectedQuiz,
-        questions: [...selectedQuiz.questions, newQuestion],
-        total_questions: selectedQuiz.total_questions + 1
-      };
-      setSelectedQuiz(updatedQuiz);
-      setQuizAssessments(prev => 
-        prev.map(quiz => quiz.id === selectedQuiz.id ? updatedQuiz : quiz)
-      );
-    }
-    handleCancelEdit();
-  };
-
-  const handleDeleteQuestion = (questionId) => {
-    const updatedQuiz = {
-      ...selectedQuiz,
-      questions: selectedQuiz.questions.filter(q => q.id !== questionId),
-      total_questions: selectedQuiz.total_questions - 1
-    };
-    setSelectedQuiz(updatedQuiz);
-    setQuizAssessments(prev => 
-      prev.map(quiz => quiz.id === selectedQuiz.id ? updatedQuiz : quiz)
-    );
-  };
-
-  const handleAddNewQuestion = () => {
-    setEditingQuestion(null);
-    setQuestionForm({
-      question_text: '',
-      options: [
-        { letter: 'A', text: '', points: 2 },
-        { letter: 'B', text: '', points: 4 },
-        { letter: 'C', text: '', points: 5.5 },
-        { letter: 'D', text: '', points: 8 }
-      ]
-    });
-    setShowAddQuestion(true);
-  };
-
-  const handleQuestionFormChange = (field, value) => {
-    if (field === 'question_text') {
-      setQuestionForm(prev => ({ ...prev, question_text: value }));
-    }
-  };
-
-  const handleOptionChange = (optionIndex, field, value) => {
-    setQuestionForm(prev => ({
-      ...prev,
-      options: prev.options.map((option, index) => 
-        index === optionIndex ? { ...option, [field]: value } : option
-      )
-    }));
   };
 
   // Loading component
@@ -1706,10 +1596,10 @@ const AdminPanel = () => {
                     <div key={question.id} className="question-card">
                       <div className="question-header">
                         <h5>Question {question.question_number}</h5>
-                      <div className="question-actions">
-                        <button className="edit-btn" onClick={() => handleEditQuestion(question)}>Edit</button>
-                        <button className="delete-btn" onClick={() => handleDeleteQuestion(question.id)}>Delete</button>
-                      </div>
+                        <div className="question-actions">
+                          <button className="edit-btn">Edit</button>
+                          <button className="delete-btn">Delete</button>
+                        </div>
                       </div>
                       <div className="question-text">
                         {question.question_text}
@@ -1735,74 +1625,12 @@ const AdminPanel = () => {
               <div className="quiz-actions-section">
                 <h4>⚙️ Quiz Management</h4>
                 <div className="action-buttons">
-                  <button className="action-btn primary" onClick={handleAddNewQuestion}>Add New Question</button>
+                  <button className="action-btn primary">Add New Question</button>
                   <button className="action-btn">Edit Quiz Settings</button>
                   <button className="action-btn">Preview Quiz</button>
                   <button className="action-btn">Export Questions</button>
                   <button className="action-btn">Import Questions</button>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Question Edit/Add Modal */}
-      {(editingQuestion || showAddQuestion) && (
-        <div className="modal-overlay">
-          <div className="modal-content large-modal question-edit-modal">
-            <div className="modal-header">
-              <h3>{editingQuestion ? 'Edit Question' : 'Add New Question'}</h3>
-              <button className="close-btn" onClick={handleCancelEdit}>×</button>
-            </div>
-            
-            <div className="question-edit-content">
-              <div className="form-group">
-                <label>Question Text:</label>
-                <textarea
-                  value={questionForm.question_text}
-                  onChange={(e) => handleQuestionFormChange('question_text', e.target.value)}
-                  placeholder="Enter the question text..."
-                  rows="4"
-                  className="question-textarea"
-                />
-              </div>
-
-              <div className="options-section">
-                <h4>Answer Options:</h4>
-                {questionForm.options.map((option, index) => (
-                  <div key={index} className="option-edit-item">
-                    <div className="option-letter-display">{option.letter}</div>
-                    <div className="option-inputs">
-                      <input
-                        type="text"
-                        value={option.text}
-                        onChange={(e) => handleOptionChange(index, 'text', e.target.value)}
-                        placeholder={`Option ${option.letter} text...`}
-                        className="option-text-input"
-                      />
-                      <div className="points-input">
-                        <label>Points:</label>
-                        <input
-                          type="number"
-                          value={option.points}
-                          onChange={(e) => handleOptionChange(index, 'points', parseFloat(e.target.value))}
-                          step="0.5"
-                          min="0"
-                          max="10"
-                          className="points-input-field"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="question-edit-actions">
-                <button className="cancel-btn" onClick={handleCancelEdit}>Cancel</button>
-                <button className="save-btn" onClick={handleSaveQuestion}>
-                  {editingQuestion ? 'Update Question' : 'Add Question'}
-                </button>
               </div>
             </div>
           </div>
