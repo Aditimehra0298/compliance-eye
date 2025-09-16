@@ -46,12 +46,13 @@
 /* Left Side - Video Section */
 .video-section {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
+    padding-left: 2rem;
 }
 
 .rhombus-container {
@@ -292,6 +293,10 @@
         max-width: 90vw;
     }
     
+    .video-section {
+        padding-left: 1rem;
+    }
+    
     .standards-section {
         order: 2;
         align-items: center;
@@ -342,6 +347,10 @@
         height: clamp(200px, 45vw, 300px);
         margin: 0 auto;
         max-width: 85vw;
+    }
+    
+    .video-section {
+        padding-left: 0.5rem;
     }
     
     .section-title {
