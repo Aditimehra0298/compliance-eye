@@ -178,10 +178,10 @@
 /* Left Panel - Authentication */
 .auth-panel {
   background: #001122;
-  padding: 40px 60px;
+  padding: 20px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
@@ -274,12 +274,13 @@
   z-index: 2;
   max-width: 100%;
   width: 100%;
+  padding-top: 80px;
 }
 
 .auth-title {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  margin: 0 0 12px 0;
+  margin: 0 0 8px 0;
   color: white;
   text-align: left;
   background: linear-gradient(135deg, #ffffff, #e0e7ff);
@@ -289,10 +290,10 @@
 }
 
 .auth-subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #a0a9c0;
-  margin: 0 0 24px 0;
-  line-height: 1.5;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
   text-align: left;
 }
 
@@ -312,14 +313,14 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .form-group label {
@@ -812,7 +813,7 @@
   }
   
   .auth-panel {
-    padding: 20px 30px;
+    padding: 15px 25px;
   }
   
   .promo-panel {
@@ -839,7 +840,11 @@
   }
   
   .auth-panel {
-    padding: 30px 40px;
+    padding: 15px 25px;
+  }
+  
+  .auth-content {
+    padding-top: 60px;
   }
   
   .promo-panel {
@@ -869,7 +874,7 @@
   }
   
   .auth-panel {
-    padding: 20px 30px;
+    padding: 15px 25px;
   }
   
   .promo-panel {
