@@ -241,8 +241,8 @@ const AuthPage = () => {
               </button>
             </div>
 
-            {/* Demo Credentials */}
-            <div className="demo-credentials">
+            {/* Demo Credentials - Hidden */}
+            {/* <div className="demo-credentials">
               <div className="demo-header">
                 <i className="fas fa-info-circle"></i>
                 <h4>Demo Credentials</h4>
@@ -259,7 +259,7 @@ const AuthPage = () => {
                   <span className="credential-value">password123</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
