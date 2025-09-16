@@ -659,7 +659,7 @@
 
 .feedback-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 30vw, 350px), 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: clamp(1.5rem, 3vw, 2rem);
     max-width: clamp(320px, 90vw, 1200px);
     margin: 0 auto;
@@ -771,7 +771,7 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 2.5rem;
     }
     
@@ -791,7 +791,7 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
     
@@ -1562,6 +1562,31 @@ h2.expertise-title {
 @media (min-width: 1400px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* CRITICAL FIX: Force 3 cards per row for feedback cards on desktop */
+.feedback-cards {
+    grid-template-columns: repeat(3, 1fr) !important;
+    display: grid !important;
+}
+
+/* Override feedback cards grid settings */
+@media (min-width: 992px) {
+    .feedback-cards {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .feedback-cards {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .feedback-cards {
+        grid-template-columns: repeat(3, 1fr) !important;
     }
 }
 
