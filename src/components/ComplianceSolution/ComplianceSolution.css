@@ -1604,28 +1604,10 @@ h2.expertise-title {
     }
 }
 
-/* CRITICAL FIX: Force 3 cards per row for feedback cards on desktop */
-.feedback-cards {
-    grid-template-columns: repeat(3, 1fr) !important;
-    display: grid !important;
-}
-
-/* Override feedback cards grid settings */
+/* Desktop feedback cards - 3 cards per row */
 @media (min-width: 992px) {
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .feedback-cards {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-}
-
-@media (min-width: 1400px) {
-    .feedback-cards {
-        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 

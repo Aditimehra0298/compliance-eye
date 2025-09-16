@@ -84,7 +84,7 @@ class ComplianceStandardViewSet(viewsets.ReadOnlyModelViewSet):
         standard = self.get_object()
         questions = Question.objects.filter(standard=standard, is_active=True)
         serializer = QuestionSerializer(questions, many=True)
-        return Response(serializer.data)
+            return Response(serializer.data)
 
 # Assessment Views
 class AssessmentViewSet(viewsets.ModelViewSet):
@@ -365,15 +365,15 @@ class AdminDashboardViewSet(viewsets.ViewSet):
             for user in User.objects.all()[:5]
         ]
         
-        return Response({
+            return Response({
             'total_users': total_users,
             'active_assessments': active_assessments,
             'completed_assessments': completed_assessments,
             'average_score': float(average_score),
             'recent_assessments': AssessmentSerializer(recent_assessments, many=True).data,
             'user_locations': user_locations,
-            'timestamp': timezone.now()
-        })
+                'timestamp': timezone.now()
+            })
     
     @action(detail=False, methods=['get'])
     def individual_user_data(self, request):

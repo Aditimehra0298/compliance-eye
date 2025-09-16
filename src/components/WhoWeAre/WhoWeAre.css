@@ -25,6 +25,7 @@
     grid-template-columns: 1fr 1.2fr;
     gap: 4rem;
     align-items: center;
+    justify-items: center;
     min-height: auto;
     background: linear-gradient(180deg, 
         transparent 0%, 
@@ -33,6 +34,8 @@
         #001122 100%);
     padding: 60px 0;
     border-radius: 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Left Column - Video */
@@ -82,7 +85,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     gap: 2rem;
+    max-width: 600px;
+    width: 100%;
 }
 
 .who-we-are-text .btn {
