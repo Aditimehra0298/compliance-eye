@@ -85,8 +85,12 @@ const AuthPage = () => {
               <h2 className="logo-text">Compliance Eye</h2>
             </div>
             
-            <div className="geometric-pattern">
-              <div className="pattern-lines"></div>
+            <div className="main-image-container">
+              <img 
+                src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
+                alt="Compliance Eye Visual" 
+                className="main-visual-image"
+              />
             </div>
             
             <div className="navigation-dots">
