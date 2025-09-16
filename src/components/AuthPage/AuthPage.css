@@ -340,7 +340,7 @@
 
 .form-input {
   width: 100%;
-  padding: 16px 20px 16px 55px;
+  padding: 16px 20px 16px 60px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   color: white;
@@ -369,7 +369,7 @@
 
 .input-icon {
   position: absolute;
-  left: 20px;
+  left: 22px;
   top: 50%;
   transform: translateY(-50%);
   color: #a0a9c0;
