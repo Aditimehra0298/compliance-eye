@@ -820,3 +820,243 @@
     font-size: 2.5rem;
   }
 }
+
+/* Comprehensive Responsive Design */
+
+/* Extra Large screens (1400px and up) */
+@media (min-width: 1400px) {
+  .quiz-container {
+    padding: clamp(60px, 8vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  
+  .quiz-content {
+    max-width: 1600px;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 1400px;
+    padding: clamp(60px, 8vw, 80px);
+  }
+}
+
+/* Large screens (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .quiz-container {
+    padding: 60px 60px;
+  }
+  
+  .quiz-content {
+    max-width: 1400px;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 1200px;
+    padding: 60px;
+  }
+}
+
+/* Medium screens (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .quiz-container {
+    padding: 50px 40px;
+  }
+  
+  .quiz-content {
+    max-width: 1000px;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 1000px;
+    padding: 50px;
+  }
+}
+
+/* Tablet screens (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .quiz-container {
+    padding: 40px 30px;
+  }
+  
+  .quiz-content {
+    max-width: 100%;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 100%;
+    padding: 40px;
+  }
+  
+  .quiz-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+  }
+  
+  .question-text {
+    font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  }
+  
+  .option-btn {
+    padding: 16px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Mobile screens (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .quiz-container {
+    padding: 30px 20px;
+  }
+  
+  .quiz-content {
+    max-width: 100%;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 100%;
+    padding: 30px;
+  }
+  
+  .quiz-header h1 {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+  }
+  
+  .question-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  }
+  
+  .option-btn {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+  }
+  
+  .quiz-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .next-btn,
+  .back-btn {
+    width: 100%;
+  }
+}
+
+/* Small mobile screens (320px to 575px) */
+@media (max-width: 575px) {
+  .quiz-container {
+    padding: 20px 15px;
+  }
+  
+  .quiz-content {
+    max-width: 100%;
+  }
+  
+  .question-container,
+  .results-container {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  .quiz-header h1 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+  }
+  
+  .question-text {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+  
+  .option-btn {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .quiz-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .next-btn,
+  .back-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+  
+  .score-display h2 {
+    font-size: clamp(2rem, 6vw, 2.5rem);
+  }
+  
+  .score-details {
+    padding: 12px;
+  }
+  
+  .score-details p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .option-btn {
+    padding: 18px 24px;
+    font-size: 1.1rem;
+  }
+  
+  .next-btn,
+  .back-btn {
+    padding: 18px 24px;
+    font-size: 1.1rem;
+  }
+  
+  .question-container,
+  .results-container {
+    padding: clamp(30px, 6vw, 50px);
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .quiz-header h1 {
+    font-weight: 600;
+  }
+  
+  .question-text {
+    font-weight: 500;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .quiz-page {
+    min-height: 100vh;
+  }
+  
+  .quiz-container {
+    padding: 15px 10px;
+  }
+  
+  .question-container,
+  .results-container {
+    padding: 20px;
+  }
+  
+  .quiz-header {
+    margin-bottom: 20px;
+  }
+  
+  .quiz-header h1 {
+    font-size: 1.6rem;
+  }
+  
+  .question-text {
+    font-size: 1.1rem;
+  }
+  
+  .option-btn {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+}

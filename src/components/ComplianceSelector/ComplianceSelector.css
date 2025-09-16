@@ -1,13 +1,16 @@
 /* Compliance Selector Styles */
 .compliance-selector {
-  padding: 40px 20px;
+  padding: clamp(20px, 4vw, 40px) clamp(15px, 3vw, 20px);
   background: #0f172a;
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .selector-container {
-  max-width: 1000px;
+  max-width: clamp(320px, 90vw, 1000px);
   margin: 0 auto;
+  width: 100%;
 }
 
 .selector-header {
@@ -17,18 +20,19 @@
 
 .selector-header h2 {
   color: white;
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 700;
   margin: 0 0 16px 0;
   background: linear-gradient(135deg, #ffffff, #e0e7ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .selector-header p {
   color: #94a3b8;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   margin: 0;
   line-height: 1.6;
 }
@@ -36,9 +40,11 @@
 .selector-form {
   background: #1e293b;
   border: 1px solid #334155;
-  border-radius: 16px;
-  padding: 40px;
+  border-radius: clamp(12px, 2vw, 16px);
+  padding: clamp(20px, 4vw, 40px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-step {
@@ -625,5 +631,266 @@
   .cancel-btn,
   .save-btn {
     width: 100%;
+  }
+}
+
+/* Comprehensive Responsive Design */
+
+/* Extra Large screens (1400px and up) */
+@media (min-width: 1400px) {
+  .selector-container {
+    max-width: 1200px;
+  }
+  
+  .selector-form {
+    padding: 50px;
+  }
+  
+  .form-step {
+    gap: 32px;
+  }
+  
+  .standards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Large screens (1200px to 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .selector-container {
+    max-width: 1000px;
+  }
+  
+  .standards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium screens (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .selector-container {
+    max-width: 900px;
+  }
+  
+  .selector-form {
+    padding: 35px;
+  }
+  
+  .form-step {
+    gap: 20px;
+  }
+  
+  .standards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet screens (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .selector-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+  
+  .selector-form {
+    padding: 30px;
+  }
+  
+  .form-step {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-step-icon {
+    align-self: flex-start;
+  }
+  
+  .standards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .framework-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .view-all-btn,
+  .edit-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Mobile screens (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .selector-container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .selector-form {
+    padding: 25px;
+  }
+  
+  .form-step {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  
+  .form-step-icon {
+    align-self: flex-start;
+  }
+  
+  .standards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .framework-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .view-all-btn,
+  .edit-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .add-standard-form .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}
+
+/* Small mobile screens (320px to 575px) */
+@media (max-width: 575px) {
+  .selector-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .selector-form {
+    padding: 20px;
+  }
+  
+  .form-step {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+  }
+  
+  .form-step-icon {
+    align-self: flex-start;
+  }
+  
+  .standards-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .standard-card {
+    padding: 16px;
+  }
+  
+  .standard-card h4 {
+    font-size: 1rem;
+  }
+  
+  .standard-description {
+    font-size: 0.85rem;
+  }
+  
+  .framework-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .view-all-btn,
+  .edit-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .add-standard-form .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .view-all-btn,
+  .edit-btn,
+  .cancel-btn,
+  .save-btn {
+    padding: 16px 20px;
+    font-size: 1rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  .standard-card {
+    padding: 20px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .selector-header h2 {
+    font-weight: 600;
+  }
+  
+  .standard-card h4 {
+    font-weight: 600;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .compliance-selector {
+    padding: 15px 10px;
+  }
+  
+  .selector-header {
+    margin-bottom: 30px;
+  }
+  
+  .selector-form {
+    padding: 20px;
+  }
+  
+  .form-step {
+    padding: 16px;
   }
 }
