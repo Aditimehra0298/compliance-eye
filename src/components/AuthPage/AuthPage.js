@@ -78,12 +78,15 @@ const AuthPage = () => {
         {/* Left Panel - Visual/Promotional Section */}
         <div className="visual-panel">
           <div className="visual-content">
-            <div className="main-image-container">
-              <img 
-                src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
-                alt="Compliance Eye Visual" 
-                className="main-visual-image"
-              />
+            <div className="logo-section">
+              <div className="logo-icon">
+                <div className="logo-gradient"></div>
+              </div>
+              <h2 className="logo-text">Compliance Eye</h2>
+            </div>
+            
+            <div className="geometric-pattern">
+              <div className="pattern-lines"></div>
             </div>
             
             <div className="navigation-dots">
