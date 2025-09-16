@@ -771,7 +771,7 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 2.5rem;
     }
     
@@ -791,7 +791,7 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
     }
     
@@ -1098,45 +1098,6 @@
 /* Tablet screens (768px to 991px) - Expertise Section */
 @media (min-width: 768px) and (max-width: 991px) {
     .expertise-section {
-        margin-top: 70px;
-        padding-top: 50px;
-    }
-    
-    .expertise-header {
-        margin-bottom: 50px;
-        max-width: 100%;
-    }
-    
-    .expertise-title {
-        font-size: 2.8rem;
-        white-space: normal;
-    }
-    
-    .expertise-description {
-        font-size: 1.1rem;
-        max-width: 100%;
-    }
-    
-    .expertise-main {
-        max-width: 100%;
-        margin-bottom: 50px;
-        grid-template-columns: 1fr;
-    }
-    
-    .expertise-image-section {
-        min-height: 300px;
-        order: 1;
-    }
-    
-    .expertise-text-section {
-        order: 2;
-        padding: 2rem;
-    }
-}
-
-/* Mobile screens (576px to 767px) - Expertise Section */
-@media (min-width: 576px) and (max-width: 767px) {
-    .expertise-section {
         margin-top: 60px;
         padding-top: 40px;
     }
@@ -1144,37 +1105,155 @@
     .expertise-header {
         margin-bottom: 40px;
         max-width: 100%;
+        padding: 0 30px;
+        text-align: center;
     }
     
     .expertise-title {
         font-size: 2.4rem;
         white-space: normal;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        word-wrap: break-word;
+        hyphens: auto;
     }
     
     .expertise-description {
-        font-size: 1rem;
+        font-size: 1.1rem;
         max-width: 100%;
+        line-height: 1.6;
+        text-align: center;
     }
     
     .expertise-main {
         max-width: 100%;
         margin-bottom: 40px;
         grid-template-columns: 1fr;
+        margin: 0 20px 40px 20px;
+        border-radius: 16px;
     }
     
     .expertise-image-section {
-        min-height: 250px;
+        min-height: 280px;
         order: 1;
+        border-radius: 16px 16px 0 0;
     }
     
     .expertise-text-section {
         order: 2;
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
+        border-radius: 0 0 16px 16px;
+    }
+}
+
+/* Mobile screens (576px to 767px) - Expertise Section */
+@media (min-width: 576px) and (max-width: 767px) {
+    .expertise-section {
+        margin-top: 50px;
+        padding-top: 30px;
+    }
+    
+    .expertise-header {
+        margin-bottom: 35px;
+        max-width: 100%;
+        padding: 0 25px;
+        text-align: center;
+    }
+    
+    .expertise-title {
+        font-size: 2rem;
+        white-space: normal;
+        line-height: 1.2;
+        margin-bottom: 18px;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .expertise-description {
+        font-size: 1rem;
+        max-width: 100%;
+        line-height: 1.6;
+        text-align: center;
+    }
+    
+    .expertise-main {
+        max-width: 100%;
+        margin-bottom: 35px;
+        grid-template-columns: 1fr;
+        margin: 0 18px 35px 18px;
+        border-radius: 14px;
+    }
+    
+    .expertise-image-section {
+        min-height: 220px;
+        order: 1;
+        border-radius: 14px 14px 0 0;
+    }
+    
+    .expertise-text-section {
+        order: 2;
+        padding: 1.8rem 1.2rem;
+        border-radius: 0 0 14px 14px;
     }
 }
 
 /* Small mobile screens (320px to 575px) - Expertise Section */
 @media (max-width: 575px) {
+    .expertise-section {
+        margin-top: 40px;
+        padding-top: 25px;
+        padding-bottom: 30px;
+    }
+    
+    .expertise-header {
+        margin-bottom: 25px;
+        max-width: 100%;
+        padding: 0 20px;
+        text-align: center;
+    }
+    
+    .expertise-title {
+        font-size: 1.6rem;
+        line-height: 1.2;
+        white-space: normal;
+        margin-bottom: 15px;
+        padding: 0 10px;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .expertise-description {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: 100%;
+        padding: 0 10px;
+        text-align: center;
+    }
+    
+    .expertise-main {
+        max-width: 100%;
+        margin: 0 15px 25px 15px;
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+    
+    .expertise-image-section {
+        min-height: 180px;
+        order: 1;
+        border-radius: 16px 16px 0 0;
+    }
+    
+    .expertise-text-section {
+        order: 2;
+        padding: 1.5rem 1rem;
+        border-radius: 0 0 16px 16px;
+    }
+}
+
+/* Touch-friendly improvements for Expertise Section */
+@media (hover: none) and (pointer: coarse) {
     .expertise-section {
         margin-top: 50px;
         padding-top: 30px;
@@ -1182,53 +1261,24 @@
     
     .expertise-header {
         margin-bottom: 30px;
-        max-width: 100%;
-        padding: 0 15px;
+        padding: 0 20px;
+    }
+    
+    .expertise-main {
+        margin: 0 15px 30px 15px;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
     
     .expertise-title {
         font-size: 1.8rem;
-        line-height: 1.1;
-        white-space: normal;
+        line-height: 1.2;
+        margin-bottom: 15px;
     }
     
     .expertise-description {
         font-size: 0.95rem;
-        line-height: 1.5;
-        max-width: 100%;
-    }
-    
-    .expertise-main {
-        max-width: 100%;
-        margin-bottom: 30px;
-        grid-template-columns: 1fr;
-        border-radius: 12px;
-    }
-    
-    .expertise-image-section {
-        min-height: 200px;
-        order: 1;
-    }
-    
-    .expertise-text-section {
-        order: 2;
-        padding: 1.2rem;
-    }
-}
-
-/* Touch-friendly improvements for Expertise Section */
-@media (hover: none) and (pointer: coarse) {
-    .expertise-section {
-        margin-top: 70px;
-        padding-top: 50px;
-    }
-    
-    .expertise-header {
-        margin-bottom: 50px;
-    }
-    
-    .expertise-main {
-        margin-bottom: 50px;
+        line-height: 1.6;
     }
 }
 
@@ -1277,7 +1327,7 @@
     }
     
     .features-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 2.5rem;
         max-width: 1400px;
     }
@@ -1488,6 +1538,31 @@ h2.expertise-title {
     width: auto !important;
     max-width: none !important;
     min-width: max-content !important;
+}
+
+/* CRITICAL FIX: Force 2 cards per row on desktop */
+.features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    display: grid !important;
+}
+
+/* Override any other grid settings */
+@media (min-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
 /* High DPI displays for Compliance Solution */
