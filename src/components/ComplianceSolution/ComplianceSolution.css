@@ -815,7 +815,7 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
         gap: 1.5rem;
     }
     
@@ -874,8 +874,8 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .experience-title {
@@ -924,8 +924,8 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
     }
     
     .feedback-card {
@@ -978,8 +978,8 @@
     }
     
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.6rem;
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
     .feedback-card {
@@ -1004,11 +1004,11 @@
     }
 }
 
-/* Ultra small mobile (max-width: 360px) - Ensure 3 cards in row with minimal spacing */
+/* Ultra small mobile (max-width: 360px) - Single card per row with minimal spacing */
 @media (max-width: 360px) {
     .feedback-cards {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.4rem;
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
     
     .feedback-card {
