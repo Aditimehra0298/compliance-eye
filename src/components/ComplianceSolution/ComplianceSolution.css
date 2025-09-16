@@ -640,18 +640,21 @@
 
 .feedback-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 30vw, 350px), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+    max-width: clamp(320px, 90vw, 1200px);
     margin: 0 auto;
+    width: 100%;
 }
 
 .feedback-card {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: clamp(12px, 2vw, 20px);
+    padding: clamp(1.5rem, 3vw, 2rem);
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
     opacity: 0;
@@ -702,10 +705,10 @@
 
 .feedback-text {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     color: #e0e6ed;
     line-height: 1.6;
-    margin: 0 0 2rem 0;
+    margin: 0 0 clamp(1.5rem, 3vw, 2rem) 0;
     flex-grow: 1;
 }
 
@@ -721,7 +724,7 @@
 
 .author-name {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2.2vw, 1.1rem);
     font-weight: 600;
     color: #ffffff;
     margin: 0;

@@ -1,17 +1,20 @@
 /* Our Clients Section */
 .our-clients {
-    padding: 100px 0;
+    padding: clamp(60px, 12vw, 100px) 0;
     background: #001d3d;
     position: relative;
     z-index: 1;
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: clamp(320px, 90vw, 1400px);
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 clamp(20px, 4vw, 40px);
     width: 100%;
+    box-sizing: border-box;
 }
 
 .clients-content {
@@ -19,28 +22,29 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 4rem;
+    gap: clamp(2rem, 6vw, 4rem);
     width: 100%;
-    max-width: 1200px;
+    max-width: clamp(320px, 90vw, 1200px);
     margin: 0 auto;
 }
 
 .clients-header {
-    max-width: 800px;
+    max-width: clamp(300px, 85vw, 800px);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+    width: 100%;
 }
 
 .section-title {
     font-family: 'Inter', sans-serif;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 700;
     color: #ffffff;
     margin: 0;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -1px;
     text-align: center;
 }
@@ -220,5 +224,221 @@
         width: 80px;
         height: 40px;
         font-size: 0.7rem;
+    }
+}
+
+/* Comprehensive Responsive Design for Our Clients */
+
+/* Extra Large screens (1400px and up) - Our Clients */
+@media (min-width: 1400px) {
+    .our-clients {
+        padding: 120px 0;
+    }
+    
+    .container {
+        max-width: 1600px;
+        padding: 0 50px;
+    }
+    
+    .clients-content {
+        max-width: 1400px;
+        gap: 5rem;
+    }
+    
+    .clients-header {
+        max-width: 1000px;
+    }
+    
+    .section-title {
+        font-size: 4rem;
+    }
+    
+    .clients-logo-track {
+        gap: 4rem;
+    }
+}
+
+/* Large screens (1200px to 1399px) - Our Clients */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .our-clients {
+        padding: 100px 0;
+    }
+    
+    .container {
+        max-width: 1400px;
+        padding: 0 40px;
+    }
+    
+    .clients-content {
+        max-width: 1200px;
+        gap: 4rem;
+    }
+    
+    .section-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* Medium screens (992px to 1199px) - Our Clients */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .our-clients {
+        padding: 80px 0;
+    }
+    
+    .container {
+        max-width: 1000px;
+        padding: 0 30px;
+    }
+    
+    .clients-content {
+        max-width: 1000px;
+        gap: 3.5rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* Tablet screens (768px to 991px) - Our Clients */
+@media (min-width: 768px) and (max-width: 991px) {
+    .our-clients {
+        padding: 70px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 25px;
+    }
+    
+    .clients-content {
+        max-width: 100%;
+        gap: 3rem;
+    }
+    
+    .clients-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .clients-logo-track {
+        gap: 2.5rem;
+    }
+}
+
+/* Mobile screens (576px to 767px) - Our Clients */
+@media (min-width: 576px) and (max-width: 767px) {
+    .our-clients {
+        padding: 60px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    .clients-content {
+        max-width: 100%;
+        gap: 2.5rem;
+    }
+    
+    .clients-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .section-tagline {
+        font-size: 1.1rem;
+    }
+    
+    .clients-logo-track {
+        gap: 2rem;
+    }
+}
+
+/* Small mobile screens (320px to 575px) - Our Clients */
+@media (max-width: 575px) {
+    .our-clients {
+        padding: 50px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .clients-content {
+        max-width: 100%;
+        gap: 2rem;
+    }
+    
+    .clients-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-tagline {
+        font-size: 1rem;
+    }
+    
+    .clients-logo-track {
+        gap: 1.5rem;
+    }
+    
+    .logo-item {
+        width: 80px;
+        height: 40px;
+    }
+    
+    .logo-placeholder {
+        width: 60px;
+        height: 30px;
+        font-size: 0.6rem;
+    }
+}
+
+/* Touch-friendly improvements for Our Clients */
+@media (hover: none) and (pointer: coarse) {
+    .our-clients {
+        padding: 70px 0;
+    }
+    
+    .clients-logo-track {
+        gap: 2.5rem;
+    }
+}
+
+/* High DPI displays for Our Clients */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .section-title {
+        font-weight: 600;
+    }
+    
+    .section-tagline {
+        font-weight: 500;
+    }
+}
+
+/* Landscape orientation on mobile for Our Clients */
+@media (max-height: 500px) and (orientation: landscape) {
+    .our-clients {
+        padding: 40px 0;
+    }
+    
+    .clients-content {
+        gap: 2rem;
+    }
+    
+    .clients-logo-track {
+        gap: 1.5rem;
     }
 }
