@@ -75,39 +75,13 @@ const AuthPage = () => {
       </div>
       
       <div className="auth-container">
-        {/* Left Panel - Visual/Promotional Section */}
-        <div className="visual-panel">
-          <div className="visual-content">
-            <div className="logo-section">
-              <div className="logo-icon">
-                <div className="logo-gradient"></div>
-              </div>
-              <h2 className="logo-text">Compliance Eye</h2>
-            </div>
-            
-            <div className="geometric-pattern">
-              <div className="pattern-lines"></div>
-            </div>
-            
-            <div className="navigation-dots">
-              <div className="dot active"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Panel - Login Form */}
-        <div className="login-panel">
-          <div className="login-header">
-            <span className="no-account-text">Don't have an account?</span>
-            <button className="create-profile-btn" onClick={() => navigate('/register')}>
-              Create profile
-            </button>
-          </div>
-
-          <div className="login-content">
-            <h1 className="login-title">Get exclusive access to Compliance Eye</h1>
+        {/* Left Panel - Authentication Form */}
+        <div className="auth-panel">
+          <div className="auth-content">
+            <h1 className="auth-title">Welcome Back!</h1>
+            <p className="auth-subtitle">
+              Log in to your Compliance Eye account to continue.
+            </p>
 
             {/* Error Message */}
             {error && (
@@ -116,62 +90,54 @@ const AuthPage = () => {
               </div>
             )}
 
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div className="input-group">
-                <div className="input-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+            {/* Authentication Form */}
+            <form className="auth-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
-                  placeholder="Email"
+                  id="email"
+                  name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  name="email"
-                  className="login-input"
+                  placeholder="Your email address"
                   required
                 />
-                <div className="input-underline"></div>
               </div>
 
-              <div className="input-group">
-                <div className="input-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" strokeWidth="2"/>
-                    <circle cx="12" cy="16" r="1" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" strokeWidth="2"/>
-                  </svg>
+              <div className="form-group">
+                <div className="password-header">
+                  <label htmlFor="password">Password</label>
+                  <a href="#" className="forgot-password">Forgot password?</a>
                 </div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  name="password"
-                  className="login-input"
-                  required
-                />
-                <div className="input-underline"></div>
+                <div className="password-input">
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Your password"
+                    required
+                  />
+                  <button type="button" className="password-toggle">
+                    👁️
+                  </button>
+                </div>
               </div>
 
-              <button type="submit" className="login-btn" disabled={isLoading}>
-                {isLoading ? 'Signing In...' : 'Login'}
+              <button type="submit" className="auth-submit-btn" disabled={isLoading}>
+                {isLoading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
 
-            <a href="#" className="forgot-password">Forgot password?</a>
-
-            <div className="social-login">
-              <button className="social-btn facebook">
-                <span>f</span>
-              </button>
-              <button className="social-btn linkedin">
-                <span>in</span>
-              </button>
-              <button className="social-btn google">
-                <span>G</span>
+            <div className="auth-switch">
+              <span>Don't have an account? </span>
+              <button 
+                onClick={() => navigate('/register')} 
+                className="switch-btn"
+              >
+                Register here
               </button>
             </div>
 
@@ -186,6 +152,21 @@ const AuthPage = () => {
                   <strong>Password:</strong> password123
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel - Image */}
+        <div className="promo-panel">
+          <div className="image-container">
+            <img 
+              src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
+              alt="Compliance Eye" 
+              className="login-image"
+            />
+            <div className="image-overlay">
+              <h2 className="image-title">Compliance Eye</h2>
+              <p className="image-subtitle">AI-Powered Compliance Solutions</p>
             </div>
           </div>
         </div>
