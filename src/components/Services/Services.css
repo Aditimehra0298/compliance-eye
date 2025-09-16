@@ -1,13 +1,17 @@
 /* Services Section */
 .services {
-    padding: 120px 0;
+    padding: clamp(60px, 12vw, 120px) 0;
     background: #001d3d;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: clamp(320px, 90vw, 1200px);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 clamp(15px, 3vw, 20px);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section-header {
@@ -126,13 +130,189 @@
     gap: 12px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Comprehensive Responsive Design for Services */
+
+/* Extra Large screens (1400px and up) - Services */
+@media (min-width: 1400px) {
+    .services {
+        padding: 140px 0;
+    }
+    
+    .container {
+        max-width: 1400px;
+        padding: 0 40px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .section-header {
+        max-width: 800px;
+    }
+}
+
+/* Large screens (1200px to 1399px) - Services */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .services {
+        padding: 120px 0;
+    }
+    
+    .container {
+        max-width: 1200px;
+        padding: 0 30px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Medium screens (992px to 1199px) - Services */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .services {
+        padding: 100px 0;
+    }
+    
+    .container {
+        max-width: 1000px;
+        padding: 0 25px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+    }
+}
+
+/* Tablet screens (768px to 991px) - Services */
+@media (min-width: 768px) and (max-width: 991px) {
+    .services {
+        padding: 80px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .section-header {
+        max-width: 100%;
+    }
+    
+    .section-header h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Mobile screens (576px to 767px) - Services */
+@media (min-width: 576px) and (max-width: 767px) {
+    .services {
+        padding: 70px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
     .services-grid {
         grid-template-columns: 1fr;
+        gap: 1.2rem;
     }
-
+    
+    .section-header {
+        max-width: 100%;
+    }
+    
     .section-header h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Small mobile screens (320px to 575px) - Services */
+@media (max-width: 575px) {
+    .services {
+        padding: 60px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 12px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .section-header {
+        max-width: 100%;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .service-card {
+        padding: 1.2rem;
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Touch-friendly improvements for Services */
+@media (hover: none) and (pointer: coarse) {
+    .service-card {
+        padding: 1.8rem;
+    }
+    
+    .service-card:hover {
+        transform: none;
+    }
+    
+    .service-card:active {
+        transform: translateY(-2px);
+    }
+}
+
+/* High DPI displays for Services */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .section-header h2 {
+        font-weight: 600;
+    }
+    
+    .service-title {
+        font-weight: 500;
+    }
+}
+
+/* Landscape orientation on mobile for Services */
+@media (max-height: 500px) and (orientation: landscape) {
+    .services {
+        padding: 40px 0;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .service-card {
+        padding: 1rem;
     }
 }

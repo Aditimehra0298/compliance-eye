@@ -1,10 +1,12 @@
 /* Compliance Solution Section */
 .compliance-solution {
-    padding: 100px 0;
+    padding: clamp(60px, 12vw, 100px) 0;
     background: #001122;
     position: relative;
     z-index: 1;
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .compliance-solution::before {
@@ -19,10 +21,11 @@
 }
 
 .container {
-    max-width: 1400px;
+    max-width: clamp(320px, 90vw, 1400px);
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 clamp(20px, 4vw, 40px);
     width: 100%;
+    box-sizing: border-box;
 }
 
 .solution-content {
@@ -30,17 +33,19 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 4rem;
+    gap: clamp(2rem, 6vw, 4rem);
     position: relative;
     z-index: 1;
+    width: 100%;
 }
 
 .solution-header {
-    max-width: 800px;
+    max-width: clamp(300px, 85vw, 800px);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .solution-description-wrapper {
@@ -52,11 +57,11 @@
 
 .section-title {
     font-family: 'Inter', sans-serif;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 700;
     color: #ffffff;
-    margin: 0 0 2rem 0;
-    line-height: 1.1;
+    margin: 0 0 clamp(1rem, 3vw, 2rem) 0;
+    line-height: 1.2;
     letter-spacing: -1px;
     text-align: center;
     white-space: nowrap;
@@ -75,17 +80,17 @@
 /* Features Grid */
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 40vw, 500px), 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
     width: 100%;
-    max-width: 1200px;
+    max-width: clamp(320px, 90vw, 1200px);
 }
 
 .feature-card {
     background: rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: clamp(12px, 2vw, 20px);
+    padding: clamp(1.5rem, 3vw, 2rem);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -227,7 +232,7 @@
 
 .feature-title {
     font-family: 'Inter', sans-serif;
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
     font-weight: 600;
     font-style: italic;
     color: #ffffff;
@@ -237,7 +242,7 @@
 
 .feature-description {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     line-height: 1.6;
     color: #ffffff;
     margin: 0;
@@ -964,5 +969,229 @@
     
     .author-title {
         font-size: 0.8rem;
+    }
+}
+
+/* Comprehensive Responsive Design for Compliance Solution */
+
+/* Extra Large screens (1400px and up) - Compliance Solution */
+@media (min-width: 1400px) {
+    .compliance-solution {
+        padding: 120px 0;
+    }
+    
+    .container {
+        max-width: 1600px;
+        padding: 0 50px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        max-width: 1400px;
+    }
+    
+    .solution-header {
+        max-width: 1000px;
+    }
+    
+    .section-title {
+        font-size: 4rem;
+    }
+}
+
+/* Large screens (1200px to 1399px) - Compliance Solution */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .compliance-solution {
+        padding: 100px 0;
+    }
+    
+    .container {
+        max-width: 1200px;
+        padding: 0 40px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 1000px;
+    }
+    
+    .section-title {
+        font-size: 3.5rem;
+    }
+}
+
+/* Medium screens (992px to 1199px) - Compliance Solution */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .compliance-solution {
+        padding: 80px 0;
+    }
+    
+    .container {
+        max-width: 1000px;
+        padding: 0 30px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* Tablet screens (768px to 991px) - Compliance Solution */
+@media (min-width: 768px) and (max-width: 991px) {
+    .compliance-solution {
+        padding: 70px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 25px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .solution-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        white-space: normal;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Mobile screens (576px to 767px) - Compliance Solution */
+@media (min-width: 576px) and (max-width: 767px) {
+    .compliance-solution {
+        padding: 60px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    
+    .solution-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+        white-space: normal;
+    }
+    
+    .feature-card {
+        padding: 1.3rem;
+    }
+    
+    .feature-title {
+        font-size: 1.2rem;
+    }
+    
+    .feature-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Small mobile screens (320px to 575px) - Compliance Solution */
+@media (max-width: 575px) {
+    .compliance-solution {
+        padding: 50px 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .solution-header {
+        max-width: 100%;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        white-space: normal;
+        line-height: 1.1;
+    }
+    
+    .feature-card {
+        padding: 1.2rem;
+    }
+    
+    .feature-title {
+        font-size: 1.1rem;
+    }
+    
+    .feature-description {
+        font-size: 0.9rem;
+    }
+}
+
+/* Touch-friendly improvements for Compliance Solution */
+@media (hover: none) and (pointer: coarse) {
+    .feature-card {
+        padding: 1.8rem;
+    }
+    
+    .feature-card:hover {
+        transform: none;
+    }
+    
+    .feature-card:active {
+        transform: translateY(-2px);
+    }
+}
+
+/* High DPI displays for Compliance Solution */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .section-title {
+        font-weight: 600;
+    }
+    
+    .feature-title {
+        font-weight: 500;
+    }
+}
+
+/* Landscape orientation on mobile for Compliance Solution */
+@media (max-height: 500px) and (orientation: landscape) {
+    .compliance-solution {
+        padding: 40px 0;
+    }
+    
+    .solution-content {
+        gap: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .feature-card {
+        padding: 1rem;
     }
 }
