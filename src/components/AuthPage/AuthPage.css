@@ -536,15 +536,20 @@
 .auth-divider {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 24px 0;
   position: relative;
 }
 
 .auth-divider::before {
   content: '';
-  flex: 1;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  z-index: 1;
 }
 
 .divider-text {
@@ -553,6 +558,8 @@
   font-size: 0.9rem;
   font-weight: 500;
   background: #001122;
+  position: relative;
+  z-index: 2;
 }
 
 .auth-switch {
