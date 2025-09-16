@@ -10,6 +10,8 @@ const AuthPage = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -18,24 +20,31 @@ const AuthPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login:', formData);
+    setError('');
+    setIsLoading(true);
     
-    // Simple login logic for testing
-    if (formData.email === 'test@example.com' && formData.password === 'password123') {
-      // Store user data in localStorage
-      const userData = {
-        email: formData.email,
-        name: 'Test User',
-        username: 'testuser'
-      };
-      localStorage.setItem('user', JSON.stringify(userData));
-      
-      // Redirect to dashboard
-      navigate('/dashboard');
-    } else {
-      alert('Invalid credentials. Use test@example.com / password123');
+    try {
+      // Simple login logic for testing
+      if (formData.email === 'test@example.com' && formData.password === 'password123') {
+        // Store user data in localStorage
+        const userData = {
+          email: formData.email,
+          name: 'Test User',
+          username: 'testuser'
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        
+        // Redirect to dashboard
+        navigate('/dashboard');
+      } else {
+        setError('Invalid credentials. Please use the demo credentials provided below.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -49,8 +58,8 @@ const AuthPage = () => {
           </ul>
           
           <div className="nav-logo">
-            <img src="/l7.png" alt="DamnArt" className="logo-image" />
-            <h2>DamnArt</h2>
+            <img src="/l7.png" alt="Compliance Eye" className="logo-image" />
+            <h2>Compliance Eye</h2>
           </div>
           
           <div className="nav-right">
@@ -74,6 +83,12 @@ const AuthPage = () => {
               Log in to your Compliance Eye account to continue.
             </p>
 
+            {/* Error Message */}
+            {error && (
+              <div className="error-message">
+                {error}
+              </div>
+            )}
 
             {/* Authentication Form */}
             <form className="auth-form" onSubmit={handleSubmit}>
@@ -111,8 +126,8 @@ const AuthPage = () => {
                 </div>
               </div>
 
-              <button type="submit" className="auth-submit-btn">
-                Sign In
+              <button type="submit" className="auth-submit-btn" disabled={isLoading}>
+                {isLoading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
 
@@ -124,6 +139,19 @@ const AuthPage = () => {
               >
                 Register here
               </button>
+            </div>
+
+            {/* Demo Credentials */}
+            <div className="demo-credentials">
+              <h4>Demo Credentials:</h4>
+              <div className="credentials-list">
+                <div className="credential-item">
+                  <strong>Email:</strong> test@example.com
+                </div>
+                <div className="credential-item">
+                  <strong>Password:</strong> password123
+                </div>
+              </div>
             </div>
           </div>
         </div>
