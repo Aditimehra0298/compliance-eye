@@ -186,7 +186,7 @@
   min-height: 100vh;
   position: relative;
   overflow: hidden;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
 }
 
 .auth-panel::before {
@@ -720,7 +720,7 @@
   position: relative;
   overflow: hidden;
   min-height: 100vh;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
 }
 
 .promo-panel::before {
@@ -811,10 +811,14 @@
 
 /* Image Container Styles */
 .image-container {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  height: 100vh;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1013,18 +1017,23 @@
   .auth-panel {
     padding: 30px 40px;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
     min-height: 50vh;
   }
   
   .promo-panel {
     padding: 0;
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
   }
   
   .image-container {
-    height: 50vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
     min-height: 400px;
   }
   
@@ -1045,7 +1054,7 @@
   .auth-panel {
     padding: 20px 30px;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
     min-height: 50vh;
   }
   
@@ -1056,7 +1065,7 @@
   .promo-panel {
     padding: 0;
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
   }
   
   .auth-title {
@@ -1072,7 +1081,12 @@
   }
   
   .image-container {
-    height: 50vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
     min-height: 300px;
   }
 }
@@ -1085,14 +1099,14 @@
   .auth-panel {
     padding: 15px 20px;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
     min-height: 50vh;
   }
   
   .promo-panel {
     padding: 0;
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
   }
   
   .auth-title {
@@ -1108,7 +1122,12 @@
   }
   
   .image-container {
-    height: 50vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
     min-height: 250px;
   }
 }
