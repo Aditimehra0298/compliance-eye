@@ -340,7 +340,7 @@
 
 .form-input {
   width: 100%;
-  padding: 16px 20px 16px 60px;
+  padding: 16px 20px 16px 65px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   color: white;
@@ -348,6 +348,7 @@
   font-size: 0.95rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  text-indent: 0;
 }
 
 .form-input::placeholder {
@@ -362,6 +363,11 @@
   transform: translateY(-1px);
 }
 
+.form-input:focus + .input-icon {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
 .form-input:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -369,13 +375,16 @@
 
 .input-icon {
   position: absolute;
-  left: 22px;
+  left: 24px;
   top: 50%;
   transform: translateY(-50%);
   color: #a0a9c0;
   font-size: 16px;
-  z-index: 2;
+  z-index: 10;
   pointer-events: none;
+  background: rgba(0, 17, 34, 0.8);
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .password-header {
