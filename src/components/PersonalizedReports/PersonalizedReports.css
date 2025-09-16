@@ -1,35 +1,41 @@
 /* Personalized Reports Styles */
 .personalized-reports {
-  padding: 40px 20px;
+  padding: clamp(20px, 4vw, 40px) clamp(15px, 3vw, 20px);
   background: #0f172a;
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .assessment-summary {
-  max-width: 1200px;
-  margin: 0 auto 50px;
+  max-width: clamp(320px, 90vw, 1200px);
+  margin: 0 auto clamp(30px, 6vw, 50px);
   text-align: center;
+  width: 100%;
 }
 
 .assessment-summary h1 {
   color: white;
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
-  margin: 0 0 30px 0;
+  margin: 0 0 clamp(20px, 4vw, 30px) 0;
   background: linear-gradient(135deg, #ffffff, #e0e7ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .summary-card {
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   border: 1px solid #3b82f6;
-  border-radius: 16px;
-  padding: 40px;
+  border-radius: clamp(12px, 2vw, 16px);
+  padding: clamp(20px, 4vw, 40px);
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
-  max-width: 800px;
+  max-width: clamp(300px, 85vw, 800px);
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .summary-content h2 {
@@ -673,5 +679,273 @@
   
   .card-footer {
     padding: 0 20px 20px;
+  }
+}
+
+/* Comprehensive Responsive Design for Real-time Compliance Reports */
+
+/* Extra Large screens (1400px and up) - Reports */
+@media (min-width: 1400px) {
+  .personalized-reports {
+    padding: 50px 30px;
+  }
+  
+  .assessment-summary {
+    max-width: 1400px;
+  }
+  
+  .summary-card {
+    max-width: 1000px;
+    padding: 50px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  
+  .summary-details {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Large screens (1200px to 1399px) - Reports */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .personalized-reports {
+    padding: 45px 25px;
+  }
+  
+  .assessment-summary {
+    max-width: 1200px;
+  }
+  
+  .summary-card {
+    max-width: 900px;
+    padding: 45px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  
+  .summary-details {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+}
+
+/* Medium screens (992px to 1199px) - Reports */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .personalized-reports {
+    padding: 40px 20px;
+  }
+  
+  .assessment-summary {
+    max-width: 1000px;
+  }
+  
+  .summary-card {
+    max-width: 800px;
+    padding: 40px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .summary-details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Tablet screens (768px to 991px) - Reports */
+@media (min-width: 768px) and (max-width: 991px) {
+  .personalized-reports {
+    padding: 35px 18px;
+  }
+  
+  .assessment-summary {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .summary-card {
+    max-width: 100%;
+    padding: 35px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .summary-details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  
+  .assessment-summary h1 {
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+  }
+  
+  .summary-content h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Mobile screens (576px to 767px) - Reports */
+@media (min-width: 576px) and (max-width: 767px) {
+  .personalized-reports {
+    padding: 30px 15px;
+  }
+  
+  .assessment-summary {
+    max-width: 100%;
+    padding: 0 5px;
+  }
+  
+  .summary-card {
+    max-width: 100%;
+    padding: 30px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .summary-details {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .assessment-summary h1 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+  
+  .summary-content h2 {
+    font-size: 1.4rem;
+  }
+  
+  .reports-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Small mobile screens (320px to 575px) - Reports */
+@media (max-width: 575px) {
+  .personalized-reports {
+    padding: 25px 12px;
+  }
+  
+  .assessment-summary {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .summary-card {
+    max-width: 100%;
+    padding: 25px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .summary-details {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  
+  .assessment-summary h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+  
+  .summary-content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .reports-section h2 {
+    font-size: 1.6rem;
+  }
+  
+  .expert-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .expert-image {
+    margin-bottom: 10px;
+  }
+  
+  .footer-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .download-btn,
+  .select-report-btn.personalized {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Touch-friendly improvements for Reports */
+@media (hover: none) and (pointer: coarse) {
+  .summary-card {
+    padding: 30px;
+  }
+  
+  .download-btn,
+  .select-report-btn.personalized {
+    padding: 16px 24px;
+    font-size: 1.1rem;
+  }
+  
+  .expert-image {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* High DPI displays for Reports */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .assessment-summary h1 {
+    font-weight: 600;
+  }
+  
+  .summary-content h2 {
+    font-weight: 500;
+  }
+}
+
+/* Landscape orientation on mobile for Reports */
+@media (max-height: 500px) and (orientation: landscape) {
+  .personalized-reports {
+    padding: 20px 15px;
+  }
+  
+  .assessment-summary {
+    margin-bottom: 30px;
+  }
+  
+  .summary-card {
+    padding: 20px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .summary-details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }

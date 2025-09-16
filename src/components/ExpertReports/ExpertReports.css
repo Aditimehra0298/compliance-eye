@@ -1,27 +1,31 @@
 /* Expert Reports Styles */
 .expert-reports {
-  padding: 40px 20px;
+  padding: clamp(20px, 4vw, 40px) clamp(15px, 3vw, 20px);
   background: #0f172a;
   min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .reports-header {
   text-align: center;
-  margin-bottom: 50px;
-  max-width: 1200px;
+  margin-bottom: clamp(30px, 6vw, 50px);
+  max-width: clamp(320px, 90vw, 1200px);
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .reports-header h1 {
   color: white;
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
-  margin: 0 0 16px 0;
+  margin: 0 0 clamp(12px, 2vw, 16px) 0;
   background: linear-gradient(135deg, #ffffff, #e0e7ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .reports-header p {
@@ -1008,5 +1012,239 @@
   
   .card-footer {
     padding: 0 20px 20px;
+  }
+}
+
+/* Comprehensive Responsive Design for Expert Reports */
+
+/* Extra Large screens (1400px and up) - Expert Reports */
+@media (min-width: 1400px) {
+  .expert-reports {
+    padding: 50px 30px;
+  }
+  
+  .reports-header {
+    max-width: 1400px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  
+  .header-stats {
+    gap: 40px;
+  }
+}
+
+/* Large screens (1200px to 1399px) - Expert Reports */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .expert-reports {
+    padding: 45px 25px;
+  }
+  
+  .reports-header {
+    max-width: 1200px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  
+  .header-stats {
+    gap: 35px;
+  }
+}
+
+/* Medium screens (992px to 1199px) - Expert Reports */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .expert-reports {
+    padding: 40px 20px;
+  }
+  
+  .reports-header {
+    max-width: 1000px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .header-stats {
+    gap: 30px;
+  }
+}
+
+/* Tablet screens (768px to 991px) - Expert Reports */
+@media (min-width: 768px) and (max-width: 991px) {
+  .expert-reports {
+    padding: 35px 18px;
+  }
+  
+  .reports-header {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .header-stats {
+    gap: 25px;
+  }
+  
+  .reports-header h1 {
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+  }
+  
+  .reports-header p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile screens (576px to 767px) - Expert Reports */
+@media (min-width: 576px) and (max-width: 767px) {
+  .expert-reports {
+    padding: 30px 15px;
+  }
+  
+  .reports-header {
+    max-width: 100%;
+    padding: 0 5px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  
+  .header-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reports-header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+  
+  .reports-header p {
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile screens (320px to 575px) - Expert Reports */
+@media (max-width: 575px) {
+  .expert-reports {
+    padding: 25px 12px;
+  }
+  
+  .reports-header {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .reports-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .header-stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .reports-header h1 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+  
+  .reports-header p {
+    font-size: 0.9rem;
+  }
+  
+  .card-content {
+    padding: 18px;
+  }
+  
+  .card-footer {
+    padding: 0 18px 18px;
+  }
+  
+  .expert-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .expert-image {
+    margin-bottom: 10px;
+  }
+  
+  .footer-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .download-btn,
+  .select-report-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Touch-friendly improvements for Expert Reports */
+@media (hover: none) and (pointer: coarse) {
+  .expert-reports {
+    padding: 35px 20px;
+  }
+  
+  .card-content {
+    padding: 25px;
+  }
+  
+  .download-btn,
+  .select-report-btn {
+    padding: 16px 24px;
+    font-size: 1.1rem;
+  }
+  
+  .expert-image {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* High DPI displays for Expert Reports */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .reports-header h1 {
+    font-weight: 600;
+  }
+  
+  .card-title {
+    font-weight: 500;
+  }
+}
+
+/* Landscape orientation on mobile for Expert Reports */
+@media (max-height: 500px) and (orientation: landscape) {
+  .expert-reports {
+    padding: 20px 15px;
+  }
+  
+  .reports-header {
+    margin-bottom: 30px;
+  }
+  
+  .reports-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .header-stats {
+    flex-direction: row;
+    gap: 20px;
   }
 }
