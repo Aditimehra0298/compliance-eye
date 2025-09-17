@@ -87,10 +87,11 @@ const Hero = () => {
   return (
     <section id="home" className="hero">
       <div className="hero-video">
-        <video autoPlay muted loop playsInline>
-          <source src="/Your paragraph text (12).mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <img 
+          src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
+          alt="Compliance Eye Hero" 
+          className="hero-image"
+        />
         <div className="video-overlay"></div>
         <div className="hero-bottom-overlay"></div>
       </div>

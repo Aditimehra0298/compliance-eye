@@ -131,16 +131,11 @@ const AuthPage = () => {
         {/* Right Panel - Video Content */}
         <div className="promo-panel">
           <div className="video-container">
-            <video 
+            <img 
+              src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
+              alt="Compliance Eye" 
               className="login-video"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/login-video-optimized.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            />
             <div className="video-overlay">
               <h2 className="video-title">Compliance Eye</h2>
               <p className="video-subtitle">AI-Powered Compliance Solutions</p>

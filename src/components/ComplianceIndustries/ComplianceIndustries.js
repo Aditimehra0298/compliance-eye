@@ -4,7 +4,7 @@ import './ComplianceIndustries.css';
 const ComplianceIndustries = () => {
   const [visibleItems, setVisibleItems] = useState([]);
 
-  const complianceStandards = [
+  const industries = [
     'FDA Compliance',
     'RoHS (Restriction of Hazardous Substances)',
     'GDPR (General Data Protection Regulation)',
@@ -22,7 +22,7 @@ const ComplianceIndustries = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Animate compliance standards one by one
-            complianceStandards.forEach((_, index) => {
+            industries.forEach((_, index) => {
               setTimeout(() => {
                 setVisibleItems(prev => [...prev, `compliance-${index}`]);
               }, index * 500); // 500ms delay between each item for better visibility
@@ -53,7 +53,7 @@ const ComplianceIndustries = () => {
           <div className="standards-section">
             <h2 className="section-title">Compliance Standards</h2>
             <ul className="standards-list">
-              {complianceStandards.map((standard, index) => (
+              {industries.map((standard, index) => (
                 <li 
                   key={index} 
                   className={`standard-item ${visibleItems.includes(`compliance-${index}`) ? 'visible' : ''}`}
@@ -69,10 +69,11 @@ const ComplianceIndustries = () => {
           {/* Right Side - Video */}
           <div className="video-section">
             <div className="rhombus-container">
-              <video autoPlay muted loop playsInline className="rhombus-video">
-                <source src="/Untitled design (7).mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <img 
+                src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
+                alt="Compliance Industries" 
+                className="rhombus-video"
+              />
             </div>
           </div>
         </div>
