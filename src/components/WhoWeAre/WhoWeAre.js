@@ -14,7 +14,7 @@ const WhoWeAre = () => {
       <div className="container">
         <div className="who-we-are-content">
           {/* Left Column - Video */}
-          <div className="video-container who-rect">
+          <div className="who-video-container">
             <video autoPlay muted loop playsInline className="section-video">
               <source src="/Untitled design (6).mp4" type="video/mp4" />
               Your browser does not support the video tag.

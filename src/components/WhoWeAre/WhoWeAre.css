@@ -39,13 +39,12 @@
 }
 
 /* Left Column - Video */
-.who-we-are .video-container,
-.who-we-are .video-container.who-rect {
+.who-we-are .who-video-container {
     position: relative;
     width: 100%;
     max-width: 880px;
-    aspect-ratio: 16 / 9;
-    height: auto; /* ensure aspect-ratio controls height */
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important; /* ensure aspect-ratio controls height */
     border-radius: 0;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 17, 34, 0.5);
@@ -62,15 +61,15 @@
 }
 
 .who-we-are .section-video {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover;
     border-radius: 0;
     display: block;
 }
 
 /* Ensure sharp corners regardless of breakpoints */
-.who-we-are .video-container,
+.who-we-are .who-video-container,
 .who-we-are .section-video { border-radius: 0 !important; }
 
 .video-overlay {
