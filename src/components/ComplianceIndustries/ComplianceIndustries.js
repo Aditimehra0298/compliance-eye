@@ -69,11 +69,10 @@ const ComplianceIndustries = () => {
           {/* Right Side - Video */}
           <div className="video-section">
             <div className="rhombus-container">
-              <img 
-                src="/WhatsApp Image 2025-09-16 at 10.48.03.jpeg" 
-                alt="Compliance Industries" 
-                className="rhombus-video"
-              />
+              <video autoPlay muted loop playsInline className="rhombus-video">
+                <source src="/Untitled design (7).mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>
