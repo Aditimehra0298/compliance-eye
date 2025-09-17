@@ -22,7 +22,7 @@
 
 .who-we-are-content {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1.3fr 1fr; /* make video column larger */
     gap: 5rem;
     align-items: center;
     justify-items: center;
@@ -34,7 +34,7 @@
         #001122 100%);
     padding: 60px 0;
     border-radius: 0;
-    max-width: 1200px;
+    max-width: 1600px; /* allow much wider layout */
     margin: 0 auto;
 }
 
