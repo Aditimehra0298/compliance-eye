@@ -42,8 +42,8 @@
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    aspect-ratio: 1 / 1;
+    max-width: 1000px;
+    aspect-ratio: 16 / 9;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 17, 34, 0.5);
@@ -200,7 +200,7 @@
     }
     
     .video-container {
-        max-width: 700px;
+        max-width: 1000px;
     }
 }
 
@@ -219,7 +219,7 @@
     }
     
     .video-container {
-        max-width: 650px;
+        max-width: 900px;
     }
 }
 
@@ -236,7 +236,7 @@
     }
     
     .video-container {
-        max-width: 520px;
+        max-width: 700px;
     }
     
     .section-title {
@@ -273,7 +273,7 @@
     }
     
     .video-container {
-        max-width: 420px;
+        max-width: 560px;
         border-radius: 15px;
     }
     
@@ -316,7 +316,7 @@
     }
     
     .video-container {
-        max-width: 360px;
+        max-width: 480px;
         border-radius: 12px;
     }
     
@@ -358,7 +358,7 @@
     }
     
     .video-container {
-        max-width: 320px;
+        max-width: 400px;
         border-radius: 10px;
     }
     
