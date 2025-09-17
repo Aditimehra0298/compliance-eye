@@ -172,16 +172,17 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  align-items: center;
-  padding: clamp(100px, 15vh, 120px) clamp(20px, 4vw, 40px) 40px;
+  align-items: stretch;
+  padding: clamp(100px, 15vh, 120px) 0 40px;
   min-height: calc(100vh - 80px);
-  gap: clamp(20px, 4vw, 40px);
+  gap: 0;
 }
 
 /* Left Panel - Authentication */
 .auth-panel {
   background: #001122;
   padding: clamp(40px, 8vw, 80px) clamp(30px, 6vw, 80px);
+  margin-right: clamp(10px, 2vw, 20px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -485,6 +486,7 @@
   height: 100%;
   min-height: calc(100vh - 80px);
   flex: 1;
+  width: 100%;
 }
 
 .promo-panel::before {
@@ -759,6 +761,7 @@
   
   .auth-panel {
     padding: 40px 60px;
+    margin-right: 0;
   }
   
   .promo-panel {
@@ -788,6 +791,7 @@
   
   .auth-panel {
     padding: 30px 40px;
+    margin-right: 0;
   }
   
   .promo-panel {
@@ -820,6 +824,7 @@
   
   .auth-panel {
     padding: 20px 30px;
+    margin-right: 0;
   }
   
   .promo-panel {
