@@ -42,7 +42,7 @@
 .who-we-are .who-video-container {
     position: relative;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     aspect-ratio: 16 / 9 !important;
     height: auto !important; /* ensure aspect-ratio controls height */
     border-radius: 0;
@@ -68,9 +68,19 @@
     display: block;
 }
 
-/* Ensure sharp corners regardless of breakpoints */
+/* Ensure sharp corners and force size regardless of breakpoints */
 .who-we-are .who-video-container,
-.who-we-are .section-video { border-radius: 0 !important; }
+.who-we-are .section-video { 
+    border-radius: 0 !important; 
+}
+
+/* Force larger video container size with maximum specificity */
+.who-we-are .who-video-container {
+    max-width: 1400px !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+}
 
 .video-overlay {
     position: absolute;
@@ -206,8 +216,8 @@
         font-size: 1.2rem;
     }
     
-    .video-container {
-        max-width: 1300px;
+    .who-we-are .who-video-container {
+        max-width: 1500px;
     }
 }
 
@@ -225,8 +235,8 @@
         font-size: 1.1rem;
     }
     
-    .video-container {
-        max-width: 1100px;
+    .who-we-are .who-video-container {
+        max-width: 1300px;
     }
 }
 
@@ -242,8 +252,8 @@
         text-align: center;
     }
     
-    .video-container {
-        max-width: 900px;
+    .who-we-are .who-video-container {
+        max-width: 1100px;
         margin-right: 0;
     }
     
@@ -280,8 +290,8 @@
         padding: 40px 0;
     }
     
-    .video-container {
-        max-width: 700px;
+    .who-we-are .who-video-container {
+        max-width: 900px;
         border-radius: 15px;
     }
     
@@ -323,8 +333,8 @@
         padding: 30px 0;
     }
     
-    .video-container {
-        max-width: 600px;
+    .who-we-are .who-video-container {
+        max-width: 800px;
         border-radius: 12px;
     }
     
@@ -365,8 +375,8 @@
         padding: 20px 0;
     }
     
-    .video-container {
-        max-width: 500px;
+    .who-we-are .who-video-container {
+        max-width: 700px;
         border-radius: 10px;
     }
     
