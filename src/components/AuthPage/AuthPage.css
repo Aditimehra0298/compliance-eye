@@ -482,6 +482,8 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
+  height: 100%;
+  min-height: calc(100vh - 80px);
 }
 
 .promo-panel::before {
@@ -559,7 +561,8 @@
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
-  min-height: clamp(300px, 50vh, 500px);
+  min-height: 100%;
+  flex: 1;
 }
 
 .login-video {
@@ -757,11 +760,13 @@
   
   .promo-panel {
     padding: 0;
+    height: 50vh;
+    min-height: 400px;
   }
   
   .video-container {
     height: 100%;
-    min-height: 400px;
+    min-height: 100%;
   }
   
   .video-title {
@@ -784,6 +789,8 @@
   
   .promo-panel {
     padding: 0;
+    height: 45vh;
+    min-height: 350px;
   }
   
   .auth-title {
@@ -799,7 +806,7 @@
   }
   
   .video-container {
-    min-height: 300px;
+    min-height: 100%;
   }
 }
 
@@ -814,6 +821,8 @@
   
   .promo-panel {
     padding: 0;
+    height: 40vh;
+    min-height: 300px;
   }
   
   .auth-title {
@@ -829,7 +838,7 @@
   }
   
   .video-container {
-    min-height: 250px;
+    min-height: 100%;
   }
 }
 
@@ -969,6 +978,11 @@
     }
     
     .video-container {
+        min-height: 100%;
+    }
+    
+    .promo-panel {
+        height: 30vh;
         min-height: 200px;
     }
     
