@@ -23,7 +23,7 @@
 .who-we-are-content {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
+    gap: 5rem;
     align-items: center;
     justify-items: center;
     min-height: auto;
@@ -51,6 +51,7 @@
     box-shadow: 0 20px 60px rgba(0, 17, 34, 0.5);
     margin: 0 auto;
     justify-self: start; /* align to left inside grid */
+    margin-right: 40px;
 }
 
 .video-container:hover {
@@ -244,6 +245,7 @@
     
     .video-container {
         max-width: 700px;
+        margin-right: 0;
     }
     
     .section-title {
